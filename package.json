@@ -1,5 +1,5 @@
 {
-  "name": "VSCode-Animations",
+  "name": "vscode-animations",
   "displayName": "VSCode-Animations",
   "description": "Clean and customizable animations for VSCode",
   "version": "0.0.1",
@@ -7,6 +7,7 @@
     "vscode": "^1.78.0"
   },
   "categories": [
+    "Themes",
     "Other"
   ],
   "activationEvents": [
@@ -24,7 +25,7 @@
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "webpack",
-    "watch": "webpack --watch",
+    "watch": "webpack --watch & sass --watch --no-source-map src/scss:dist/css",
     "package": "webpack --mode production --devtool hidden-source-map",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
@@ -33,19 +34,23 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.78.0",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
+    "@types/vscode": "^1.78.0",
+    "@types/webpack": "^5.28.1",
     "@typescript-eslint/eslint-plugin": "^5.59.1",
     "@typescript-eslint/parser": "^5.59.1",
+    "@vscode/test-electron": "^2.3.0",
     "eslint": "^8.39.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",
-    "typescript": "^5.0.4",
     "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4",
     "webpack": "^5.81.0",
-    "webpack-cli": "^5.0.2",
-    "@vscode/test-electron": "^2.3.0"
+    "webpack-cli": "^5.0.2"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.1"
   }
 }
