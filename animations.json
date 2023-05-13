@@ -1,0 +1,17 @@
+{
+  "$schema": "./animations-schema.json",
+  "UI Animations": {
+    "Command Palette": [
+      {
+        "animation": "Fade In",
+        "duration": 1
+      }
+    ],
+    "Secondary Sidebar": [
+      {
+        "animation": "Fade In",
+        "duration": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://jsonschema.org/draft/2020-12/schema",
+  "description": "Animation Settings Extension JSON Schema",
+  "type": "object",
+  "properties": {
+    "UI Animations": {
+      "additionalProperties": false,
+      "type": "object",
+      "description": "List of visual elements that can be animated",
+      "properties": {
+        "Command Palette": {
+          "$ref": "#/$defs/Animations",
+          "description": "Animations for the Command Palette"
+        },
+        "Primary Sidebar": {
+          "$ref": "#/$defs/Animations",
+          "description": "Animations for the Primary Sidebar"
+        },
+        "Secondary Sidebar": {
+          "$ref": "#/$defs/Animations",
+          "description": "Animations for the Secondary Sidebar"
+        }
+      }
+    }
+  },
+
+  "$defs": {
+    "Animations": {
+      "type": "array",
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "animation": {
+            "$ref": "#/$defs/AnimationsTypes/CommandPalette"
+          },
+          "duration": {
+            "type": "number",
+            "description": "Duration of the animation in milliseconds",
+            "minimum": 0,
+            "maximum": 10000
+          }
+        }
+      }
+    },
+    "AnimationsTypes": {
+      "CommandPalette": {
+        "type": "string",
+        "enum": [
+          "Fade In",
+          "Fade Out",
+          "Slide In",
+          "Slide Out",
+          "Zoom In",
+          "Zoom Out"
+        ]
+      }
+    }
+  }
+}

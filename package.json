@@ -9,13 +9,15 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "VSCode-Animations.helloWorld",
-        "title": "Hello World"
+        "command": "VSCode-Animations.openAnimationSettings",
+        "title": "Open Animation Settings (JSON)"
       }
     ]
   },
