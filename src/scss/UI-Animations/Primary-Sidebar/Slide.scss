@@ -1,0 +1,11 @@
+// .split-view-view {
+//   transition: left 300ms, width 300ms;
+// }
+
+// .minimap.slider-mouseover {
+//   transition: left 300ms, width 300ms;
+// }
+
+.split-view-container * {
+  transition: left 300ms, width 300ms, top 500ms, height 500ms;
+}

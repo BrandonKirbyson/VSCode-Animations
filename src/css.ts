@@ -10,7 +10,7 @@ export async function getUpdatedCSS(
   cssFiles: `${string}.css`[],
   cssRoot: string
 ): Promise<string> {
-  let css = "";
+  let css: string = "";
   for (const cssFile of cssFiles) {
     try {
       //Reads the file and adds the content to the css string
