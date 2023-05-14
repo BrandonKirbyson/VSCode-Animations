@@ -18,7 +18,15 @@
     "commands": [
       {
         "command": "VSCode-Animations.openAnimationSettings",
-        "title": "Open Animation Settings (JSON)"
+        "title": "Animations: Open Animation Settings (JSON)"
+      },
+      {
+        "command": "VSCode-Animations.enableAnimations",
+        "title": "Animations: Enable Animations"
+      },
+      {
+        "command": "VSCode-Animations.disableAnimations",
+        "title": "Animations: Disable Animations"
       }
     ]
   },
