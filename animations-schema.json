@@ -10,15 +10,42 @@
       "properties": {
         "Command Palette": {
           "$ref": "#/$defs/Animations",
-          "description": "Animations for the Command Palette"
+          "description": "Animations for the Command Palette",
+          "properties": {
+            "animation": {
+              "type": "string",
+              "enum": ["None", "Scale", "Slide", "Flip", "Fade"]
+            },
+            "duration": {
+              "$ref": "#/$defs/Duration"
+            }
+          }
         },
         "Primary Sidebar": {
           "$ref": "#/$defs/Animations",
-          "description": "Animations for the Primary Sidebar"
+          "description": "Animations for the Primary Sidebar",
+          "properties": {
+            "animation": {
+              "type": "string",
+              "enum": ["None", "Scale", "Slide", "Fade"]
+            },
+            "duration": {
+              "$ref": "#/$defs/Duration"
+            }
+          }
         },
         "Secondary Sidebar": {
           "$ref": "#/$defs/Animations",
-          "description": "Animations for the Secondary Sidebar"
+          "description": "Animations for the Secondary Sidebar",
+          "properties": {
+            "animation": {
+              "type": "string",
+              "enum": ["None", "Scale", "Slide", "Fade"]
+            },
+            "duration": {
+              "$ref": "#/$defs/Duration"
+            }
+          }
         }
       }
     }
@@ -26,34 +53,14 @@
 
   "$defs": {
     "Animations": {
-      "type": "array",
-      "items": {
-        "additionalProperties": false,
-        "properties": {
-          "animation": {
-            "$ref": "#/$defs/AnimationsTypes/CommandPalette"
-          },
-          "duration": {
-            "type": "number",
-            "description": "Duration of the animation in milliseconds",
-            "minimum": 0,
-            "maximum": 10000
-          }
-        }
-      }
+      "type": "object",
+      "additionalProperties": false
     },
-    "AnimationsTypes": {
-      "CommandPalette": {
-        "type": "string",
-        "enum": [
-          "Fade In",
-          "Fade Out",
-          "Slide In",
-          "Slide Out",
-          "Zoom In",
-          "Zoom Out"
-        ]
-      }
+    "Duration": {
+      "type": "number",
+      "description": "Duration of the animation in milliseconds",
+      "minimum": 0,
+      "maximum": 10000
     }
   }
 }
