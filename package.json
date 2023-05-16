@@ -2,13 +2,31 @@
   "name": "vscode-animations",
   "displayName": "VSCode-Animations",
   "description": "Clean and customizable animations for VSCode",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BrandonKirbyson/VSCode-Animations"
+  },
+  "icon": "static/icon.png",
+  "readme": "README.md",
+  "publisher": "BrandonKirbyson",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.78.0"
   },
   "categories": [
     "Themes",
     "Other"
+  ],
+  "keywords": [
+    "vscode",
+    "theme",
+    "animations",
+    "animation",
+    "animate",
+    "custom",
+    "clean",
+    "smooth"
   ],
   "activationEvents": [
     "onStartupFinished"
@@ -17,18 +35,72 @@
   "contributes": {
     "commands": [
       {
-        "command": "VSCode-Animations.openAnimationSettings",
-        "title": "Animations: Open Animation Settings (JSON)"
-      },
-      {
         "command": "VSCode-Animations.enableAnimations",
-        "title": "Animations: Enable Animations"
+        "title": "Enable Animations",
+        "category": "Animations"
       },
       {
         "command": "VSCode-Animations.disableAnimations",
-        "title": "Animations: Disable Animations"
+        "title": "Disable Animations",
+        "category": "Animations"
+      },
+      {
+        "command": "VSCode-Animations.updateAnimations",
+        "title": "Update Animations",
+        "category": "Animations"
+      },
+      {
+        "command": "VSCode-Animations.openAnimationSettings",
+        "title": "Open Animation Settings",
+        "category": "Animations"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Animations",
+      "properties": {
+        "animations.Smooth-Windows": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether or not to use smooth animations on all windows (sidebars, split screens, etc.)"
+        },
+        "animations.Command-Palette": {
+          "type": "string",
+          "enum": [
+            "None",
+            "Scale",
+            "Slide"
+          ],
+          "default": "Scale",
+          "description": "The animation to use for the command palette"
+        },
+        "animations.Tabs": {
+          "type": "string",
+          "enum": [
+            "None",
+            "Scale",
+            "Slide",
+            "Flip"
+          ],
+          "default": "Scale",
+          "description": "The animation to use for tabs"
+        },
+        "animations.Durations": {
+          "type": "object",
+          "properties": {
+            "Command-Palette": {
+              "type": "number",
+              "default": 300,
+              "description": "The duration of the animation for the command palette in milliseconds"
+            },
+            "Tabs": {
+              "type": "number",
+              "default": 200,
+              "description": "The duration of the animation for tabs in milliseconds"
+            }
+          }
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
