@@ -1,3 +1,20 @@
-.split-view-view {
-  transition: top 500ms, height 500ms;
+.monaco-workbench {
+  background-color: var(--vscode-editor-background);
+}
+
+.lightBulbWidget {
+  transition: top 200ms;
+}
+
+.monaco-hover:not(.hidden) {
+  animation: hoverFadeIn 200ms;
+
+  @keyframes hoverFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }

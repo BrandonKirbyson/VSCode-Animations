@@ -1,0 +1,15 @@
+.quick-input-widget:not(.quick-input-widget[style="display:none"]) {
+  transform-origin: top;
+  animation: openPopup 300ms;
+}
+
+@keyframes openPopup {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

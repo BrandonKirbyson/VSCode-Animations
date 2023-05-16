@@ -1,23 +1,54 @@
 import * as vscode from "vscode";
-import loadAnimations from "./animations";
 import { addToConfig, removeFromConfig } from "./config";
-import { getUpdatedCSS } from "./css";
+import { generateCSSFile } from "./css";
 
+/**
+ * This method is called when the extension is activated.
+ * @param context The extension context
+ */
 export function activate(context: vscode.ExtensionContext) {
-  const jsonPath = context.extensionPath + "/animations.json";
   const rootCSSPath = "file://" + context.extensionPath + "/style.css"; //The path to the root css file which should be used for Custom CSS extension
 
   /**
-   * Register the command to open the settings file
+   * Checks if the Custom CSS and JS Loader extension is installed/enabled and prompts the user to install/enable it if it is not installed/enabled
    */
-  context.subscriptions.push(
-    vscode.commands.registerCommand(
-      "VSCode-Animations.openAnimationSettings",
-      () => {
-        vscode.window.showTextDocument(vscode.Uri.file(jsonPath));
-      }
-    )
-  );
+  if (!vscode.extensions.getExtension("be5invis.vscode-custom-css")) {
+    vscode.window
+      .showWarningMessage(
+        "VSCode-Animations: The Custom CSS and JS Loader extension is not installed/enabled. Please install or enable it to use this extension.",
+        "Install/Enable"
+      )
+      .then((value) => {
+        if (value === "Install/Enable") {
+          //Open the extension page in the marketplace
+          vscode.commands.executeCommand(
+            "vscode.open",
+            vscode.Uri.parse("vscode:extension/be5invis.vscode-custom-css")
+          );
+          //Add an event listener to the installation of the extension
+          vscode.extensions.onDidChange(() => {
+            //If the extension is installed
+            if (vscode.extensions.getExtension("be5invis.vscode-custom-css")) {
+              vscode.window
+                .showInformationMessage(
+                  "The Custom CSS and JS Loader extension has been installed/enabled so now VSCode-Animations can properly work. Reload to see changes.",
+                  "Reload"
+                )
+                .then((value) => {
+                  if (value === "Reload") {
+                    vscode.commands.executeCommand(
+                      "extension.installCustomCSS"
+                    );
+                    vscode.commands.executeCommand(
+                      "workbench.action.reloadWindow"
+                    );
+                  }
+                });
+            }
+          });
+        }
+      });
+  }
 
   /**
    * Register the command to disable the root css file in the Custom CSS extension
@@ -26,10 +57,20 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "VSCode-Animations.disableAnimations",
       () => {
-        vscode.window.showInformationMessage("Disabled Animations");
-        //Remove the root css file from the Custom CSS extension
+        //Add the root css file to the Custom CSS extension
         removeFromConfig(rootCSSPath).then(() => {
-          vscode.commands.executeCommand("extension.updateCustomCSS"); //Reload the Custom CSS extension
+          vscode.window
+            .showInformationMessage(
+              "Disabled animations, reload to see changes.",
+              "Reload",
+              "Cancel"
+            )
+            .then((value) => {
+              if (value === "Reload") {
+                vscode.commands.executeCommand("extension.updateCustomCSS");
+                vscode.commands.executeCommand("workbench.action.reloadWindow");
+              }
+            });
         });
       }
     )
@@ -42,38 +83,72 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "VSCode-Animations.enableAnimations",
       () => {
-        vscode.window.showInformationMessage("Enabled Animations");
         //Add the root css file to the Custom CSS extension
         addToConfig(rootCSSPath).then(() => {
-          vscode.commands.executeCommand("extension.installCustomCSS"); //Reload the Custom CSS extension
+          vscode.window
+            .showInformationMessage(
+              "Enabled animations, reload to see changes.",
+              "Reload",
+              "Cancel"
+            )
+            .then((value) => {
+              if (value === "Reload") {
+                vscode.commands.executeCommand("extension.installCustomCSS");
+                vscode.commands.executeCommand("workbench.action.reloadWindow");
+              }
+            });
         });
       }
     )
   );
 
   /**
-   * Loads the animations from the animations.json file
+   * Register the command to update and reload the Custom CSS extension
    */
-  vscode.workspace.fs.readFile(vscode.Uri.file(jsonPath)).then((data) => {
-    loadAnimations(JSON.parse(data.toString()));
-  });
-
-  const cssDirectory = context.extensionPath + "/dist/css/"; //The path to the css directory
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "VSCode-Animations.updateAnimations",
+      () => {
+        generateCSSFile(context); //Generate the css file
+        vscode.window
+          .showInformationMessage(
+            "Updated animations, reload to see changes.",
+            "Reload",
+            "Cancel"
+          )
+          .then((value) => {
+            if (value === "Reload") {
+              vscode.commands.executeCommand("extension.updateCustomCSS");
+              vscode.commands.executeCommand("workbench.action.reloadWindow");
+            }
+          });
+      }
+    )
+  );
 
   /**
-   * Get the updated css and write it to the root css file
+   * Register the command to open the animation settings in the settings menu
    */
-  getUpdatedCSS(
-    [
-      "Default-Transitions.css",
-      "UI-Animations/Command-Palette/Scale.css",
-      "UI-Animations/Primary-Sidebar/Slide.css",
-    ],
-    cssDirectory
-  ).then((css) => {
-    vscode.workspace.fs.writeFile(
-      vscode.Uri.file(context.extensionPath + "/style.css"),
-      Buffer.from(css)
-    );
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "VSCode-Animations.openAnimationSettings",
+      () => {
+        vscode.commands
+          .executeCommand("workbench.action.openSettings", "animations") //Open the settings menu at the animations section
+          .then(() => {
+            vscode.commands.executeCommand("settings.action.focusSettingsList"); //Focus the settings list
+          });
+      }
+    )
+  );
+
+  generateCSSFile(context); //Generate the css file (just in case)
+
+  //Add an event listener to a configuration change
+  vscode.workspace.onDidChangeConfiguration((e) => {
+    //If the animations configuration changed
+    if (e.affectsConfiguration("animations")) {
+      vscode.commands.executeCommand("VSCode-Animations.updateAnimations"); //Update the animations
+    }
   });
 }

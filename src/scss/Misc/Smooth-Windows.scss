@@ -1,0 +1,14 @@
+.split-view-container {
+  div[style*="left"][style*="width"]:not(
+      .editor-container *,
+      .terminal-outer-container *
+    ) {
+    transition: left 300ms, width 300ms;
+  }
+  div[style*="top"][style*="height"]:not(
+      .editor-container *,
+      .terminal-outer-container *
+    ) {
+    transition: top 300ms, height 300ms;
+  }
+}
