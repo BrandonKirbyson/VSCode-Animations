@@ -7,7 +7,8 @@ import { generateCSSFile } from "./css";
  * @param context The extension context
  */
 export function activate(context: vscode.ExtensionContext) {
-  const rootCSSPath = "file://" + context.extensionPath + "/style.css"; //The path to the root css file which should be used for Custom CSS extension
+  const rootCSSPath =
+    "file://" + context.extensionPath + "/dist/updateHandler.js"; //The path to the root css file which should be used for Custom CSS extension
 
   /**
    * Checks if the Custom CSS and JS Loader extension is installed/enabled and prompts the user to install/enable it if it is not installed/enabled
@@ -125,6 +126,28 @@ export function activate(context: vscode.ExtensionContext) {
       }
     )
   );
+
+  //! use js to load css
+  /*
+  const fs = require("fs")
+  fs.readFile("/Users/bgk/Documents/Code/VSCode/VSCode-Animations/style.css", 'utf-8', (err, data) => {
+        if(err){
+            alert("An error ocurred reading the file :" + err.message);
+            return;
+        }
+
+        // Change how to handle the file content
+        console.log("The file content is : " + data);
+  fs.watch('/Users/bgk/Documents/Code/VSCode/VSCode-Animations/style.css', (eventType, filename) => {
+  console.log(`event type is: ${eventType}`);
+  if (filename) {
+    console.log(`filename provided: ${filename}`);
+  } else {
+    console.log('filename not provided');
+  }
+});  });
+  
+  */
 
   /**
    * Register the command to open the animation settings in the settings menu
