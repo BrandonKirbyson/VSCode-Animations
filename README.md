@@ -31,23 +31,4 @@ Then press `Restart` when it prompts to reload the window, the changes will be a
 
 ## Customization
 
-You can customize the animations by opening the `Animations: Open Animation Settings (JSON)` command.
-
-```json
-{
-  "UI Animations": {
-    "Command Palette": {
-      "animation": "Scale",
-      "duration": 1
-    },
-    "Primary Sidebar": {
-      "animation": "Slide",
-      "duration": 1
-    },
-    "Secondary Sidebar": {
-      "animation": "Slide",
-      "duration": 1
-    }
-  }
-}
-```
+In the settings menu, you can toggle animations which will be updated instatly upon change.
