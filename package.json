@@ -107,8 +107,8 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
-    "compile": "webpack & sass --no-source-map src/scss:dist/css",
-    "watch": "webpack --watch & sass --no-source-map src/scss:dist/css",
+    "compile": "webpack & sass --watch --no-source-map src/scss:dist/css",
+    "watch": "webpack --watch & sass --watch --no-source-map src/scss:dist/css",
     "package": "webpack --mode production && sass --no-source-map src/scss:dist/css",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
