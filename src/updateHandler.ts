@@ -1,6 +1,8 @@
 declare const vscode: any; //Declare vscode for ts to not complain (actual vscode is part of api and is not available in this context)
 declare const document: any; //Declare document for ts to not complain (actual document is not available in this context)
 
+console.count("VSCode-Animations: activate");
+
 /**
  * This is responsible for updating the css file when it changes
  */
@@ -12,13 +14,37 @@ declare const document: any; //Declare document for ts to not complain (actual d
     clearInterval(interval); //Clear the interval
     const fs = require("fs");
 
-    //vscode.context.configuration().profiles.profile.extensionsResource.path;
-    const cssPath =
-      vscode.context.configuration().extensionDevelopmentPath[0] + "/style.css";
+    let extensionPath: string;
+    //If the extension is being developed
+    if (
+      vscode.context.configuration().extensionDevelopmentPath &&
+      vscode.context.configuration().extensionDevelopmentPath.length > 0
+    ) {
+      extensionPath =
+        vscode.context.configuration().extensionDevelopmentPath[0]; //Get the path to this extension
+    } else {
+      //Get the list of extensions
+      const extensions = JSON.parse(
+        fs.readFileSync(
+          vscode.context.configuration().profiles.profile.extensionsResource
+            .path, //The path to the extensions json file
+          "utf-8"
+        )
+      );
 
-    const css = fs.readFileSync(cssPath, "utf-8");
+      //Finds the index of this extension in the list of extensions
+      const index = extensions.findIndex(
+        (extension: any) =>
+          extension.identifier.id === "brandonkirbyson.vscode-animations"
+      );
 
-    createCustomCSS(css);
+      extensionPath = extensions[index].location.fsPath; //Get the path to this extension
+    }
+
+    console.log("UpdateHandler: extensionPath: " + extensionPath);
+    const cssPath = extensionPath + "/animations.css";
+
+    createCustomCSS(fs.readFileSync(cssPath, "utf-8"));
 
     fs.watch(cssPath, (eventType: string, filename: string) => {
       //If the event type is not change, return

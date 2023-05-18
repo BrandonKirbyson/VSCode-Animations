@@ -11,10 +11,21 @@ export function generateCSSFile(context: vscode.ExtensionContext) {
   getUpdatedCSS(context, cssDirectory).then((css) => {
     //Writes or creates the root css file with the updated css
     vscode.workspace.fs.writeFile(
-      vscode.Uri.file(context.extensionPath + "/style.css"), //The path to the root css file
+      vscode.Uri.file(context.extensionPath + "/animations.css"), //The path to the root css file
       Buffer.from(css) //Converts the string to a buffer
     );
   });
+}
+
+/**
+ * Empties the root css file
+ * @param context The extension context
+ */
+export function emptyCSSFile(context: vscode.ExtensionContext) {
+  vscode.workspace.fs.writeFile(
+    vscode.Uri.file(context.extensionPath + "/animations.css"), //The path to the root css file
+    Buffer.from("") //Converts the string to a buffer
+  );
 }
 
 /**
