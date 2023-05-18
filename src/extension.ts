@@ -23,7 +23,12 @@ export function activate(context: vscode.ExtensionContext) {
         .then((value) => {
           //If the user clicked the reload button
           if (value === "Reload") {
-            vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
+            //Install the custom css extension
+            vscode.commands
+              .executeCommand("extension.installCustomCSS")
+              .then(() => {
+                vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
+              });
           }
         });
     }
