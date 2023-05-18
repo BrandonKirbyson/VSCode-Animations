@@ -1,7 +1,7 @@
 declare const vscode: any; //Declare vscode for ts to not complain (actual vscode is part of api and is not available in this context)
 declare const document: any; //Declare document for ts to not complain (actual document is not available in this context)
 
-console.count("VSCode-Animations: activate");
+console.log("UpdateHandler: Enabled");
 
 /**
  * This is responsible for updating the css file when it changes
