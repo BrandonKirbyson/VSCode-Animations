@@ -7,9 +7,17 @@
     "type": "git",
     "url": "https://github.com/BrandonKirbyson/VSCode-Animations"
   },
+  "extensionDependencies": [
+    "be5invis.vscode-custom-css"
+  ],
   "icon": "static/icon.png",
-  "readme": "README.md",
+  "author": {
+    "name": "Brandon Kirbyson",
+    "email": "brandonkirbyson@gmail.com"
+  },
   "publisher": "BrandonKirbyson",
+  "readme": "README.md",
+  "homepage": "https://github.com/BrandonKirbyson/VSCode-Animations#readme",
   "license": "MIT",
   "engines": {
     "vscode": "^1.78.0"
@@ -42,11 +50,6 @@
       {
         "command": "VSCode-Animations.disableAnimations",
         "title": "Disable Animations",
-        "category": "Animations"
-      },
-      {
-        "command": "VSCode-Animations.updateAnimations",
-        "title": "Update Animations",
         "category": "Animations"
       },
       {
