@@ -1,0 +1,12 @@
+.quick-input-widget:not(.quick-input-widget[style="display:none"]) {
+  animation: openAnimation 300ms;
+}
+
+@keyframes openAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

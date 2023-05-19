@@ -71,7 +71,8 @@
           "enum": [
             "None",
             "Scale",
-            "Slide"
+            "Slide",
+            "Fade"
           ],
           "default": "Scale",
           "description": "The animation to use for the command palette"
@@ -86,6 +87,17 @@
           ],
           "default": "Scale",
           "description": "The animation to use for tabs"
+        },
+        "animations.Files": {
+          "type": "string",
+          "enum": [
+            "None",
+            "Scale",
+            "Slide",
+            "Flip"
+          ],
+          "default": "Scale",
+          "description": "The animation to use for files"
         },
         "animations.Durations": {
           "type": "object",

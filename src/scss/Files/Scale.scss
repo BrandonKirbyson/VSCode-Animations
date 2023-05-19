@@ -1,0 +1,15 @@
+.explorer-folders-view .monaco-list-row {
+  transform-origin: center;
+  animation: filesAnimation 300ms;
+}
+
+@keyframes filesAnimation {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}

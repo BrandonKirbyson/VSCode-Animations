@@ -67,7 +67,7 @@ export async function getUpdatedCSS(
   /**
    * Adds all enum settings to the css string
    */
-  for (const key of ["Command-Palette", "Tabs"]) {
+  for (const key of ["Command-Palette", "Tabs", "Files"]) {
     const setting = config.get(key) as string;
     if (setting !== "None") {
       css += await getCSSFile(`${key}/${setting}.css`, cssRoot);

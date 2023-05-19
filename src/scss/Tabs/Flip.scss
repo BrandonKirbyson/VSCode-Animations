@@ -1,0 +1,15 @@
+.tabs-container > .tab {
+  transform-origin: center;
+  animation: tabAnimation 300ms;
+}
+
+@keyframes tabAnimation {
+  from {
+    opacity: 0;
+    transform: rotateX(-90deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0);
+  }
+}
