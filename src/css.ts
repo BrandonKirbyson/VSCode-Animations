@@ -61,6 +61,7 @@ export async function getUpdatedCSS(
 ): Promise<string> {
   let css: string = "";
   css += await getCSSFile("Default-Transitions.css", cssRoot); //Adds the default transitions css file
+  css += await getCSSFile("Custom-Animations.css", cssRoot); //Adds the custom animations css file
 
   const config = vscode.workspace.getConfiguration("animations"); //Extension settings
 

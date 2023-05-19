@@ -10,6 +10,8 @@ export function activate(context: vscode.ExtensionContext) {
   const rootCSSPath =
     "file://" + context.extensionPath + "/dist/updateHandler.js"; //The path to the root css file which should be used for Custom CSS extension
 
+  generateCSSFile(context); //Generate the css file (just in case)
+
   //Add the root css file to the custom css imports
   addToConfig(rootCSSPath).then((added) => {
     //If the root css file was added to the config
@@ -118,7 +120,38 @@ export function activate(context: vscode.ExtensionContext) {
     )
   );
 
-  generateCSSFile(context); //Generate the css file (just in case)
+  /**
+   * Register the command to open the custom animations css file
+   */
+  context.subscriptions.push(
+    vscode.commands.registerCommand("VSCode-Animations.openCustomCSS", () => {
+      vscode.workspace
+        .openTextDocument(
+          vscode.Uri.file(
+            context.extensionPath + "/dist/css/Custom-Animations.css"
+          )
+        ) //Open the custom animations css file
+        .then((doc) => {
+          vscode.window.showTextDocument(doc); //Show the document
+        });
+    })
+  );
+
+  /**
+   * Register the command to update the css when the user edits the custom animations css file
+   */
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeTextDocument((e) => {
+      //If the document that was changed is the custom animations css file
+      if (
+        e.document.uri.fsPath ===
+          context.extensionPath + "/dist/css/Custom-Animations.css" &&
+        vscode.workspace.getConfiguration("animations").get("Custom-CSS")
+      ) {
+        generateCSSFile(context); //Generate the css file
+      }
+    })
+  );
 
   //Add an event listener to a configuration change
   vscode.workspace.onDidChangeConfiguration((e) => {
