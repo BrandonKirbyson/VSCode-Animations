@@ -1,6 +1,15 @@
-.quick-input-widget:not(.quick-input-widget[style="display:none"]) {
+.quick-input-widget {
   transform-origin: top;
   animation: openPopup 300ms;
+
+  &[style*="display: none;"] {
+    display: block !important;
+    transform-origin: top;
+    animation: closePopup 300ms;
+    opacity: 0;
+    transform: scaleY(0);
+    pointer-events: none;
+  }
 }
 
 @keyframes openPopup {
@@ -11,5 +20,16 @@
   to {
     opacity: 1;
     transform: scaleY(1);
+  }
+}
+
+@keyframes closePopup {
+  from {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  to {
+    opacity: 0;
+    transform: scaleY(0);
   }
 }
