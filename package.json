@@ -109,6 +109,17 @@
           "default": "Scale",
           "description": "The animation to use for files"
         },
+        "animations.Scrolling": {
+          "type": "string",
+          "enum": [
+            "None",
+            "Scale",
+            "Slide",
+            "Fade"
+          ],
+          "default": "Scale",
+          "description": "The animation to use for when new list items appear when scrolling"
+        },
         "animations.Durations": {
           "type": "object",
           "properties": {

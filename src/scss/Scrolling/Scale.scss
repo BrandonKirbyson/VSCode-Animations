@@ -1,0 +1,14 @@
+.monaco-list-row {
+  animation: scrollAppear 200ms;
+}
+
+@keyframes scrollAppear {
+  from {
+    opacity: 0.5;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
