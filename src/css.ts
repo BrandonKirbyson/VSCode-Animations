@@ -50,6 +50,26 @@ export async function getCSSFile(
 }
 
 /**
+ * Updates the duration in the css string
+ * @param css The css string to update
+ * @param key The key of the duration in the settings
+ * @returns The updated css string
+ */
+export function updateDuration(css: string, key: string): string {
+  const config = vscode.workspace.getConfiguration("animations"); //Extension settings
+  const duration = (config.get("Durations") as any)[key]; //The duration of the animation
+
+  if (!duration) return css;
+
+  css = css.replace(
+    /\/\*<Duration>\*\/.*\/\*<\/Duration>\*\//g,
+    `${duration}ms`
+  );
+
+  return css;
+}
+
+/**
  * Gets the combined CSS content from the css files determin
  * @param context The extension context
  * @param cssRoot The root directory of the css files
@@ -71,7 +91,10 @@ export async function getUpdatedCSS(
   for (const key of ["Command-Palette", "Tabs", "Files", "Scrolling"]) {
     const setting = config.get(key) as string;
     if (setting !== "None") {
-      css += await getCSSFile(`${key}/${setting}.css`, cssRoot);
+      css += updateDuration(
+        await getCSSFile(`${key}/${setting}.css`, cssRoot),
+        key
+      );
     }
   }
 
@@ -80,7 +103,7 @@ export async function getUpdatedCSS(
    */
   for (const key of ["Smooth-Windows"]) {
     if (config.get(key) as boolean) {
-      css += await getCSSFile(`Misc/${key}.css`, cssRoot);
+      css += updateDuration(await getCSSFile(`Misc/${key}.css`, cssRoot), key);
     }
   }
 
