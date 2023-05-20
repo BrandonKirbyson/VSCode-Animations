@@ -1,6 +1,8 @@
+@use "_Duration";
+
 .tabs-container > .tab {
   transform-origin: center;
-  animation: tabAnimation 300ms;
+  animation: tabAnimation var(--tabs-duration);
 }
 
 @keyframes tabAnimation {

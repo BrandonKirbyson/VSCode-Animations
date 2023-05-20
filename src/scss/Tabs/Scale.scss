@@ -1,6 +1,8 @@
+@use "_Duration";
+
 .tabs-container > .tab {
   transform-origin: left;
-  animation: openTab 300ms;
+  animation: openTab var(--tabs-duration);
   z-index: 2;
 }
 

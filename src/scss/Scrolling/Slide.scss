@@ -1,5 +1,7 @@
+@use "_Duration";
+
 .monaco-list-row {
-  animation: scrollAppear 200ms;
+  animation: scrollAppear var(--scrolling-duration);
 }
 
 @keyframes scrollAppear {

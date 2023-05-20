@@ -1,16 +1,22 @@
+:root {
+  --smooth-windows-duration: /*<Duration>*/ 300ms; /*</Duration>*/
+}
+
 .split-view-container {
   div[style*="left"][style*="width"]:not(
       .editor-container *,
       .terminal-outer-container *,
       .monaco-list *
     ) {
-    transition: left 300ms, width 300ms;
+    transition: left var(--smooth-windows-duration),
+      width var(--smooth-windows-duration);
   }
   div[style*="top"][style*="height"]:not(
       .editor-container *,
       .terminal-outer-container *,
       .monaco-list *
     ) {
-    transition: top 300ms, height 300ms;
+    transition: top var(--smooth-windows-duration),
+      height var(--smooth-windows-duration);
   }
 }

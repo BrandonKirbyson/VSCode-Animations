@@ -1,6 +1,8 @@
+@use "_Duration";
+
 .explorer-folders-view .monaco-list-row {
   transform-origin: top;
-  animation: filesAnimation 300ms;
+  animation: filesAnimation var(--files-duration);
 }
 
 @keyframes filesAnimation {
