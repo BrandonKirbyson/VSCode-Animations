@@ -107,5 +107,8 @@ export async function getUpdatedCSS(
     }
   }
 
+  //Remove all new lines
+  css = css.replace(/\n/g, "");
+
   return css;
 }
