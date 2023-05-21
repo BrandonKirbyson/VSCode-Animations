@@ -66,6 +66,11 @@
     "configuration": {
       "title": "Animations",
       "properties": {
+        "animations.Enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether or not to enable animations"
+        },
         "animations.Smooth-Windows": {
           "type": "boolean",
           "default": true,
@@ -123,6 +128,7 @@
         "animations.Durations": {
           "type": "object",
           "description": "The durations of the animations in milliseconds",
+          "additionalProperties": false,
           "properties": {
             "Command-Palette": {
               "type": "number",
