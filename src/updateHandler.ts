@@ -1,5 +1,7 @@
 declare const vscode: any; //Declare vscode for ts to not complain (actual vscode is part of api and is not available in this context)
 declare const document: any; //Declare document for ts to not complain (actual document is not available in this context)
+// eslint-disable-next-line @typescript-eslint/naming-convention
+declare const MutationObserver: any;
 
 console.log("UpdateHandler: Enabled");
 
@@ -10,67 +12,32 @@ console.log("UpdateHandler: Enabled");
   const styleID = "VSCode-Animations-custom-css";
 
   const interval = setInterval(() => {
-    if (!vscode.context.configuration()) return; //If vscode is not loaded, return
+    const statusBarItem = document.getElementById(
+      "BrandonKirbyson.vscode-animations"
+    );
+
+    if (!statusBarItem) return;
+
     clearInterval(interval); //Clear the interval
-    const fs = require("fs");
 
-    let extensionPath: string;
-    //If the extension is being developed
-    if (
-      vscode.context.configuration().extensionDevelopmentPath &&
-      vscode.context.configuration().extensionDevelopmentPath.length > 0
-    ) {
-      extensionPath =
-        vscode.context.configuration().extensionDevelopmentPath[0]; //Get the path to this extension
-    } else {
-      //Get the list of extensions
-      const extensions = JSON.parse(
-        fs.readFileSync(
-          vscode.context.configuration().profiles.profile.extensionsResource
-            .path, //The path to the extensions json file
-          "utf-8"
-        )
-      );
-
-      //Finds the index of this extension in the list of extensions
-      const index = extensions.findIndex(
-        (extension: any) =>
-          extension.identifier.id === "brandonkirbyson.vscode-animations"
-      );
-
-      extensionPath = extensions[index].location.fsPath; //Get the path to this extension
-    }
-
-    console.log("UpdateHandler: extensionPath: " + extensionPath);
-    const cssPath = extensionPath + "/animations.css";
-
-    createCustomCSS(fs.readFileSync(cssPath, "utf-8"));
-
-    fs.watch(cssPath, (eventType: string, filename: string) => {
-      //If the event type is not change, return
-      if (eventType !== "change") {
-        console.warn("UpdateHandler: eventType not change");
-        return;
-      }
-
-      //If the filename is not provided, return
-      if (!filename) {
-        console.warn("UpdateHandler: filename not provided");
-      }
-
-      //Read the css file
-      fs.readFile(cssPath, "utf-8", (err: any, data: string) => {
-        if (err) {
-          //If an error ocurred, log it and return
-          console.error(
-            "UpdateHandler: An error ocurred reading the file :" + err.message
-          );
-          return;
+    const observer = new MutationObserver((mutations: any) => {
+      mutations.forEach(function (mutation: any) {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "aria-label"
+        ) {
+          const newCSS = mutation.target.getAttribute("aria-label");
+          if (newCSS) {
+            updateCustomCSS(newCSS);
+          }
         }
-        //Update the css
-        updateCustomCSS(data);
       });
     });
+    observer.observe(statusBarItem, {
+      attributes: true, //Configure it to listen to attribute changes
+    });
+
+    // createCustomCSS(fs.readFileSync(cssPath, "utf-8"));
   }, 10);
 
   /**

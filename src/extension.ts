@@ -1,19 +1,22 @@
 import * as vscode from "vscode";
 import { addToConfig } from "./config";
-import { emptyCSSFile, generateCSSFile } from "./css";
+import { emptyCSSFile, generateCSS } from "./css";
+import { initMessenger } from "./messenger";
 
 /**
  * This method is called when the extension is activated.
  * @param context The extension context
  */
 export function activate(context: vscode.ExtensionContext) {
-  const rootCSSPath =
+  const rootJSPath =
     "file://" + context.extensionPath + "/dist/updateHandler.js"; //The path to the root css file which should be used for Custom CSS extension
 
-  generateCSSFile(context); //Generate the css file (just in case)
+  initMessenger(); //Initialize the messenger (status bar item)
+
+  generateCSS(context); //Generate the css file (just in case)
 
   //Add the root css file to the custom css imports
-  addToConfig(rootCSSPath).then((added) => {
+  addToConfig(rootJSPath).then((added) => {
     //If the root css file was added to the config
     if (added) {
       vscode.window
@@ -97,8 +100,8 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "VSCode-Animations.enableAnimations",
       () => {
-        generateCSSFile(context);
-        addToConfig(rootCSSPath);
+        generateCSS(context);
+        addToConfig(rootJSPath);
         vscode.window.showInformationMessage("Enabled Animations");
       }
     )
@@ -148,7 +151,7 @@ export function activate(context: vscode.ExtensionContext) {
           context.extensionPath + "/dist/css/Custom-Animations.css" &&
         vscode.workspace.getConfiguration("animations").get("Custom-CSS")
       ) {
-        generateCSSFile(context); //Generate the css file
+        generateCSS(context); //Generate the css file
       }
     })
   );
@@ -157,7 +160,7 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.workspace.onDidChangeConfiguration((e) => {
     //If the animations configuration changed
     if (e.affectsConfiguration("animations")) {
-      generateCSSFile(context); //Generate the css file
+      generateCSS(context); //Generate the css file
     }
   });
 }

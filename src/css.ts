@@ -1,19 +1,16 @@
 import * as vscode from "vscode";
+import { sendMessage } from "./messenger";
 
 /**
  * Generates the root css file
  * @param context The extension context
  */
-export function generateCSSFile(context: vscode.ExtensionContext) {
+export function generateCSS(context: vscode.ExtensionContext) {
   const cssDirectory = context.extensionPath + "/dist/css/"; //The path to the css directory
 
   //Gets the updated css
   getUpdatedCSS(context, cssDirectory).then((css) => {
-    //Writes or creates the root css file with the updated css
-    vscode.workspace.fs.writeFile(
-      vscode.Uri.file(context.extensionPath + "/animations.css"), //The path to the root css file
-      Buffer.from(css) //Converts the string to a buffer
-    );
+    sendMessage(css);
   });
 }
 
@@ -22,10 +19,7 @@ export function generateCSSFile(context: vscode.ExtensionContext) {
  * @param context The extension context
  */
 export function emptyCSSFile(context: vscode.ExtensionContext) {
-  vscode.workspace.fs.writeFile(
-    vscode.Uri.file(context.extensionPath + "/animations.css"), //The path to the root css file
-    Buffer.from("") //Converts the string to a buffer
-  );
+  sendMessage("");
 }
 
 /**
