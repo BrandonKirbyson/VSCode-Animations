@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { addToConfig } from "./config";
-import { emptyCSSFile, generateCSS } from "./css";
+import { generateCSS } from "./css";
 import { initMessenger } from "./messenger";
 
 /**
@@ -87,7 +87,11 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "VSCode-Animations.disableAnimations",
       () => {
-        emptyCSSFile(context);
+        vscode.workspace
+          .getConfiguration("animations")
+          .update("Enabled", false);
+
+        generateCSS(context);
         vscode.window.showInformationMessage("Disabled Animations");
       }
     )
@@ -100,6 +104,8 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "VSCode-Animations.enableAnimations",
       () => {
+        vscode.workspace.getConfiguration("animations").update("Enabled", true);
+
         generateCSS(context);
         addToConfig(rootJSPath);
         vscode.window.showInformationMessage("Enabled Animations");

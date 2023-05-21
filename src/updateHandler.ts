@@ -20,6 +20,8 @@ console.log("UpdateHandler: Enabled");
 
     clearInterval(interval); //Clear the interval
 
+    createCustomCSS("");
+
     const observer = new MutationObserver((mutations: any) => {
       mutations.forEach(function (mutation: any) {
         if (
@@ -36,8 +38,6 @@ console.log("UpdateHandler: Enabled");
     observer.observe(statusBarItem, {
       attributes: true, //Configure it to listen to attribute changes
     });
-
-    // createCustomCSS(fs.readFileSync(cssPath, "utf-8"));
   }, 10);
 
   /**

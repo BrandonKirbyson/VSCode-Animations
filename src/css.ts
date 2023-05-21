@@ -10,16 +10,12 @@ export function generateCSS(context: vscode.ExtensionContext) {
 
   //Gets the updated css
   getUpdatedCSS(context, cssDirectory).then((css) => {
-    sendMessage(css);
+    if (vscode.workspace.getConfiguration("animations").get("Enabled")) {
+      sendMessage(css);
+    } else {
+      sendMessage("/*Animations Disabled*/");
+    }
   });
-}
-
-/**
- * Empties the root css file
- * @param context The extension context
- */
-export function emptyCSSFile(context: vscode.ExtensionContext) {
-  sendMessage("");
 }
 
 /**
