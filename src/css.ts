@@ -49,7 +49,7 @@ export function updateDuration(css: string, key: string): string {
   const config = vscode.workspace.getConfiguration("animations"); //Extension settings
   const duration = (config.get("Durations") as any)[key]; //The duration of the animation
 
-  if (!duration) return css;
+  if (!duration || parseInt(`${duration}`) > 10000) return css;
 
   css = css.replace(
     /\/\*<Duration>\*\/.*\/\*<\/Duration>\*\//g,

@@ -133,26 +133,36 @@
             "Command-Palette": {
               "type": "number",
               "default": 300,
+              "maximum": 10000,
+              "minimum": 0,
               "markdownDescription": "The duration of the animation for the command palette in milliseconds, default: `300`"
             },
             "Tabs": {
               "type": "number",
               "default": 200,
+              "maximum": 10000,
+              "minimum": 0,
               "markdownDescription": "The duration of the animation for tabs in milliseconds, default: `200`"
             },
             "Files": {
               "type": "number",
               "default": 200,
+              "maximum": 10000,
+              "minimum": 0,
               "markdownDescription": "The duration of the animation for files in milliseconds, default: `200`"
             },
             "Scrolling": {
               "type": "number",
               "default": 200,
+              "maximum": 10000,
+              "minimum": 0,
               "markdownDescription": "The duration of the animation for when new list items appear when scrolling in milliseconds, default: `200`"
             },
             "Smooth-Windows": {
               "type": "number",
               "default": 200,
+              "maximum": 10000,
+              "minimum": 0,
               "markdownDescription": "The duration of the animation for when new list items appear when scrolling in milliseconds, default: `200`"
             }
           }
