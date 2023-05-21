@@ -1,7 +1,7 @@
-declare const vscode: any; //Declare vscode for ts to not complain (actual vscode is part of api and is not available in this context)
 declare const document: any; //Declare document for ts to not complain (actual document is not available in this context)
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
-declare const MutationObserver: any;
+declare const MutationObserver: any; //Declare MutationObserver for ts to not complain (actual MutationObserver is not available in this context)
 
 console.log("UpdateHandler: Enabled");
 
@@ -23,7 +23,7 @@ console.log("UpdateHandler: Enabled");
     createCustomCSS("");
 
     const observer = new MutationObserver((mutations: any) => {
-      mutations.forEach(function (mutation: any) {
+      mutations.forEach((mutation: any) => {
         if (
           mutation.type === "attributes" &&
           mutation.attributeName === "aria-label"
