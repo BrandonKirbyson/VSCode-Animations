@@ -89,7 +89,7 @@ export function activate(context: vscode.ExtensionContext) {
       () => {
         vscode.workspace
           .getConfiguration("animations")
-          .update("Enabled", false);
+          .update("Enabled", false, vscode.ConfigurationTarget.Global);
 
         generateCSS(context);
         vscode.window.showInformationMessage("Disabled Animations");
@@ -104,7 +104,9 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "VSCode-Animations.enableAnimations",
       () => {
-        vscode.workspace.getConfiguration("animations").update("Enabled", true);
+        vscode.workspace
+          .getConfiguration("animations")
+          .update("Enabled", true, vscode.ConfigurationTarget.Global);
 
         generateCSS(context);
         addToConfig(rootJSPath);
