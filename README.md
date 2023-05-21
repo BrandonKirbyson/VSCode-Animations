@@ -31,9 +31,25 @@ I recommend turning on smooth cursor animations in vscode settings. This will ma
 
 You can find this setting by searching for `Cursor Smooth Caret Animation` in settings (`cmd + ,` or `ctrl + ,`).
 
-## Screenshots
+## Showcase
 
-> Coming soon
+#### Command Palette
+
+<p align="center"><img src="./static/gifs/Command-Palette.gif" alt="Command-Palette" width="300" /></p>
+
+#### Tabs
+
+<p align="center"><img src="./static/gifs/Tabs.gif" alt="Tabs" width="300"/></p>
+
+#### Scrolling
+
+<p align="center"><img src="./static/gifs/Scrolling.gif" alt="Scrolling" width="100"/></p>
+
+#### Files
+
+<p align="center"><img src="./static/gifs/Files.gif" alt="Files" width="300"/></p>
+
+#### ...more coming soon!
 
 ## Commands
 
