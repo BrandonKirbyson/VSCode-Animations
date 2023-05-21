@@ -8,7 +8,7 @@
 
 1. Install the extension with either of these methods:
 
-   - Get it from the [VSCode Marketplace]()
+   - Get it from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=BrandonKirbyson.vscode-animations)
 
    - Search for `VSCode-Animations` in the extensions tab in the editor
 
@@ -35,19 +35,23 @@ You can find this setting by searching for `Cursor Smooth Caret Animation` in se
 
 #### Command Palette
 
-<p align="center"><img src="./static/gifs/Command-Palette.gif" alt="Command-Palette" width="300" /></p>
+<img src="./static/gifs/Command-Palette.gif" alt="Command-Palette" width="300" />
 
 #### Tabs
 
-<p align="center"><img src="./static/gifs/Tabs.gif" alt="Tabs" width="300"/></p>
+<img src="./static/gifs/Tabs.gif" alt="Tabs" width="300"/>
 
 #### Scrolling
 
-<p align="center"><img src="./static/gifs/Scrolling.gif" alt="Scrolling" width="100"/></p>
+<img src="./static/gifs/Scrolling.gif" alt="Scrolling" width="100"/>
+
+#### Smooth Windows
+
+<img src="./static/gifs/Smooth-Windows.gif" alt="Smooth-Windows" width="300"/>
 
 #### Files
 
-<p align="center"><img src="./static/gifs/Files.gif" alt="Files" width="300"/></p>
+<img src="./static/gifs/Files.gif" alt="Files" width="300"/>
 
 #### ...more coming soon!
 
