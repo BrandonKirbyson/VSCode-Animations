@@ -7,6 +7,8 @@
 
 > This extension is actively being developed and will gain many more animations over time.
 
+Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
+
 ## Getting Started
 
 1. Install the extension with either of these methods:
