@@ -21,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
     if (added) {
       vscode.window
         .showInformationMessage(
-          "Installed VSCode-Animations, reload for animations to take effect",
+          "Installed VSCode Animations, reload for animations to take effect",
           "Reload",
           "Cancel"
         )
@@ -45,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
   if (!vscode.extensions.getExtension("be5invis.vscode-custom-css")) {
     vscode.window
       .showWarningMessage(
-        "VSCode-Animations: The Custom CSS and JS Loader extension is not installed/enabled. Please install or enable it to use this extension.",
+        "VSCode Animations: The Custom CSS and JS Loader extension is not installed/enabled. Please install or enable it to use this extension.",
         "Install/Enable"
       )
       .then((value) => {
@@ -61,7 +61,7 @@ export function activate(context: vscode.ExtensionContext) {
             if (vscode.extensions.getExtension("be5invis.vscode-custom-css")) {
               vscode.window
                 .showInformationMessage(
-                  "The Custom CSS and JS Loader extension has been installed/enabled so now VSCode-Animations can properly work. Reload to see changes.",
+                  "The Custom CSS and JS Loader extension has been installed/enabled so now VSCode Animations can properly work. Reload to see changes.",
                   "Reload"
                 )
                 .then((value) => {
