@@ -1,6 +1,9 @@
-# VSCode-Animations
+<p align="center"><img src="./static/logo.png" width=100 /></p>
+<p align="center" style="font-weight: bold; font-size: 2rem;">VSCode Animations</p>
 
-**VSCode-Animations** is a Visual Studio Code extension that adds clean animations to the vscode UI. This is the **first** extension to add animations to vscode and is a **must-have** because vscode lacks many needed animations that this extension easily provides, not to mention that it also adds **many more** animations and is all **customizable**.
+<hr />
+
+**VSCode Animations** is a Visual Studio Code extension that adds clean animations to the vscode UI. This is the **first** extension to add animations to vscode and is a **must-have** because vscode lacks many needed animations that this extension easily provides, not to mention that it also adds **many more** animations and is all **customizable**.
 
 > This extension is actively being developed and will gain many more animations over time.
 
@@ -10,10 +13,10 @@
 
    - Get it from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=BrandonKirbyson.vscode-animations)
 
-   - Search for `VSCode-Animations` in the extensions tab in the editor
+   - Search for `VSCode Animations` in the extensions tab in the editor
 
 2. Reload the editor when prompted
-   Once you have installed and enabled `VSCode-Animations`, you should get a popup that prompts you to reload for animations to take effect. Press `Reload` and you will see the animations be applied.
+   Once you have installed and enabled `VSCode Animations`, you should get a popup that prompts you to reload for animations to take effect. Press `Reload` and you will see the animations be applied.
 
 3. Enjoy the animations!
 
