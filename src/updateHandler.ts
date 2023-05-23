@@ -67,17 +67,12 @@ console.log("UpdateHandler: Enabled");
     styleElement.textContent = css;
   }
 
+  /**
+   * Adds util js functions to the page to help with animations
+   */
   function addAnimationUtil() {
-    /*
-    <div class="tabs-container">
-      <div class="tab"></div>
-      <div class="tab"></div>
-      <div class="tab"></div>
-    </div>
-    */
-
     //Add a mutation observer to the tabs-container to check for when a tab is added or removed
-    const observer = new MutationObserver((mutations) => {
+    const tabsObserver = new MutationObserver((mutations) => {
       const mutationData: {
         added: null | Node;
         removed: null | Node;
@@ -126,8 +121,6 @@ console.log("UpdateHandler: Enabled");
       )
         return; //If nothing changed, return
 
-      console.log("MutationData", mutationData);
-
       const tabs = document.querySelectorAll(".tabs-container > .tab");
 
       //Remove all the classes
@@ -158,7 +151,7 @@ console.log("UpdateHandler: Enabled");
       clearInterval(addTabsObserver); //Clear the interval
 
       //Add the observer to the tabs-container element to listen for changes
-      observer.observe(tabsContainer, {
+      tabsObserver.observe(tabsContainer, {
         childList: true, //Listen to tabs being added or removed
         attributes: true, //Listen to changes on the tabs
         attributeOldValue: true, //Get changes on the tabs
