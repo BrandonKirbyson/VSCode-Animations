@@ -10,6 +10,9 @@
   "extensionDependencies": [
     "be5invis.vscode-custom-css"
   ],
+  "extensionKind": [
+    "ui"
+  ],
   "icon": "static/logo.png",
   "author": {
     "name": "Brandon Kirbyson",
