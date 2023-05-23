@@ -10,7 +10,7 @@
   "extensionDependencies": [
     "be5invis.vscode-custom-css"
   ],
-  "icon": "static/icon.png",
+  "icon": "static/logo.png",
   "author": {
     "name": "Brandon Kirbyson",
     "email": "brandonkirbyson@gmail.com"
