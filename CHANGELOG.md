@@ -2,8 +2,8 @@
 
 All notable changes to the "VSCode Animations" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+<!-- ## [version] - yyyy-mm-dd -->
 
-## [Unreleased]
+## [1.0.0] - 2023-05-21
 
 - Initial release
