@@ -1,5 +1,13 @@
-<p align="center"><img src="./static/logo.png" width=100 /></p>
+<p align="center"><img src="./static/logo.png" height=120 /></p>
 <p align="center" style="font-weight: bold; font-size: 2rem;">VSCode Animations</p>
+<p align="center">
+ <img alt="Visual Studio Marketplace Rating (Stars)" src="https://img.shields.io/visual-studio-marketplace/stars/brandonkirbyson.vscode-animations?color=blue&style=for-the-badge">
+<img alt="Visual Studio Marketplace Downloads" src="https://img.shields.io/visual-studio-marketplace/d/brandonkirbyson.vscode-animations?style=for-the-badge&color=brightgreen">
+<img alt="Visual Studio Downloads" src="https://vsmarketplacebadge.apphb.com/installs/brandonkirbyson.vscode-animations.svg" />
+ <img alt="Visual Studio Marketplace Version" src="https://img.shields.io/visual-studio-marketplace/v/brandonkirbyson.vscode-animations?color=blue&style=for-the-badge">
+ <img alt="Visual Studio Marketplace Last Updated" src="https://img.shields.io/visual-studio-marketplace/last-updated/brandonkirbyson.vscode-animations?style=for-the-badge">
+ <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/brandonkirbyson/vscode-animations?color=blue&style=for-the-badge">
+</p>
 
 <hr />
 
@@ -8,6 +16,16 @@
 > This extension is actively being developed and will gain many more animations over time.
 
 Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Showcase](#showcase)
+- [Commands](#commands)
+- [Features & Customization](#features--customization)
+- [Custom CSS](#custom-css)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
 
 ## Getting Started
 
