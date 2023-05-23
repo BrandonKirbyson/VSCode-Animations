@@ -1,0 +1,29 @@
+.tabs-container > .tab.moveLeft {
+  transform-origin: left;
+  // animation: tabMoveLeft var(--tabs-duration);
+  z-index: 2;
+}
+
+.tabs-container > .tab.moveRight {
+  transform-origin: left;
+  animation: tabMoveRight var(--tabs-duration);
+  z-index: 2;
+}
+
+@keyframes tabMoveLeft {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes tabMoveRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}

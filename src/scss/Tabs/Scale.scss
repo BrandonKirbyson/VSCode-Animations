@@ -1,8 +1,12 @@
 @use "_Duration";
+@use "_SmoothTabs";
 
-.tabs-container > .tab {
+.tabs-container > .tab.newTab {
   transform-origin: left;
   animation: openTab var(--tabs-duration);
+}
+
+.tabs-container > .tab {
   z-index: 2;
 }
 

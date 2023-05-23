@@ -1,11 +1,12 @@
 @use "_Duration";
+@use "_SmoothTabs";
 
-.tabs-container > .tab {
+.tabs-container > .tab.newTab {
   transform-origin: center;
-  animation: tabAnimation var(--tabs-duration);
+  animation: openTab var(--tabs-duration);
 }
 
-@keyframes tabAnimation {
+@keyframes openTab {
   from {
     opacity: 0;
     transform: rotateX(-90deg);
