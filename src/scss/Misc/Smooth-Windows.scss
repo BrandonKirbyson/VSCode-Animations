@@ -3,20 +3,22 @@
 }
 
 .split-view-container {
-  div[style*="left"][style*="width"]:not(
-      .editor-container *,
-      .terminal-outer-container *,
-      .monaco-list *
+  div:not(
+      .monaco-editor .margin, // Parent of line numbers
+      .monaco-editor .margin *, // Line numbers
+      .monaco-editor .overflowingContentWidgets, // Parent of popups
+      .monaco-editor .overflowingContentWidgets *, // Popups
+      .editor-scrollable *, // Editor
+      textarea.inputarea, // Editor typing
+      .terminal-outer-container *, // Terminal
+      .monaco-list * // List, scrolling
     ) {
-    transition: left var(--smooth-windows-duration),
-      width var(--smooth-windows-duration);
-  }
-  div[style*="top"][style*="height"]:not(
-      .editor-container *,
-      .terminal-outer-container *,
-      .monaco-list *
-    ) {
-    transition: top var(--smooth-windows-duration),
-      height var(--smooth-windows-duration);
+    &[style*="top"],
+    &[style*="left"],
+    &[style*="width"],
+    &[style*="height"] {
+      transition-property: top, left, width, height;
+      transition-duration: var(--smooth-windows-duration);
+    }
   }
 }
