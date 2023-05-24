@@ -52,7 +52,6 @@ function removeOldConfigPaths(currentPath: string, configPaths: string[]) {
 
     cleanedConfigPaths.push(path); //Keep anything that wasn't filtered out
   }
-  console.log("Config paths", cleanedConfigPaths);
   return cleanedConfigPaths;
 }
 
