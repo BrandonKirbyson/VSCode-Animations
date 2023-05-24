@@ -143,13 +143,7 @@ console.log("UpdateHandler: Enabled");
       }
     });
 
-    //Set interval to add the observer to the tabs-container
-    const addTabsObserver = setInterval(() => {
-      const tabsContainer = document.querySelector(".tabs-container");
-
-      if (!tabsContainer) return; //If the tabs-container does not exist, return
-      clearInterval(addTabsObserver); //Clear the interval
-
+    waitForElement(".tabs-container", (tabsContainer) => {
       //Add the observer to the tabs-container element to listen for changes
       tabsObserver.observe(tabsContainer, {
         childList: true, //Listen to tabs being added or removed
@@ -158,6 +152,49 @@ console.log("UpdateHandler: Enabled");
         attributeFilter: ["title"], //Only listen to changes on the title attribute
         subtree: true, //Listen to the tabs-container children as well
       });
-    }, 10);
+    });
+
+    // const editorLinesObserver = new MutationObserver((mutations) => {
+    //   console.log("Mutations", mutations);
+    //   // document.querySelector(".view-lines")?.childNodes.forEach((node) => {
+    //   // (node as HTMLElement).classList.remove("newLine");
+    //   // });
+    //   mutations.forEach((mutation) => {
+    //     if (mutation.type === "childList") {
+    //       mutation.addedNodes.forEach((node) => {
+    //         if ((node as HTMLElement).classList.contains("newLine")) {
+    //           (node as HTMLElement).classList.remove("newLine");
+    //           return;
+    //         }
+    //         (node as HTMLElement).classList.add("newLine");
+    //         // setTimeout(() => {
+    //         //   if (!node) return;
+    //         //   (node as HTMLElement).classList.remove("newLine");
+    //         // }, 1000);
+    //       });
+    //     }
+    //   });
+    // });
+
+    // waitForElement(".view-lines", (editorLines) => {
+    //   editorLinesObserver.observe(editorLines, {
+    //     childList: true,
+    //   });
+    // });
+
+    /**
+     * Waits for an element to be added to the document and then runs the provided function
+     * @param selector The selector to wait for
+     * @param fn The function to run when the element is added
+     */
+    function waitForElement(selector: string, fn: (element: Element) => void) {
+      const interval = setInterval(() => {
+        const element = document.querySelector(selector);
+        if (element) {
+          clearInterval(interval);
+          fn(element);
+        }
+      }, 10);
+    }
   }
 })();
