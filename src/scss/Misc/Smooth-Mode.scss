@@ -8,10 +8,13 @@
       .monaco-editor .margin *, // Line numbers
       .monaco-editor .overflowingContentWidgets, // Parent of popups
       .monaco-editor .overflowingContentWidgets *, // Popups
+      .monaco-editor .context-view, // Parent of more popups
+      .monaco-editor .context-view *, // More popups
       .editor-scrollable *, // Editor
       textarea.inputarea, // Editor typing
       .terminal-outer-container *, // Terminal
-      .monaco-list * // List, scrolling
+      .monaco-list *, // List, scrolling
+      .notifications-toasts * // Notifications
     ) {
     &[style*="top"],
     &[style*="left"],
