@@ -65,6 +65,11 @@
         "command": "VSCode-Animations.openCustomCSS",
         "title": "Open Custom CSS",
         "category": "Animations"
+      },
+      {
+        "command": "VSCode-Animations.installAnimations",
+        "title": "Install Animations",
+        "category": "Animations"
       }
     ],
     "configuration": {

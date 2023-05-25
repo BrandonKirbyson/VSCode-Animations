@@ -80,6 +80,37 @@ export function activate(context: vscode.ExtensionContext) {
       });
   }
 
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "VSCode-Animations.installAnimations",
+      () => {
+        //Add the root css file to the custom css imports
+        addToConfig(rootJSPath).then((added) => {
+          //If the root css file was added to the config
+          vscode.window
+            .showInformationMessage(
+              "Installed VSCode Animations, reload for animations to take effect",
+              "Reload",
+              "Cancel"
+            )
+            .then((value) => {
+              //If the user clicked the reload button
+              if (value === "Reload") {
+                //Install the custom css extension
+                vscode.commands
+                  .executeCommand("extension.installCustomCSS")
+                  .then(() => {
+                    vscode.commands.executeCommand(
+                      "workbench.action.reloadWindow"
+                    ); //Reload the window
+                  });
+              }
+            });
+        });
+      }
+    )
+  );
+
   /**
    * Register the command to disable the animations
    */
