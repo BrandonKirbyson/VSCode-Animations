@@ -1,0 +1,9 @@
+@use "_Duration";
+
+.monaco-list-row {
+  transition: transform var(--active-duration);
+}
+
+.monaco-list-row.focused {
+  transform: translateX(0.5rem);
+}

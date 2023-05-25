@@ -107,16 +107,15 @@
           "default": "Scale",
           "description": "The animation to use for tabs"
         },
-        "animations.Files": {
+        "animations.Active": {
           "type": "string",
           "enum": [
             "None",
-            "Scale",
-            "Slide",
-            "Flip"
+            "Indent",
+            "Scale"
           ],
-          "default": "Scale",
-          "description": "The animation to use for files"
+          "default": "Indent",
+          "description": "The animation to use for the active list item"
         },
         "animations.Scrolling": {
           "type": "string",

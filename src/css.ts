@@ -78,7 +78,7 @@ export async function getUpdatedCSS(
   /**
    * Adds all enum settings to the css string
    */
-  for (const key of ["Command-Palette", "Tabs", "Files", "Scrolling"]) {
+  for (const key of ["Command-Palette", "Tabs", "Active", "Scrolling"]) {
     const setting = config.get(key) as string;
     if (setting !== "None") {
       css += updateDuration(
