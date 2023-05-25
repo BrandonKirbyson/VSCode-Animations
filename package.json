@@ -114,7 +114,7 @@
             "Indent",
             "Scale"
           ],
-          "default": "Indent",
+          "default": "Scale",
           "description": "The animation to use for the active list item"
         },
         "animations.Scrolling": {
