@@ -58,6 +58,8 @@ You can find this setting by searching for `Cursor Smooth Caret Animation` in se
 
 Here is a little showcase of most of the animations. Sorry for the low quality gifs, they look much better in person!
 
+> **Note:** The gifs are slowed down to show the animations better.
+
 #### Smooth Mode
 
 This is the main feature of the extension. It makes everything super smooth and clean!
