@@ -74,10 +74,10 @@
           "default": true,
           "description": "Whether or not to enable animations"
         },
-        "animations.Smooth-Windows": {
+        "animations.Smooth-Mode": {
           "type": "boolean",
           "default": true,
-          "description": "Whether or not to use smooth animations on all windows (sidebars, split screens, etc.)"
+          "markdownDescription": "Make everything **SMOOTH**! Whether or not to use smooth animations on all windows (sidebars, split screens, etc.)"
         },
         "animations.Custom-CSS": {
           "type": "boolean",

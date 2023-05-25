@@ -91,7 +91,7 @@ export async function getUpdatedCSS(
   /**
    * Adds all boolean settings to the css string
    */
-  for (const key of ["Smooth-Windows"]) {
+  for (const key of ["Smooth-Mode"]) {
     if (config.get(key) as boolean) {
       css += updateDuration(await getCSSFile(`Misc/${key}.css`, cssRoot), key);
     }
