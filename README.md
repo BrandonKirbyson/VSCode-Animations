@@ -96,12 +96,13 @@ A nice little animation for the active item!
 
 All commands can be found by pressing `cmd + shift + p` or `ctrl + shift + p` and searching for `Animations`.
 
-| Command                               | Description                            |
-| ------------------------------------- | -------------------------------------- |
-| `Animations: Enable Animations`       | Enables animation                      |
-| `Animations: Disable Animations`      | Disables animations                    |
-| `Animations: Open Animation Settings` | Opens the animations settings          |
-| `Animations: Open Custom CSS`         | Opens the custom css file in a new tab |
+| Command                               | Description                                                   |
+| ------------------------------------- | ------------------------------------------------------------- |
+| `Animations: Enable Animations`       | Enables animation                                             |
+| `Animations: Disable Animations`      | Disables animations                                           |
+| `Animations: Open Animation Settings` | Opens the animations settings                                 |
+| `Animations: Open Custom CSS`         | Opens the custom css file in a new tab                        |
+| `Animations: Install Animations`      | Installs the animations js handler to vscode, requires reload |
 
 ##### Enabling, disabling or customizing animations will instantly take effect. No need to reload!
 
@@ -147,13 +148,17 @@ If you are having issues with the extension, try these steps:
 
    - Press `cmd + shift + p` or `ctrl + shift + p` and search for `Reload Window` and press enter
 
-2. Make sure you have the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension installed
+2. Run `Animations: Install Animations` command
 
-3. Enable Custom CSS and JS Extension
+   - Press `cmd + shift + p` or `ctrl + shift + p` and search for `Animations: Install Animations` and press enter, then reload when prompted
+
+3. Make sure you have the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension installed
+
+4. Enable Custom CSS and JS Extension
 
    - Press `cmd + shift + p` or `ctrl + shift + p` and search for `Enable Custom CSS and JS` and press enter, then reload when prompted
 
-4. Check the custom css file for errors
+5. Check the custom css file for errors
    - Press `cmd + shift + p` or `ctrl + shift + p` and search for `Open Custom CSS` and press enter
    - Check to see if you made any errors or possibly overrided other styling
 
