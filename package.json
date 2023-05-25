@@ -152,7 +152,7 @@
               "minimum": 0,
               "markdownDescription": "The duration of the animation for tabs in milliseconds, default: `200`"
             },
-            "Files": {
+            "Active": {
               "type": "number",
               "default": 200,
               "maximum": 10000,
@@ -166,7 +166,7 @@
               "minimum": 0,
               "markdownDescription": "The duration of the animation for when new list items appear when scrolling in milliseconds, default: `200`"
             },
-            "Smooth-Windows": {
+            "Smooth-Mode": {
               "type": "number",
               "default": 200,
               "maximum": 10000,
