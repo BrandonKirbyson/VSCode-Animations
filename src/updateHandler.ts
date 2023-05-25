@@ -143,14 +143,39 @@ console.log("UpdateHandler: Enabled");
       }
     });
 
-    waitForElement(".tabs-container", (tabsContainer) => {
-      //Add the observer to the tabs-container element to listen for changes
-      tabsObserver.observe(tabsContainer, {
-        childList: true, //Listen to tabs being added or removed
-        attributes: true, //Listen to changes on the tabs
-        attributeOldValue: true, //Get changes on the tabs
-        attributeFilter: ["title"], //Only listen to changes on the title attribute
-        subtree: true, //Listen to the tabs-container children as well
+    const tabsObserverSettings = {
+      childList: true, //Listen to tabs being added or removed
+      attributes: true, //Listen to changes on the tabs
+      attributeOldValue: true, //Get changes on the tabs
+      attributeFilter: ["title"], //Only listen to changes on the title attribute
+      subtree: true, //Listen to the tabs-container children as well
+    };
+
+    const splitViewObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList") {
+          mutation.addedNodes.forEach((node) => {
+            const tabList = (node as HTMLElement)
+              .querySelector(".tabs-container")
+              ?.getRootNode() as Node; //Get the tablist as a node
+            tabsObserver.observe(tabList, tabsObserverSettings);
+          });
+        }
+      });
+    });
+    waitForElement(".split-view-container", (splitViewContainers) => {
+      waitForElement(".tabs-container", (tabsContainers) => {
+        tabsContainers.forEach((tabsContainer) => {
+          console.log("Observing tabs container");
+          //Add the observer to the tabs-container element to listen for changes
+          tabsObserver.observe(tabsContainer, tabsObserverSettings);
+        });
+      });
+
+      splitViewContainers.forEach((splitViewContainer) => {
+        splitViewObserver.observe(splitViewContainer, {
+          childList: true,
+        });
       });
     });
 
@@ -187,10 +212,13 @@ console.log("UpdateHandler: Enabled");
      * @param selector The selector to wait for
      * @param fn The function to run when the element is added
      */
-    function waitForElement(selector: string, fn: (element: Element) => void) {
+    function waitForElement(
+      selector: string,
+      fn: (element: NodeListOf<Element>) => void
+    ) {
       const interval = setInterval(() => {
-        const element = document.querySelector(selector);
-        if (element) {
+        const element = document.querySelectorAll(selector);
+        if (element.length > 0) {
           clearInterval(interval);
           fn(element);
         }
