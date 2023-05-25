@@ -9,9 +9,9 @@
 
 <hr />
 
-**VSCode Animations** is a Visual Studio Code extension that adds clean animations to the vscode UI. This is the **first** extension to add animations to vscode and is a **must-have** because vscode lacks many needed animations that this extension easily provides, not to mention that it also adds **many more** animations and is all **customizable**.
+**VSCode Animations** is a Visual Studio Code extension that adds clean animations to the vscode UI. This is the **first** and **only** extension to add animations to vscode and is a **must-have** because vscode lacks many needed animations that this extension easily provides, not to mention that it also adds **many more** animations and is all **customizable**.
 
-> This extension is actively being developed and will gain many more animations over time.
+> This extension is actively being developed and will gain many more animations over time. Feel free to request any animations you would like to see added!
 
 Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 
@@ -40,6 +40,8 @@ Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 
 Check [here](#troubleshooting) if you have any issues.
 
+> **Note:** The extension should prompt you to reload when it gets updated.
+
 ##### Dependencies
 
 This extension requires [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css). If you do not have it installed, you will be prompted to install it.
@@ -54,25 +56,37 @@ You can find this setting by searching for `Cursor Smooth Caret Animation` in se
 
 ## Showcase
 
+Here is a little showcase of most of the animations. Sorry for the low quality gifs, they look much better in person!
+
+#### Smooth Mode
+
+This is the main feature of the extension. It makes everything super smooth and clean!
+
+<img src="./static/gifs/Smooth-Mode.gif" alt="Smooth-Mode" width="300"/>
+
 #### Command Palette
+
+This is fun and satisfying to use!
 
 <img src="./static/gifs/Command-Palette.gif" alt="Command-Palette" width="300" />
 
 #### Tabs
 
+A must-have for tabs!
+
 <img src="./static/gifs/Tabs.gif" alt="Tabs" width="300"/>
 
 #### Scrolling
 
+Satisfying scrolling if you like that sort of thing!
+
 <img src="./static/gifs/Scrolling.gif" alt="Scrolling" width="100"/>
 
-#### Smooth Windows
+#### Active
 
-<img src="./static/gifs/Smooth-Windows.gif" alt="Smooth-Windows" width="300"/>
+A nice little animation for the active item!
 
-#### Files
-
-<img src="./static/gifs/Files.gif" alt="Files" width="300"/>
+<img src="./static/gifs/Active.gif" alt="Active" width="300"/>
 
 #### ...more coming soon!
 
@@ -99,16 +113,16 @@ For customizing each type of animation, you can refer to the list below to see w
 
 | Menu Item         | Options                          |
 | ----------------- | -------------------------------- |
-| `Command Palette` | `None`, `Scale`, `Slide`         |
+| `Command Palette` | `None`, `Scale`, `Slide`, `Fade` |
 | `Tabs`            | `None`, `Scale`, `Slide`, `Flip` |
 | `Scrolling`       | `None`, `Scale`, `Slide`, `Fade` |
-| `Files`           | `None`, `Scale`, `Slide`, `Flip` |
+| `Active`          | `None`, `Scale`, `Indent`        |
 
 ### Toggles
 
 You can toggle animations on and off for each menu item. This is useful if you want to disable animations for a specific menu item.
 
-- `Smooth Windows`
+- `Smooth Mode`
 - `Custom CSS`
 
 ### Durations
