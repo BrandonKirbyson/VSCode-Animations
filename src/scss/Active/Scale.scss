@@ -1,10 +1,9 @@
 @use "_Duration";
 
-.monaco-list-row {
+.monaco-list-row:not(.explorer-folders-view .monaco-list-row) {
   transition: transform var(--active-duration);
   transform: scale(0.98);
-}
-
-.monaco-list-row.focused {
-  transform: scale(1);
+  &.focused {
+    transform: scale(1);
+  }
 }
