@@ -166,7 +166,6 @@ console.log("UpdateHandler: Enabled");
     waitForElement(".split-view-container", (splitViewContainers) => {
       waitForElement(".tabs-container", (tabsContainers) => {
         tabsContainers.forEach((tabsContainer) => {
-          console.log("Observing tabs container");
           //Add the observer to the tabs-container element to listen for changes
           tabsObserver.observe(tabsContainer, tabsObserverSettings);
         });
