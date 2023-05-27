@@ -4,7 +4,10 @@
   animation: scrollAppear var(--scrolling-duration);
 }
 
-.quick-input-widget .monaco-list-rows[style*="top: 0px;"] .monaco-list-row {
+.quick-input-widget .monaco-list-rows[style*="top: 0px;"] .monaco-list-row,
+.settings-tree-container
+  .monaco-list-rows[style*="top: 0px;"]
+  .monaco-list-row {
   animation-duration: 0ms;
 }
 
