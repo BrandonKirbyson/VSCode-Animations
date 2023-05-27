@@ -9,7 +9,7 @@ const extensionConfig: webpack.Configuration = {
   entry: {
     // the entry point of this extension, 📖 -> https://webpack.js.org/configuration/entry-context/
     extension: "./src/extension.ts",
-    updateHandler: "./src/updateHandler.ts",
+    updateHandler: "./src/custom/updateHandler.ts",
   },
   output: {
     // the bundle is stored in the 'dist' folder (check package.json), 📖 -> https://webpack.js.org/configuration/output/

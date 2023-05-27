@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { sendMessage } from "./messenger";
+import { getMessengerData, sendMessage } from "./messenger";
 
 /**
  * Generates the root css file
@@ -11,9 +11,9 @@ export function generateCSS(context: vscode.ExtensionContext) {
   //Gets the updated css
   getUpdatedCSS(context, cssDirectory).then((css) => {
     if (vscode.workspace.getConfiguration("animations").get("Enabled")) {
-      sendMessage(css);
+      sendMessage(getMessengerData(css));
     } else {
-      sendMessage("/*Animations Disabled*/");
+      sendMessage(getMessengerData(""));
     }
   });
 }
