@@ -2,7 +2,8 @@
   --smooth-windows-duration: /*<Duration>*/ 300ms; /*</Duration>*/
 }
 
-.split-view-container {
+.monaco-workbench:not(.monaco-workbench:has(.monaco-sash.active)) //Selects when not resizing
+  .split-view-container {
   div:not(
       .monaco-editor .margin, // Parent of line numbers
       .monaco-editor .margin *, // Line numbers
