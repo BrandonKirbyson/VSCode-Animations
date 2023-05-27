@@ -45,7 +45,11 @@ Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 
 4. Enjoy the animations!
 
-Check [here](#troubleshooting) if you have any issues.
+#### Troubleshooting
+
+If it doesn't seem to work, open the command palette (`cmd + shift + p` or `ctrl + shift + p`) and search for `Reload Custom CSS and JS`.
+
+If it still doesnt work, check [here](#troubleshooting) for more steps.
 
 > **Note:** The extension should prompt you to reload when it gets updated.
 
