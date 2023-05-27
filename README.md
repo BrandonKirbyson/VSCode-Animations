@@ -13,6 +13,8 @@
 
 > This extension is actively being developed and will gain many more animations over time. Feel free to request any animations you would like to see added!
 
+https://github.com/BrandonKirbyson/VSCode-Animations/assets/86384607/b6f951e4-b246-4410-89ea-46cbc170ca6a
+
 Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 
 ## Table of Contents
