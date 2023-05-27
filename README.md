@@ -38,7 +38,12 @@ Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 2. Reload the editor when prompted
    Once you have installed and enabled `VSCode Animations`, you should get a popup that prompts you to reload for animations to take effect. Press `Reload` and you will see the animations be applied.
 
-3. Enjoy the animations!
+3. You might see a prompt that says `"VSCode installation is corrupt"`.
+
+   - To fix, click the settings icon on the notification and `"Do not show again"`.
+   - Unfortunately custom js and css needs to be embedded into vscode's UI itself so vscode will throw a warning.
+
+4. Enjoy the animations!
 
 Check [here](#troubleshooting) if you have any issues.
 
