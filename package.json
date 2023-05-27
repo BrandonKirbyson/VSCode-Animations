@@ -174,6 +174,52 @@
               "markdownDescription": "The duration of the animation for when new list items appear when scrolling in milliseconds, default: `200`"
             }
           }
+        },
+        "animations.CursorAnimation": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether or not to enable the cursor animation"
+        },
+        "animations.CursorAnimationOptions": {
+          "type": "object",
+          "description": "The cursor animation settings",
+          "additionalProperties": false,
+          "default": {
+            "Color": "#ffffff",
+            "CursorType": "block",
+            "TrailLength": 8,
+            "UpdateRate": 500
+          },
+          "properties": {
+            "Color": {
+              "type": "string",
+              "default": "#ffffff",
+              "description": "The color of the cursor animation"
+            },
+            "CursorType": {
+              "type": "string",
+              "enum": [
+                "line",
+                "block"
+              ],
+              "default": "block",
+              "markdownDescription": "The type of cursor to use, either `line` or `block`"
+            },
+            "TrailLength": {
+              "type": "number",
+              "default": 8,
+              "minimum": 1,
+              "maximum": 100,
+              "markdownDescription": "The length of the cursor trail, should stay around `8`, higher might cause performance issues"
+            },
+            "UpdateRate": {
+              "type": "number",
+              "default": 500,
+              "minimum": 1,
+              "maximum": 2000,
+              "markdownDescription": "The update rate of the cursor animation, should stay around `500`, higher might cause performance issues"
+            }
+          }
         }
       }
     }
