@@ -61,9 +61,9 @@ It is an amazing extension that you can learn more about [here](https://github.c
 
 ##### Personal Recommendation
 
-I recommend turning on smooth cursor animations in vscode settings. This will make the cursor animate when moving it around the editor and looks really clean with this extension.
+If you are using the cursor animations from this extension, I recommend turning cursor blinking to `smooth` because `blink` can make the animation look a little weird.
 
-You can find this setting by searching for `Cursor Smooth Caret Animation` in settings (`cmd + ,` or `ctrl + ,`).
+You can find this setting by searching for `Editor: Cursor Blinking` in settings (`cmd + ,` or `ctrl + ,`).
 
 ## Showcase
 
@@ -94,6 +94,12 @@ A must-have for tabs!
 Satisfying scrolling if you like that sort of thing!
 
 <img src="./static/gifs/Scrolling.gif" alt="Scrolling" width="100"/>
+
+#### Cursor
+
+A nice little cursor animation, inspired by [this](https://github.com/qwreey75/dotfiles/tree/master/vscode/trailCursorEffect).
+
+<img src="./static/gifs/Cursor.gif" alt="Cursor" width="300"/>
 
 #### Active
 
@@ -142,6 +148,18 @@ You can toggle animations on and off for each menu item. This is useful if you w
 ### Durations
 
 In settings, you can find the durations setting with is a json object that can apply custom durations to any animations. Reference the lists above to see what animations you can change the duration of.
+
+### Cursor
+
+You can customize the cursor animation by running the `Animations: Open Animation Settings` command or opening settings (`cmd + ,` or `ctrl + ,`) and searching for `Animations`. There you can change the cursor animation style, toggle the cursor animation, and change more of the animtion settings.
+
+#### Cursor Animation Settings
+
+| Setting       | Description                                  | Options                          |
+| ------------- | -------------------------------------------- | -------------------------------- |
+| `Color`       | The color of the cursor animation            | `Hex` or `RGB` color as `string` |
+| `Style`       | The type of animation to use for the cursor. | `Block`, `Line`                  |
+| `TrailLength` | The length of the trail behind the cursor.   | `Number`                         |
 
 ## Custom CSS
 
