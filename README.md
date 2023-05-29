@@ -11,6 +11,8 @@
 
 **VSCode Animations** is a Visual Studio Code extension that adds clean animations to the vscode UI. This is the **first** and **only** extension to add animations to vscode and is a **must-have** because vscode lacks many needed animations that this extension easily provides, not to mention that it also adds **many more** animations and is all **customizable**.
 
+Check out [Discussions](https://github.com/BrandonKirbyson/VSCode-Animations/discussions) for Q&A, suggestions, announcements and more!
+
 > This extension is actively being developed and will gain many more animations over time. Feel free to request any animations you would like to see added!
 
 [Demo Video](https://github.com/BrandonKirbyson/VSCode-Animations/assets/86384607/b6f951e4-b246-4410-89ea-46cbc170ca6a)
