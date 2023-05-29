@@ -4,6 +4,10 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [1.0.7] - 2023-05-29
+
+- Cleaned up code
+
 ## [1.0.6] - 2023-05-29
 
 - Added cursor animation
