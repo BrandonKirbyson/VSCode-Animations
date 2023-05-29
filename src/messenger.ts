@@ -44,8 +44,8 @@ export function getMessengerData(css: string): MessengerData {
       cursorAnimation: {
         enabled: settings.get("CursorAnimation"),
         color: (settings.get("CursorAnimationOptions") as any)["Color"],
-        cursorType: (settings.get("CursorAnimationOptions") as any)[
-          "CursorType"
+        cursorStyle: (settings.get("CursorAnimationOptions") as any)[
+          "CursorStyle"
         ],
         trailLength: Math.max(
           Math.min(
@@ -54,20 +54,10 @@ export function getMessengerData(css: string): MessengerData {
           ),
           1
         ),
-        updateRate: Math.max(
-          Math.min(
-            (settings.get("CursorAnimationOptions") as any)["UpdateRate"],
-            2000
-          ),
-          1
-        ),
       },
     },
     css: css,
   };
-
-  console.log("Color", settings.get("CursorAnimationOptions"));
-  console.log("VSCode-Animations Data", data);
 
   return data;
 }

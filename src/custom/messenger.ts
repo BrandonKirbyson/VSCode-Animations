@@ -3,9 +3,8 @@ export interface MessengerData {
     cursorAnimation: {
       enabled: boolean;
       color: string;
-      cursorType: "block" | "line";
+      cursorStyle: "block" | "line";
       trailLength: number;
-      updateRate: number;
     };
   };
   css: string;
@@ -59,9 +58,8 @@ export class Messenger {
         cursorAnimation: {
           enabled: false,
           color: "#ffffff",
-          cursorType: "block",
+          cursorStyle: "line",
           trailLength: 8,
-          updateRate: 500,
         },
       },
       css: "",

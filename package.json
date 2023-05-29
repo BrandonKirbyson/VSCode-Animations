@@ -186,9 +186,8 @@
           "additionalProperties": false,
           "default": {
             "Color": "#ffffff",
-            "CursorType": "block",
-            "TrailLength": 8,
-            "UpdateRate": 500
+            "CursorStyle": "block",
+            "TrailLength": 8
           },
           "properties": {
             "Color": {
@@ -196,7 +195,7 @@
               "default": "#ffffff",
               "description": "The color of the cursor animation"
             },
-            "CursorType": {
+            "CursorStyle": {
               "type": "string",
               "enum": [
                 "line",
@@ -211,13 +210,6 @@
               "minimum": 1,
               "maximum": 100,
               "markdownDescription": "The length of the cursor trail, should stay around `8`, higher might cause performance issues"
-            },
-            "UpdateRate": {
-              "type": "number",
-              "default": 500,
-              "minimum": 1,
-              "maximum": 2000,
-              "markdownDescription": "The update rate of the cursor animation, should stay around `500`, higher might cause performance issues"
             }
           }
         }
