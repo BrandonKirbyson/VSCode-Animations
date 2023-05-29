@@ -26,7 +26,6 @@ console.log("VSCode-Animations: Successfully Installed!");
       if (data.settings.cursorAnimation.enabled) {
         if (!cursorAnimation) {
           cursorAnimation = new CursorAnimation(data.settings.cursorAnimation); // If the cursorAnimation is not defined, create a new one
-          console.log("Creating new cursor!");
         }
 
         cursorAnimation.updateOptions(data.settings.cursorAnimation); // Update the options

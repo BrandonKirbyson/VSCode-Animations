@@ -25,8 +25,6 @@ export function initMessenger() {
  * @param css The css string to send to the vscode ui
  */
 export function sendMessage(data: MessengerData) {
-  // console.log("VSCode-Animations Data", data);
-
   const content = JSON.stringify(data);
   messengerItem.accessibilityInformation = {
     label: content,

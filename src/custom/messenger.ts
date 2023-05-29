@@ -38,7 +38,6 @@ export class Messenger {
           ) {
             const newCSS = mutation.target.getAttribute("aria-label");
             if (newCSS) {
-              console.log("VSCode-Animations: Updated CSS", this.data);
               handlers.onUpdate(this.data);
             }
           }
