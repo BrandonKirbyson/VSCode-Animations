@@ -135,13 +135,6 @@ export class CursorAnimation {
     canvas: HTMLCanvasElement;
     sizeY?: number;
   }) {
-    // const totalParticles = options?.length || 20;
-    // let this._options.color = options?.color || "#A052FF"
-    // let this._options.color = getComputedStyle(document.querySelector("body > .monaco-workbench")).getPropertyValue("--vscode-textLink-activeForeground");
-
-    // console.log("color", this._options.color)
-
-    // const style = options?.style || "block";
     const canvas = options?.canvas;
     const context = canvas.getContext("2d") as CanvasRenderingContext2D;
     let cursor = { x: 0, y: 0 };
@@ -288,7 +281,6 @@ export class CursorAnimation {
 
     const updateParticles = () => {
       if (!cursorsInitted) return;
-      console.log("Drawing cursor");
 
       context.clearRect(0, 0, width, height);
       calculatePosition();
@@ -336,7 +328,6 @@ export class CursorAnimation {
       await new Promise((resolve) => setTimeout(resolve, 100));
       editor = document.querySelector(".part.editor");
     }
-    console.log("Editor loaded", editor);
     handlerFunctions?.onStarted(editor);
 
     // cursor cache
@@ -357,7 +348,6 @@ export class CursorAnimation {
     ) {
       let lastX: number, lastY: number; // save last position
       let update = (editorX: number, editorY: number) => {
-        // console.log("update");
         // If cursor was destroyed, remove update handler
         if (!lastObjects[cursorId]) {
           updateHandlers.splice(updateHandlers.indexOf(update), 1);
@@ -444,9 +434,7 @@ export class CursorAnimation {
 
     // read cursor position polling
     const updateLoop = () => {
-      // console.log("updateLoop");
       if (!this._interval) {
-        // console.log("stopping updateLoop");
         return;
       }
       let { left: editorX, top: editorY } = (
