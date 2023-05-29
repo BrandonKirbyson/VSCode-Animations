@@ -1,3 +1,5 @@
+// Based off this: https://github.com/qwreey75/dotfiles/tree/master/vscode/trailCursorEffect, but with some modifications and all converted to typescript
+
 /**
  * The options for the cursor animation
  */
@@ -5,7 +7,6 @@ interface CursorOptions {
   color: string;
   cursorStyle: "block" | "line";
   trailLength: number;
-  updateRate: number;
 }
 
 /**
@@ -33,18 +34,18 @@ export class CursorAnimation {
     stop: () => void;
   };
 
+  private _interval: NodeJS.Timer | null = null;
+
   /**
    * The constructor for the cursor animation
    * @param options The options for the cursor animation
    */
   constructor(options: Partial<CursorOptions>) {
-    console.log("Options", options);
     // Set the options or use the default options
     this._options = {
-      color: options?.color || "#A052FF",
+      color: options?.color || "#ffffff",
       cursorStyle: options?.cursorStyle || "block",
       trailLength: options?.trailLength || 8,
-      updateRate: options?.updateRate || 500,
     };
 
     this.init();
@@ -60,7 +61,6 @@ export class CursorAnimation {
       options?.cursorStyle || this._options.cursorStyle;
     this._options.trailLength =
       options?.trailLength || this._options.trailLength;
-    this._options.updateRate = options?.updateRate || this._options.updateRate;
   }
 
   /**
@@ -68,14 +68,16 @@ export class CursorAnimation {
    */
   public destroy() {
     this._cursorHandle.stop();
+    //@ts-ignore
+    this._cursorHandle = null;
+
     this._cursorCanvas.remove();
+    if (this._interval) clearInterval(this._interval);
+    this._interval = null;
   }
 
   private init() {
     this.createCursorHandler({
-      // cursor create/destroy event handler polling rate
-      cursorUpdatePollingRate: this._options.updateRate,
-
       // When editor instance stared
       onStarted: (editor: Element) => {
         // create new canvas for make animation
@@ -126,22 +128,22 @@ export class CursorAnimation {
   }
 
   private createTrail(options: {
-    length: any;
+    length: number;
     color?: string;
-    size: any;
-    style: any;
-    canvas: any;
-    sizeY?: any;
+    size: number;
+    style: string;
+    canvas: HTMLCanvasElement;
+    sizeY?: number;
   }) {
-    const totalParticles = options?.length || 20;
+    // const totalParticles = options?.length || 20;
     // let this._options.color = options?.color || "#A052FF"
     // let this._options.color = getComputedStyle(document.querySelector("body > .monaco-workbench")).getPropertyValue("--vscode-textLink-activeForeground");
 
     // console.log("color", this._options.color)
 
-    const style = options?.style || "block";
+    // const style = options?.style || "block";
     const canvas = options?.canvas;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d") as CanvasRenderingContext2D;
     let cursor = { x: 0, y: 0 };
     let particles: Particle[] = [];
     let width: number, height: number;
@@ -158,17 +160,17 @@ export class CursorAnimation {
     }
 
     // update cursor position
-    function move(x: number, y: number) {
+    const move = (x: number, y: number) => {
       x = x + sizeX / 2;
       cursor.x = x;
       cursor.y = y;
       if (cursorsInitted === false) {
         cursorsInitted = true;
-        for (let i = 0; i < totalParticles; i++) {
+        for (let i = 0; i < this._options.trailLength; i++) {
           addParticle(x, y);
         }
       }
-    }
+    };
 
     // particle class
     class Particle {
@@ -218,9 +220,10 @@ export class CursorAnimation {
         let offset = yoffset * ymut;
         for (
           let particleIndex = 0;
-          particleIndex < totalParticles;
+          particleIndex < this._options.trailLength;
           particleIndex++
         ) {
+          if (!particles[particleIndex]) continue;
           const pos = particles[particleIndex].position;
           if (particleIndex === 0) {
             context.moveTo(pos.x, pos.y + offset + lineWidth / 2);
@@ -240,9 +243,10 @@ export class CursorAnimation {
       // draw path
       for (
         let particleIndex = 0;
-        particleIndex < totalParticles;
+        particleIndex < this._options.trailLength;
         particleIndex++
       ) {
+        if (!particles[particleIndex]) continue;
         const pos = particles[+particleIndex].position;
         if (particleIndex === 0) {
           context.moveTo(pos.x, pos.y);
@@ -251,7 +255,7 @@ export class CursorAnimation {
         }
       }
       for (
-        let particleIndex = totalParticles - 1;
+        let particleIndex = this._options.trailLength - 1;
         particleIndex >= 0;
         particleIndex--
       ) {
@@ -269,7 +273,7 @@ export class CursorAnimation {
       let offset = -sizeX / 2 + sizeY / 2;
       for (
         let particleIndex = 0;
-        particleIndex < totalParticles;
+        particleIndex < this._options.trailLength;
         particleIndex++
       ) {
         const pos = particles[particleIndex].position;
@@ -282,16 +286,20 @@ export class CursorAnimation {
       context.stroke();
     };
 
-    function updateParticles() {
+    const updateParticles = () => {
       if (!cursorsInitted) return;
+      console.log("Drawing cursor");
 
       context.clearRect(0, 0, width, height);
       calculatePosition();
 
       //Draw cursor
-      if (style === "block") drawLines();
-      else drawPath();
-    }
+      if (this._options.cursorStyle === "block") {
+        drawPath();
+      } else {
+        drawLines();
+      }
+    };
 
     function updateCursorSize(newSize: number, newSizeY: number) {
       sizeX = newSize;
@@ -299,8 +307,9 @@ export class CursorAnimation {
     }
 
     function stop() {
-      cursorsInitted = false;
+      // cursorsInitted = false;
       particles = [];
+      context.clearRect(0, 0, width, height);
     }
 
     return {
@@ -313,14 +322,13 @@ export class CursorAnimation {
   }
 
   private async createCursorHandler(handlerFunctions: {
-    cursorUpdatePollingRate: number;
     onStarted: (editor: HTMLElement) => void;
     onReady: () => void;
     onCursorPositionUpdated: (x: number, y: number) => void;
     onEditorSizeUpdated: (x: number, y: number) => void;
     onCursorSizeUpdated: (x: number, y: number) => void;
     onCursorVisibilityChanged: (visible: boolean) => void;
-    onLoop: any;
+    onLoop: () => void;
   }) {
     //Wait for editor to load
     let editor: HTMLElement | null = null;
@@ -328,6 +336,7 @@ export class CursorAnimation {
       await new Promise((resolve) => setTimeout(resolve, 100));
       editor = document.querySelector(".part.editor");
     }
+    console.log("Editor loaded", editor);
     handlerFunctions?.onStarted(editor);
 
     // cursor cache
@@ -336,7 +345,7 @@ export class CursorAnimation {
       (editorX: number, editorY: number): void;
     }[] = [];
     let cursorId = 0;
-    let lastObjects: any[] = [];
+    let lastObjects: HTMLElement[] = [];
     let lastCursor = 0;
 
     // cursor update handler
@@ -348,6 +357,7 @@ export class CursorAnimation {
     ) {
       let lastX: number, lastY: number; // save last position
       let update = (editorX: number, editorY: number) => {
+        // console.log("update");
         // If cursor was destroyed, remove update handler
         if (!lastObjects[cursorId]) {
           updateHandlers.splice(updateHandlers.indexOf(update), 1);
@@ -389,7 +399,7 @@ export class CursorAnimation {
 
     // handle cursor create/destroy event (using polling, due to event handlers are LAGGY)
     let lastVisibility = false;
-    setInterval(async () => {
+    this._interval = setInterval(async () => {
       let now: number[] = [],
         count = 0;
 
@@ -430,17 +440,22 @@ export class CursorAnimation {
         if (now.includes(+id)) continue;
         delete lastObjects[+id];
       }
-    }, handlerFunctions?.cursorUpdatePollingRate || 500);
+    }, 500);
 
     // read cursor position polling
-    function updateLoop() {
+    const updateLoop = () => {
+      // console.log("updateLoop");
+      if (!this._interval) {
+        // console.log("stopping updateLoop");
+        return;
+      }
       let { left: editorX, top: editorY } = (
         editor as HTMLElement
       ).getBoundingClientRect();
       for (const handler of updateHandlers) handler(editorX, editorY);
       handlerFunctions?.onLoop();
       requestAnimationFrame(updateLoop);
-    }
+    };
 
     // handle editor view size changed event
     function updateEditorSize() {
@@ -449,7 +464,8 @@ export class CursorAnimation {
         (editor as HTMLElement).clientHeight
       );
     }
-    new ResizeObserver(updateEditorSize).observe(editor);
+    const resizeObserver = new ResizeObserver(updateEditorSize);
+    resizeObserver.observe(editor);
     updateEditorSize();
 
     // startup

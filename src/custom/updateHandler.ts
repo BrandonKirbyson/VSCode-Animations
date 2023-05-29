@@ -9,7 +9,7 @@ console.log("VSCode-Animations: Successfully Installed!");
  * This is responsible for updating the css file when it changes
  */
 (() => {
-  let cursorAnimation: CursorAnimation;
+  let cursorAnimation: CursorAnimation | null = null; // The cursorAnimation class
 
   // Create the messenger class
   const messenger = new Messenger({
@@ -24,12 +24,15 @@ console.log("VSCode-Animations: Successfully Installed!");
       updateCustomCSS(data.css);
 
       if (data.settings.cursorAnimation.enabled) {
-        if (!cursorAnimation)
+        if (!cursorAnimation) {
           cursorAnimation = new CursorAnimation(data.settings.cursorAnimation); // If the cursorAnimation is not defined, create a new one
+          console.log("Creating new cursor!");
+        }
 
         cursorAnimation.updateOptions(data.settings.cursorAnimation); // Update the options
       } else {
-        cursorAnimation.destroy(); // Destroy the cursorAnimation
+        if (cursorAnimation) cursorAnimation.destroy(); // Destroy the cursorAnimation
+        cursorAnimation = null; // Set the cursorAnimation to null
       }
     },
   });
