@@ -183,23 +183,28 @@ If you are having issues with the extension, try these steps:
 
    - Press `cmd + shift + p` or `ctrl + shift + p` and search for `Animations: Install Animations` and press enter, then reload when prompted
 
-3. Make sure you have the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension installed
+3. Make sure you have the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension installed and enabled
 
 4. Enable Custom CSS and JS Extension
 
    - Press `cmd + shift + p` or `ctrl + shift + p` and search for `Enable Custom CSS and JS` and press enter, then reload when prompted
 
 5. Check the custom css file for errors
+
    - Press `cmd + shift + p` or `ctrl + shift + p` and search for `Open Custom CSS` and press enter
    - Check to see if you made any errors or possibly overrided other styling
+
+6. Uninstall and reinstall the extension
+
+   - Your settings should be saved but your custom css if you have any will be deleted so make sure to back that up
 
 If you are still having issues, please open an issue.
 
 ## Contributing
 
-If you have any suggestions or find an issue, please open an issue or pull request.
+If you have any suggestions or find an issue, please open an issue, pull request, or start a discussion.
 
-If you would like to request an animation, please open an issue with the `animation` label and I will try to add it. If you have the css for the animation, please include it in the issue and I can integrate it into the extension.
+If you would like to request an animation, please open an issue or discussion with the `animation` label and I will try to add it. If you have the css or an example of the animation in action, feel free to include it in the issue or discussion.
 
 <br>
 
