@@ -2,7 +2,7 @@
   --smooth-windows-duration: /*<Duration>*/ 300ms; /*</Duration>*/
 }
 
-.monaco-workbench:not(.monaco-workbench:has(.monaco-sash.active)) //Selects when not resizing
+.monaco-workbench:not(.monaco-workbench:has(.monaco-sash.active), .monaco-workbench:has(div > iframe)) //Selects when not resizing or previewing
   .split-view-container {
   div:not(
       .monaco-editor .margin, // Parent of line numbers
@@ -15,7 +15,9 @@
       textarea.inputarea, // Editor typing
       .terminal-outer-container *, // Terminal
       .monaco-list *, // List, scrolling
-      .notifications-toasts * // Notifications
+      .notifications-toasts *, // Notifications
+      // div:has(> iframe), // Preview
+      div:has(> iframe) * // Preview
     ) {
     &[style*="top"],
     &[style*="left"],
@@ -26,3 +28,5 @@
     }
   }
 }
+
+// document.querySelectorAll(".monaco-sash")[9].dispatchEvent(new MouseEvent("move", {left: 1}))
