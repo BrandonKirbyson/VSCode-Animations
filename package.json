@@ -23,7 +23,7 @@
   "homepage": "https://github.com/BrandonKirbyson/VSCode-Animations#readme",
   "license": "MIT",
   "engines": {
-    "vscode": "^1.78.0"
+    "vscode": "^1.64.0"
   },
   "categories": [
     "Themes",
