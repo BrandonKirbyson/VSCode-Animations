@@ -1,17 +1,4 @@
-@use "_Duration";
-
-.monaco-list-row {
-  animation: scrollAppear var(--scrolling-duration);
-}
-
-.quick-input-widget .monaco-list-rows[style*="top: 0px;"] .monaco-list-row,
-.settings-tree-container
-  .monaco-list-rows[style*="top: 0px;"]
-  .monaco-list-row {
-  animation-duration: 0ms;
-}
-
-@keyframes scrollAppear {
+@keyframes scrollingAnimation {
   from {
     opacity: 0.5;
     transform: translateX(-50%);
