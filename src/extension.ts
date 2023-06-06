@@ -21,13 +21,13 @@ export function activate(context: vscode.ExtensionContext) {
     if (added) {
       vscode.window
         .showInformationMessage(
-          "Installed VSCode Animations, reload for animations to take effect",
-          "Reload",
+          "Install VSCode Animations, install will reload window for animations to take effect",
+          "Install",
           "Cancel"
         )
         .then((value) => {
           //If the user clicked the reload button
-          if (value === "Reload") {
+          if (value === "Install") {
             //Install the custom css extension
             vscode.commands
               .executeCommand("extension.installCustomCSS")
