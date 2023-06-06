@@ -24,7 +24,7 @@ export function initTabsHandler() {
       )
         return;
 
-      console.log(mutation);
+      // console.log(mutation);
 
       if (mutation.type === "childList") {
         if (mutation.addedNodes.length > 0) {
@@ -118,7 +118,7 @@ export function initTabsHandler() {
       void (tab as HTMLElement).offsetWidth; //This line is very important, it forces the browser to reflow the element
     });
 
-    console.log("tabs", mutationData);
+    // console.log("tabs", mutationData);
 
     if (mutationData.added && mutationData.updated.length > 0) {
       (mutationData.updated[0] as HTMLElement).classList.add("newTab");
