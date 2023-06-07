@@ -4,6 +4,10 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [1.0.9] - 2023-05-29
+
+- Fixed scrolling animation not working at all
+
 ## [1.0.8] - 2023-05-29
 
 - Fixed preview bug
