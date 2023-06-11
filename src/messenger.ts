@@ -48,7 +48,7 @@ export function getMessengerData(css: string): MessengerData {
         trailLength: Math.max(
           Math.min(
             (settings.get("CursorAnimationOptions") as any)["TrailLength"],
-            100
+            50
           ),
           1
         ),
