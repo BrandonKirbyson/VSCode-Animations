@@ -17,6 +17,8 @@ Check out [Discussions](https://github.com/BrandonKirbyson/VSCode-Animations/dis
 
 [Demo Video](https://github.com/BrandonKirbyson/VSCode-Animations/assets/86384607/b6f951e4-b246-4410-89ea-46cbc170ca6a)
 
+The theme used in the demo is [Solarized Palenight](https://marketplace.visualstudio.com/items?itemName=BrandonKirbyson.solarized-palenight).
+
 Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 
 ## Table of Contents
