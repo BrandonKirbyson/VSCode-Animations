@@ -252,6 +252,7 @@ export class CursorAnimation {
         particleIndex >= 0;
         particleIndex--
       ) {
+        if (!particles[particleIndex]) continue;
         const pos = particles[+particleIndex].position;
         context.lineTo(pos.x, pos.y + sizeY);
       }
@@ -269,6 +270,7 @@ export class CursorAnimation {
         particleIndex < this._options.trailLength;
         particleIndex++
       ) {
+        if (!particles[particleIndex]) continue;
         const pos = particles[particleIndex].position;
         if (particleIndex === 0) {
           context.moveTo(pos.x, pos.y + offset);
@@ -371,7 +373,7 @@ export class CursorAnimation {
         if (target.style.visibility !== "inherit") return;
 
         // if moved over minimap, ignore
-        if (minimap && minimap.getBoundingClientRect().left <= newX) return;
+        // if (minimap && minimap.getBoundingClientRect().left <= newX) return;
 
         // if cursor is not displayed on screen, ignore
         if (cursorHolder.getBoundingClientRect().left > newX) return;
