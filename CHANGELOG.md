@@ -4,6 +4,11 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [1.0.10] - 2023-05-29
+
+- Fixed cursor animation not working when minimap is disable
+- Fixed positioning issue with jupyter
+
 ## [1.0.9] - 2023-05-29
 
 - Fixed scrolling animation not working at all
