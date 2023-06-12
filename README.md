@@ -2,7 +2,7 @@
 <p align="center" style="font-weight: bold; font-size: 2rem;">VSCode Animations</p>
 <p align="center">
  <img alt="Visual Studio Marketplace Rating (Stars)" src="https://img.shields.io/visual-studio-marketplace/stars/brandonkirbyson.vscode-animations?color=blue&style=for-the-badge">
-<img alt="Visual Studio Marketplace Downloads" src="https://img.shields.io/visual-studio-marketplace/d/brandonkirbyson.vscode-animations?style=for-the-badge&color=brightgreen">
+<img alt="Visual Studio Marketplace Downloads" src="https://img.shields.io/visual-studio-marketplace/i/brandonkirbyson.vscode-animations?style=for-the-badge&color=brightgreen">
  <img alt="Visual Studio Marketplace Version" src="https://img.shields.io/visual-studio-marketplace/v/brandonkirbyson.vscode-animations?color=blue&style=for-the-badge&color=brightgreen">
  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/brandonkirbyson/vscode-animations?color=blue&style=for-the-badge">
 </p>
