@@ -15,7 +15,9 @@ Check out [Discussions](https://github.com/BrandonKirbyson/VSCode-Animations/dis
 
 > This extension is actively being developed and will gain many more animations over time. Feel free to request any animations you would like to see added!
 
-[Demo Video](https://github.com/BrandonKirbyson/VSCode-Animations/assets/86384607/b6f951e4-b246-4410-89ea-46cbc170ca6a)
+<!-- [Demo Video](https://github.com/BrandonKirbyson/VSCode-Animations/assets/86384607/b6f951e4-b246-4410-89ea-46cbc170ca6a) -->
+
+<img src="./static/gifs/Demo.gif" />
 
 The theme used in the demo is [Solarized Palenight](https://marketplace.visualstudio.com/items?itemName=BrandonKirbyson.solarized-palenight).
 
