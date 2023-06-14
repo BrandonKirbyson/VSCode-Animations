@@ -2,31 +2,38 @@
   --smooth-windows-duration: /*<Duration>*/ 300ms; /*</Duration>*/
 }
 
-.monaco-workbench:not(.monaco-workbench:has(.monaco-sash.active), .monaco-workbench:has(div > iframe)) //Selects when not resizing or previewing
+//Selects when not resizing or previewing
+.monaco-workbench:not(
+    .monaco-workbench:has(.monaco-sash.active),
+    .monaco-workbench:has(iframe)
+  ) {
   .split-view-container {
-  div:not(
-      .monaco-editor .margin, // Parent of line numbers
-      .monaco-editor .margin *, // Line numbers
-      .monaco-editor .overflowingContentWidgets, // Parent of popups
-      .monaco-editor .overflowingContentWidgets *, // Popups
-      .monaco-editor .context-view, // Parent of more popups
-      .monaco-editor .context-view *, // More popups
-      .editor-scrollable *, // Editor
-      textarea.inputarea, // Editor typing
-      .terminal-outer-container *, // Terminal
-      .monaco-list *, // List, scrolling
-      .notifications-toasts *, // Notifications
-      // div:has(> iframe), // Preview
-      div:has(> iframe) * // Preview
-    ) {
-    &[style*="top"],
-    &[style*="left"],
-    &[style*="width"],
-    &[style*="height"] {
-      transition-property: top, left, width, height;
-      transition-duration: var(--smooth-windows-duration);
+    //Narrows down elements by finding inline styling of top, left, width, or height
+    div {
+      &[style*="top"],
+      &[style*="left"],
+      &[style*="width"],
+      &[style*="height"] {
+        //Excludes elements that should not be animated
+        &:not(
+            .monaco-editor .overflowingContentWidgets, // Parent of popups
+            .monaco-editor .overflowingContentWidgets *, // Popups
+              // *:not(.minimap, .decorationsOverviewRuler, .scrollbar),
+            .monaco-editor .margin, // Parent of line numbers
+            .monaco-editor .margin *, // Line numbers
+            .monaco-editor .context-view, // Parent of more popups
+            .monaco-editor .context-view *, // More popups
+            .editor-scrollable *, // Editor
+            .monaco-list-rows, // Parent of list items
+            .monaco-list-rows *, // List items
+            .scrollbar, // Scrollbar
+            .terminal-outer-container *, // Terminal
+            .notifications-toasts * // Notifications
+          ) {
+          transition-property: top, left, width, height;
+          transition-duration: var(--smooth-windows-duration);
+        }
+      }
     }
   }
 }
-
-// document.querySelectorAll(".monaco-sash")[9].dispatchEvent(new MouseEvent("move", {left: 1}))
