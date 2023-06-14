@@ -4,7 +4,11 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
-## [1.0.10] - 2023-05-29
+## [1.0.11] - 2023-06-14
+
+- Optimized scss to remove lag for smooth mode
+
+## [1.0.10] - 2023-06-12
 
 - Fixed cursor animation not working when minimap is disable
 - Fixed positioning issue with jupyter
