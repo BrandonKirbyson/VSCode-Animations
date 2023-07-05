@@ -8,8 +8,12 @@ import { initMessenger } from "./messenger";
  * @param context The extension context
  */
 export function activate(context: vscode.ExtensionContext) {
-  const rootJSPath =
-    "file://" + context.extensionPath + "/dist/updateHandler.js"; //The path to the root css file which should be used for Custom CSS extension
+  //The path to the root css file which should be used for Custom CSS extension
+  let rootJSPath = (
+    (context.extensionPath.charAt(0) === "/" ? "file://" : "file:///") +
+    context.extensionPath +
+    "/dist/updateHandler.js"
+  ).replace(/\\/g, "/"); //Replace all backslashes with forward slashes
 
   initMessenger(); //Initialize the messenger (status bar item)
 
