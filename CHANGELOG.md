@@ -4,6 +4,11 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [1.0.12] - 2023-07-04
+
+- Fixed smooth-mode issues with new copilot features
+- Fixed windows invalid path issue
+
 ## [1.0.11] - 2023-06-14
 
 - Optimized scss to remove lag for smooth mode
