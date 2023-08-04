@@ -90,6 +90,23 @@
           "default": true,
           "description": "Whether or not to use the custom CSS file"
         },
+        "animations.Focus-Dimming": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Whether or not to dim parts of vscode when a new window gains focus"
+        },
+        "animations.Focus-Dimming-Amount": {
+          "type": "number",
+          "default": 50,
+          "maximum": 100,
+          "minimum": 0,
+          "markdownDescription": "The amount to dim parts of vscode when a new window gains focus, default: `50%`"
+        },
+        "animations.Focus-Dimming-Whole-Editor": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Whether or not to dim all of vscode when the window loses focus, if `false` the editor won't be dimmed"
+        },
         "animations.Command-Palette": {
           "type": "string",
           "enum": [
@@ -172,6 +189,13 @@
               "maximum": 10000,
               "minimum": 0,
               "markdownDescription": "The duration of the animation for when new list items appear when scrolling in milliseconds, default: `200`"
+            },
+            "Focus-Dimming": {
+              "type": "number",
+              "default": 200,
+              "maximum": 10000,
+              "minimum": 0,
+              "markdownDescription": "The duration of the animation for when a new window gains focus in milliseconds, default: `200`"
             }
           }
         },
