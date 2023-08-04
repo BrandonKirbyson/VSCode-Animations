@@ -27,6 +27,7 @@
             .monaco-list-rows, // Parent of list items
             .monaco-list-rows *, // List items
             .scrollbar, // Scrollbar
+            .split-view-view:has(> .terminal-outer-container), // Terminal parent view
             .terminal-outer-container *, // Terminal
             .notifications-toasts *, // Notifications
             .zone-widget // In-editor popups
