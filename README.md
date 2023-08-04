@@ -111,6 +111,12 @@ A nice little animation for the active item!
 
 <img src="./static/gifs/Active.gif" alt="Active" width="300"/>
 
+#### Focus Dimming
+
+A subtle dimming of unfocused windows
+
+<img src="./static/gifs/Focus-Dimming.gif" alt="Focus Dimming" width="300"/>
+
 #### ...more coming soon!
 
 ## Commands
@@ -148,6 +154,7 @@ You can toggle animations on and off for each menu item. This is useful if you w
 
 - `Smooth Mode`
 - `Custom CSS`
+- `Focus Dimming`
 
 ### Durations
 
@@ -164,6 +171,10 @@ You can customize the cursor animation by running the `Animations: Open Animatio
 | `Color`       | The color of the cursor animation            | `Hex` or `RGB` color as `string` |
 | `Style`       | The type of animation to use for the cursor. | `Block`, `Line`                  |
 | `TrailLength` | The length of the trail behind the cursor.   | `Number`                         |
+
+### Focus Dimming
+
+You can customize how the windows dims when it loses focus. In settings there are options to change the dimmed window's `opacity`, `duration`, and you can toggle `Full Window` mode which if turned on dims everything but if left off leaves the actual code editor full opacity.
 
 ## Custom CSS
 
