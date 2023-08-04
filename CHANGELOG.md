@@ -4,6 +4,11 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [1.0.13] - 2023-08-04
+
+- Added new animation, windows now dim when unfocused
+- Fixed bug with terminal launching with wrong width
+
 ## [1.0.12] - 2023-07-04
 
 - Fixed smooth-mode issues with new copilot features
