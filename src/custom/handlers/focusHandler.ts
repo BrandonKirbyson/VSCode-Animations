@@ -1,7 +1,7 @@
 import { MessengerData } from "../messenger";
 
 const dimmableElements =
-  ".sidebar, .activitybar, .breadcrumbs, .statusbar, .titlebar, .title.tabs";
+  ".sidebar, .activitybar, .breadcrumbs, .statusbar, .titlebar, .title.tabs, .basepanel";
 
 const dimmableElementsWholeEditor = ".monaco-workbench";
 
