@@ -1,4 +1,5 @@
 import { CursorAnimation } from "./bonus/cursorAnimation";
+import { addFocusHandler } from "./handlers/focusHandler";
 import { initTabsHandler } from "./handlers/tabsHandler";
 import { Messenger } from "./messenger";
 import { createCustomCSS, updateCustomCSS } from "./style";
@@ -16,12 +17,16 @@ console.log("VSCode-Animations: Successfully Installed!");
     onLoad: (data) => {
       createCustomCSS(data.css);
 
+      addFocusHandler(data.settings.focus); // Add the focus handler
+
       if (data.settings.cursorAnimation.enabled) {
         cursorAnimation = new CursorAnimation(data.settings.cursorAnimation); // Create a new cursorAnimation with the options
       }
     },
     onUpdate: (data) => {
       updateCustomCSS(data.css);
+
+      addFocusHandler(data.settings.focus); // Add the focus handler
 
       if (data.settings.cursorAnimation.enabled) {
         if (!cursorAnimation) {

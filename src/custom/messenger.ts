@@ -6,6 +6,12 @@ export interface MessengerData {
       cursorStyle: "block" | "line";
       trailLength: number;
     };
+    focus: {
+      enabled: boolean;
+      wholeEditor: boolean;
+      amount: number;
+      duration: number;
+    };
   };
   css: string;
 }
@@ -59,6 +65,12 @@ export class Messenger {
           color: "#ffffff",
           cursorStyle: "line",
           trailLength: 8,
+        },
+        focus: {
+          enabled: false,
+          wholeEditor: false,
+          amount: 50,
+          duration: 200,
         },
       },
       css: "",

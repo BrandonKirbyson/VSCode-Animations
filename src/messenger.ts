@@ -37,10 +37,10 @@ export function sendMessage(data: MessengerData) {
 export function getMessengerData(css: string): MessengerData {
   const settings = vscode.workspace.getConfiguration("animations"); //Extension settings
 
-  const data = <MessengerData>{
+  const data: MessengerData = {
     settings: {
       cursorAnimation: {
-        enabled: settings.get("CursorAnimation"),
+        enabled: settings.get("CursorAnimation") ?? false,
         color: (settings.get("CursorAnimationOptions") as any)["Color"],
         cursorStyle: (settings.get("CursorAnimationOptions") as any)[
           "CursorStyle"
@@ -51,6 +51,21 @@ export function getMessengerData(css: string): MessengerData {
             50
           ),
           1
+        ),
+      },
+      focus: {
+        enabled: settings.get("Focus-Dimming") ?? false,
+        wholeEditor: settings.get("Focus-Dimming-Whole-Editor") ?? false,
+        amount: Math.max(
+          Math.min(settings.get("Focus-Dimming-Amount") ?? 50, 100),
+          0
+        ),
+        duration: Math.max(
+          Math.min(
+            (settings.get("Durations") as any)["Focus-Dimming"] ?? 200,
+            10000
+          ),
+          0
         ),
       },
     },
