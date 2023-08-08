@@ -1,3 +1,5 @@
+import { FocusDimMode } from "./handlers/focusHandler";
+
 export interface MessengerData {
   settings: {
     cursorAnimation: {
@@ -7,8 +9,7 @@ export interface MessengerData {
       trailLength: number;
     };
     focus: {
-      enabled: boolean;
-      wholeEditor: boolean;
+      mode: FocusDimMode;
       amount: number;
       duration: number;
     };
@@ -67,8 +68,7 @@ export class Messenger {
           trailLength: 8,
         },
         focus: {
-          enabled: false,
-          wholeEditor: false,
+          mode: FocusDimMode.window,
           amount: 50,
           duration: 200,
         },

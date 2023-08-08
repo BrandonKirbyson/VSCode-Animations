@@ -1,10 +1,5 @@
 import { MessengerData } from "../messenger";
 
-const dimmableElements =
-  ".sidebar, .activitybar, .breadcrumbs, .statusbar, .titlebar, .title.tabs, .basepanel";
-
-const dimmableElementsWholeEditor = ".monaco-workbench";
-
 let focusHandler: {
   onBlur: () => void;
   onFocus: () => void;
@@ -12,6 +7,14 @@ let focusHandler: {
   onBlur: () => {},
   onFocus: () => {},
 };
+
+export enum FocusDimMode {
+  window = "Full Window",
+  editor = "Everything But Editor",
+  terminal = "Everything But Terminal",
+  editorAndTerminal = "Everything But Editor and Terminal",
+  none = "None",
+}
 
 /**
  * This adds the focus handler which dims the editor when the window is not focused
@@ -24,15 +27,39 @@ export function addFocusHandler(
   window.removeEventListener("blur", focusHandler.onBlur);
   window.removeEventListener("blur", focusHandler.onFocus);
 
-  if (!focusSettings.enabled) return; // If focus dimming is not enabled, return
+  const alwaysDimmable =
+    ".minimap, .decorationsOverviewRuler, .composite.title, .title.tabs, .editor-container:has(.settings-editor)";
 
-  // Get the dimmable elements based on the settings
-  const dimmable = focusSettings.wholeEditor
-    ? dimmableElementsWholeEditor
-    : dimmableElements;
+  let dimmable = "";
+  switch (focusSettings.mode) {
+    case FocusDimMode.window:
+      dimmable = ".monaco-workbench";
+      break;
+    case FocusDimMode.editor:
+      dimmable = `.split-view-view:not(:has(.editor-instance > .monaco-editor)), .split-view-view:has(> .terminal-outer-container), ${alwaysDimmable}`;
+      break;
+    case FocusDimMode.terminal:
+      dimmable = `.split-view-view:not(:has(.terminal)), ${alwaysDimmable}`;
+      break;
+    case FocusDimMode.editorAndTerminal:
+      dimmable = `.split-view-view:not(:has(.editor-instance > .monaco-editor)):not(:has(.terminal)), ${alwaysDimmable}`;
+      break;
+    case FocusDimMode.none:
+      return;
+  }
+
+  const getElements = () => {
+    let elements = Array.from(document.querySelectorAll(dimmable));
+    elements = elements.filter((element) => {
+      return !elements.some((otherElement) => {
+        return otherElement.contains(element) && otherElement !== element;
+      });
+    });
+    return elements;
+  };
 
   // Set the transition
-  document.querySelectorAll(dimmable).forEach((element) => {
+  getElements().forEach((element) => {
     (
       element as HTMLElement
     ).style.transition = `opacity ${focusSettings.duration}ms`;
@@ -40,14 +67,14 @@ export function addFocusHandler(
 
   // Set the opacity when the window is blurred
   focusHandler.onBlur = () => {
-    document.querySelectorAll(dimmable).forEach((element) => {
+    getElements().forEach((element) => {
       (element as HTMLElement).style.opacity = `${focusSettings.amount}%`;
     });
   };
 
   // Set the opacity when the window is focused
   focusHandler.onFocus = () => {
-    document.querySelectorAll(dimmable).forEach((element) => {
+    getElements().forEach((element) => {
       (element as HTMLElement).style.opacity = `100%`;
     });
   };

@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { FocusDimMode } from "./custom/handlers/focusHandler";
 import { MessengerData } from "./custom/messenger";
 
 /**
@@ -54,8 +55,8 @@ export function getMessengerData(css: string): MessengerData {
         ),
       },
       focus: {
-        enabled: settings.get("Focus-Dimming") ?? false,
-        wholeEditor: settings.get("Focus-Dimming-Whole-Editor") ?? false,
+        mode: (settings.get("Focus-Dimming-Mode") ??
+          FocusDimMode.window) as FocusDimMode,
         amount: Math.max(
           Math.min(settings.get("Focus-Dimming-Amount") ?? 50, 100),
           0

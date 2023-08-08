@@ -90,11 +90,6 @@
           "default": true,
           "description": "Whether or not to use the custom CSS file"
         },
-        "animations.Focus-Dimming": {
-          "type": "boolean",
-          "default": true,
-          "markdownDescription": "Whether or not to dim parts of vscode when a new window gains focus"
-        },
         "animations.Focus-Dimming-Amount": {
           "type": "number",
           "default": 50,
@@ -102,10 +97,17 @@
           "minimum": 0,
           "markdownDescription": "The amount to dim parts of vscode when a new window gains focus, default: `50%`"
         },
-        "animations.Focus-Dimming-Whole-Editor": {
-          "type": "boolean",
-          "default": false,
-          "markdownDescription": "Whether or not to dim all of vscode when the window loses focus, if `false` the editor won't be dimmed"
+        "animations.Focus-Dimming-Mode": {
+          "type": "string",
+          "enum": [
+            "None",
+            "Full Window",
+            "Everything But Editor",
+            "Everything But Terminal",
+            "Everything But Editor and Terminal"
+          ],
+          "default": "Full Window",
+          "markdownDescription": "The mode to use for focus dimming, `None` disables dimming entirely, `Window` will dim the entire window, `Everything But Editor`, `Everything But Terminal`, and `Everything But Editor and Terminal` will dim everything but the editor, terminal, or both based on option, default: `Full Window`"
         },
         "animations.Command-Palette": {
           "type": "string",
