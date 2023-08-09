@@ -49,6 +49,18 @@ Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 
 4. Enjoy the animations!
 
+### For Other Custom Injection Extension or Open VSX
+
+This is for people that either could not get the Custom CSS and JS extension to work, want to use the extension on Open VSX, or want to use another extension that injects custom css and js.
+
+If you want to do this, follow these steps:
+
+- Disable `Auto Install` by setting `Auto Install` to `false` in settings, this will prevent the extension from trying to install via the Custom CSS and JS extension on startup.
+- Use the command `Animations: Get Script Path` to get the path to the animations extension script, should copy to clipboard
+- Add the path to your custom css and js loader and install however the extension requires
+
+**ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING** but if you want to use another extension then you probably know what you are doing. If you do have any issues or questions feel free to open an issue.
+
 #### Troubleshooting
 
 If it doesn't seem to work, open the command palette (`cmd + shift + p` or `ctrl + shift + p`) and search for `Reload Custom CSS and JS`.
@@ -123,13 +135,14 @@ A subtle dimming of unfocused windows
 
 All commands can be found by pressing `cmd + shift + p` or `ctrl + shift + p` and searching for `Animations`.
 
-| Command                               | Description                                                   |
-| ------------------------------------- | ------------------------------------------------------------- |
-| `Animations: Enable Animations`       | Enables animation                                             |
-| `Animations: Disable Animations`      | Disables animations                                           |
-| `Animations: Open Animation Settings` | Opens the animations settings                                 |
-| `Animations: Open Custom CSS`         | Opens the custom css file in a new tab                        |
-| `Animations: Install Animations`      | Installs the animations js handler to vscode, requires reload |
+| Command                               | Description                                                                                      |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `Animations: Enable Animations`       | Enables animation                                                                                |
+| `Animations: Disable Animations`      | Disables animations                                                                              |
+| `Animations: Open Animation Settings` | Opens the animations settings                                                                    |
+| `Animations: Open Custom CSS`         | Opens the custom css file in a new tab                                                           |
+| `Animations: Install Animations`      | Installs the animations js handler to vscode, requires reload                                    |
+| `Animations: Get Script Path`         | Copies the path to the animations js file to the clipboard for use in custom injection extension |
 
 ##### Enabling, disabling or customizing animations will instantly take effect. No need to reload!
 
@@ -141,12 +154,13 @@ You can customize the animations by running the `Animations: Open Animation Sett
 
 For customizing each type of animation, you can refer to the list below to see what types of animations are available for each menu item.
 
-| Menu Item         | Options                          |
-| ----------------- | -------------------------------- |
-| `Command Palette` | `None`, `Scale`, `Slide`, `Fade` |
-| `Tabs`            | `None`, `Scale`, `Slide`, `Flip` |
-| `Scrolling`       | `None`, `Scale`, `Slide`, `Fade` |
-| `Active`          | `None`, `Scale`, `Indent`        |
+| Menu Item         | Options                                                                                                         |
+| ----------------- | --------------------------------------------------------------------------------------------------------------- |
+| `Command Palette` | `None`, `Scale`, `Slide`, `Fade`                                                                                |
+| `Tabs`            | `None`, `Scale`, `Slide`, `Flip`                                                                                |
+| `Scrolling`       | `None`, `Scale`, `Slide`, `Fade`                                                                                |
+| `Active`          | `None`, `Scale`, `Indent`                                                                                       |
+| `Focus Dimming`   | `None`, `Full Window`, `Everything But Editor`, `Everything But Terminal`, `Everything But Editor and Terminal` |
 
 ### Toggles
 
@@ -154,7 +168,6 @@ You can toggle animations on and off for each menu item. This is useful if you w
 
 - `Smooth Mode`
 - `Custom CSS`
-- `Focus Dimming`
 
 ### Durations
 
