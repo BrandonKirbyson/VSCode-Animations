@@ -2,7 +2,7 @@
   "name": "vscode-animations",
   "displayName": "VSCode Animations",
   "description": "Clean and customizable animations for VSCode",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "repository": {
     "type": "git",
     "url": "https://github.com/BrandonKirbyson/VSCode-Animations"

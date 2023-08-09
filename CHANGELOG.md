@@ -4,6 +4,11 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [1.0.14] - 2023-08-08
+
+- Improved animation, more options for dimming the editor when window is unfocused
+- Addded new setting, auto install, which allows the extension to be used with other custom injectors
+
 ## [1.0.13] - 2023-08-04
 
 - Added new animation, windows now dim when unfocused
