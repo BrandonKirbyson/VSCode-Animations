@@ -26,20 +26,23 @@ function isAllowedVersion(version: string) {
 /**
  * Adds the js filepath to the list of imports in the settings.json file for the Custom CSS and JS Loader extension
  * @param path The path to the root js file
+ * @param auto If the install is automatic or not
  */
-export function addToConfig(path: string): Thenable<boolean> {
+export function addToConfig(path: string, auto = false): Thenable<boolean> {
   const config = vscode.workspace.getConfiguration();
   let customImports = config.get<string[]>("vscode_custom_css.imports"); //Get the current list of imports
 
-  if (customImports && customImports.length > 0) {
-    const regex = /brandonkirbyson\.vscode-animations-\d+\.\d+\.\d+/; //Regex to match the version number in the extension id
-    //Loop through the list of imports
-    for (let i = 0; i < customImports.length; i++) {
-      const match = customImports[i].match(regex); //Get the version number from the extension id using the regex
-      if (match && match.length > 0) {
-        const version = match[0].split("-")[match[0].split("-").length - 1]; //Get the version number from the extension id
-        if (isAllowedVersion(version)) {
-          return Promise.resolve(false); //If the user has the minimum version installed, return false
+  if (auto) {
+    if (customImports && customImports.length > 0) {
+      const regex = /brandonkirbyson\.vscode-animations-\d+\.\d+\.\d+/; //Regex to match the version number in the extension id
+      //Loop through the list of imports
+      for (let i = 0; i < customImports.length; i++) {
+        const match = customImports[i].match(regex); //Get the version number from the extension id using the regex
+        if (match && match.length > 0) {
+          const version = match[0].split("-")[match[0].split("-").length - 1]; //Get the version number from the extension id
+          if (isAllowedVersion(version)) {
+            return Promise.resolve(false); //If the user has the minimum version installed, return false
+          }
         }
       }
     }

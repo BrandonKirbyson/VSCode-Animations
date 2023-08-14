@@ -34,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   if (autoInstall) {
     //Add the root css file to the custom css imports
-    addToConfig(rootJSPath).then((added) => {
+    addToConfig(rootJSPath, true).then((added) => {
       //If the root css file was added to the config
       if (added) {
         vscode.window
@@ -58,49 +58,6 @@ export function activate(context: vscode.ExtensionContext) {
           });
       }
     });
-
-    /**
-     * Checks if the Custom CSS and JS Loader extension is installed/enabled and prompts the user to install/enable it if it is not installed/enabled
-     */
-    if (!vscode.extensions.getExtension("be5invis.vscode-custom-css")) {
-      vscode.window
-        .showWarningMessage(
-          "VSCode Animations: The Custom CSS and JS Loader extension is not installed/enabled. Please install or enable it to use this extension.",
-          "Install/Enable"
-        )
-        .then((value) => {
-          if (value === "Install/Enable") {
-            //Open the extension page in the marketplace
-            vscode.commands.executeCommand(
-              "vscode.open",
-              vscode.Uri.parse("vscode:extension/be5invis.vscode-custom-css")
-            );
-            //Add an event listener to the installation of the extension
-            vscode.extensions.onDidChange(() => {
-              //If the extension is installed
-              if (
-                vscode.extensions.getExtension("be5invis.vscode-custom-css")
-              ) {
-                vscode.window
-                  .showInformationMessage(
-                    "The Custom CSS and JS Loader extension has been installed/enabled so now VSCode Animations can properly work. Reload to see changes.",
-                    "Reload"
-                  )
-                  .then((value) => {
-                    if (value === "Reload") {
-                      vscode.commands.executeCommand(
-                        "extension.installCustomCSS"
-                      );
-                      vscode.commands.executeCommand(
-                        "workbench.action.reloadWindow"
-                      );
-                    }
-                  });
-              }
-            });
-          }
-        });
-    }
   }
 
   context.subscriptions.push(
