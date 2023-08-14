@@ -1,12 +1,49 @@
 import * as vscode from "vscode";
 
 /**
+ * The minimum version of this extension that the user must have installed via custom injection
+ */
+const minHandlerVersion = "1.0.14";
+
+/**
+ * Checks if the user has the minimum version of this extension installed via custom injection
+ * @param v1 A version number to compare
+ * @param v2 A version number to be compared to
+ * @returns
+ */
+function isAllowedVersion(version: string) {
+  const v1 = version.split(".");
+  const v2 = minHandlerVersion.split(".");
+  for (let i = 0; i < v1.length; i++) {
+    const n1 = parseInt(v1[i]);
+    const n2 = parseInt(v2[i]);
+    if (n1 > n2) return true;
+    if (n1 < n2) return false;
+  }
+  return true;
+}
+
+/**
  * Adds the js filepath to the list of imports in the settings.json file for the Custom CSS and JS Loader extension
  * @param path The path to the root js file
  */
 export function addToConfig(path: string): Thenable<boolean> {
   const config = vscode.workspace.getConfiguration();
   let customImports = config.get<string[]>("vscode_custom_css.imports"); //Get the current list of imports
+
+  if (customImports && customImports.length > 0) {
+    const regex = /brandonkirbyson\.vscode-animations-\d+\.\d+\.\d+/; //Regex to match the version number in the extension id
+    //Loop through the list of imports
+    for (let i = 0; i < customImports.length; i++) {
+      const match = customImports[i].match(regex); //Get the version number from the extension id using the regex
+      if (match && match.length > 0) {
+        const version = match[0].split("-")[match[0].split("-").length - 1]; //Get the version number from the extension id
+        if (isAllowedVersion(version)) {
+          return Promise.resolve(false); //If the user has the minimum version installed, return false
+        }
+      }
+    }
+  }
 
   if (customImports) customImports = removeOldConfigPaths(path, customImports); //Remove any old paths from the list
 
