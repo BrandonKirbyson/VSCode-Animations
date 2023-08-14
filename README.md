@@ -51,6 +51,8 @@ Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 
 ### For Other Custom Injection Extension or Open VSX
 
+> **Note:** If you are using the Custom CSS and JS extension on vscode, you do not need to do this.
+
 This is for people that either could not get the Custom CSS and JS extension to work, want to use the extension on Open VSX, or want to use another extension that injects custom css and js.
 
 If you want to do this, follow these steps:
@@ -59,7 +61,11 @@ If you want to do this, follow these steps:
 - Use the command `Animations: Get Script Path` to get the path to the animations extension script, should copy to clipboard
 - Add the path to your custom css and js loader and install however the extension requires
 
+Here is a possible extension on Open VSX: [Apc Customize UI++](https://open-vsx.org/extension/drcika/apc-extension). I haven't tested it but it looks like it should work if you follow the instructions above and then use [apc.imports](https://open-vsx.org/extension/drcika/apc-extension#apc.imports) in that extension.
+
 **ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING** but if you want to use another extension then you probably know what you are doing. If you do have any issues or questions feel free to open an issue.
+
+> For people curious, the reason this extension does not inject the custom code itself is because it could conflict with any other custom injection extension. Becaue of this it is better to use a different extension to inject the code so that you and users can use a custom injection extension for other things as well
 
 #### Troubleshooting
 
