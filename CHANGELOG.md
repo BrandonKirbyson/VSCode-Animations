@@ -4,6 +4,11 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [1.1.0] - 2023-08-14
+
+- Fixed bug with menus animating
+- Added new functionality that removes the need for constant reinstall per new version of the extension
+
 ## [1.0.14] - 2023-08-08
 
 - Improved animation, more options for dimming the editor when window is unfocused
