@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
-import { addToConfig } from "./config";
 import { generateCSS } from "./css";
+import { InstallMethod, InstallationManager } from "./install";
 import { initMessenger } from "./messenger";
 
 /**
@@ -8,12 +8,14 @@ import { initMessenger } from "./messenger";
  * @param context The extension context
  */
 export function activate(context: vscode.ExtensionContext) {
-  //The path to the root css file which should be used for Custom CSS extension
-  let rootJSPath = (
-    (context.extensionPath.charAt(0) === "/" ? "file://" : "file:///") +
-    context.extensionPath +
-    "/dist/updateHandler.js"
-  ).replace(/\\/g, "/"); //Replace all backslashes with forward slashes
+  const injectionMethod = vscode.workspace
+    .getConfiguration("animations")
+    .get("Install-Method") as InstallMethod; //Get the injection method
+
+  //Create the installation manager that will handle the animations installation
+  const installManager = new InstallationManager(context, injectionMethod);
+
+  installManager.verifyInstallMethod(); //Verify the install method, check required extension is installed
 
   const autoInstall = vscode.workspace
     .getConfiguration("animations")
@@ -21,74 +23,29 @@ export function activate(context: vscode.ExtensionContext) {
 
   initMessenger(); //Initialize the messenger (status bar item)
 
-  generateCSS(context); //Generate the css file (just in case)
-
-  context.subscriptions.push(
-    vscode.commands.registerCommand("VSCode-Animations.getScriptPath", () => {
-      vscode.env.clipboard.writeText(rootJSPath);
-      vscode.window.showInformationMessage(
-        `Animations Script Path Copied to Clipboard! (${rootJSPath})`
-      );
-    })
-  );
+  generateCSS(context); //Generate the css file
 
   if (autoInstall) {
-    //Add the root css file to the custom css imports
-    addToConfig(rootJSPath, true).then((added) => {
-      //If the root css file was added to the config
-      if (added) {
-        vscode.window
-          .showInformationMessage(
-            "Install VSCode Animations, install will reload window for animations to take effect",
-            "Install",
-            "Cancel"
-          )
-          .then((value) => {
-            //If the user clicked the reload button
-            if (value === "Install") {
-              //Install the custom css extension
-              vscode.commands
-                .executeCommand("extension.installCustomCSS")
-                .then(() => {
-                  vscode.commands.executeCommand(
-                    "workbench.action.reloadWindow"
-                  ); //Reload the window
-                });
-            }
-          });
-      }
-    });
+    installManager.install(true);
   }
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "VSCode-Animations.installAnimations",
       () => {
-        //Add the root css file to the custom css imports
-        addToConfig(rootJSPath).then((added) => {
-          //If the root css file was added to the config
-          vscode.window
-            .showInformationMessage(
-              "Install VSCode Animations, install will reload window for animations to take effect",
-              "Install",
-              "Cancel"
-            )
-            .then((value) => {
-              //If the user clicked the reload button
-              if (value === "Install") {
-                //Install the custom css extension
-                vscode.commands
-                  .executeCommand("extension.installCustomCSS")
-                  .then(() => {
-                    vscode.commands.executeCommand(
-                      "workbench.action.reloadWindow"
-                    ); //Reload the window
-                  });
-              }
-            });
-        });
+        installManager.verifyInstallMethod();
+        installManager.install();
       }
     )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("VSCode-Animations.getScriptPath", () => {
+      vscode.env.clipboard.writeText(installManager.getPath());
+      vscode.window.showInformationMessage(
+        `Animations Script Path Copied to Clipboard! (${installManager.getPath()})`
+      );
+    })
   );
 
   /**
@@ -120,7 +77,6 @@ export function activate(context: vscode.ExtensionContext) {
           .update("Enabled", true, vscode.ConfigurationTarget.Global);
 
         generateCSS(context);
-        addToConfig(rootJSPath);
         vscode.window.showInformationMessage("Enabled Animations");
       }
     )

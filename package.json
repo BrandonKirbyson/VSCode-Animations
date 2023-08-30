@@ -2,14 +2,12 @@
   "name": "vscode-animations",
   "displayName": "VSCode Animations",
   "description": "Clean and customizable animations for VSCode",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/BrandonKirbyson/VSCode-Animations"
   },
-  "extensionDependencies": [
-    "be5invis.vscode-custom-css"
-  ],
+  "extensionDependencies": [],
   "extensionKind": [
     "ui"
   ],
@@ -84,6 +82,15 @@
           "type": "boolean",
           "default": true,
           "description": "Whether or not to enable animations"
+        },
+        "animations.Install-Method": {
+          "type": "string",
+          "enum": [
+            "Custom CSS and JS",
+            "Apc Customize UI++"
+          ],
+          "default": "Custom CSS and JS",
+          "markdownDescription": "The extension to use for injecting the animations. **NOTE:** This is a **very important** setting, if you don't know what this means, leave it as `Custom CSS and JS`"
         },
         "animations.Auto-Install": {
           "type": "boolean",
