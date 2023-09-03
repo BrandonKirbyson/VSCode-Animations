@@ -38,8 +38,12 @@ export class InstallationManager {
     vscode.workspace.onDidChangeConfiguration((event) => {
       //If the install method changes
       if (event.affectsConfiguration("animations.Install-Method")) {
+        const newInstallMethod = vscode.workspace
+          .getConfiguration("animations")
+          .get("Install-Method") as InstallMethod; //Get the new install method from the config
+
         vscode.window.showInformationMessage(
-          `VSCode Animations: Install Method now ${this.installMethod}`
+          `VSCode Animations: Install Method now ${newInstallMethod}`
         );
 
         //Remove the old install method from the config
@@ -49,9 +53,18 @@ export class InstallationManager {
             installMethodDetails[this.installMethod].uninstallCommand
           );
 
-          if (this.installMethod === InstallMethod.customCSSAndJS) {
-            //Reload the window
-            vscode.commands.executeCommand("workbench.action.reloadWindow");
+          if (
+            vscode.extensions.getExtension(
+              installMethodDetails[this.installMethod].extensionID
+            )
+          ) {
+            //Reload the window, apc will prompt to restart already
+            if (this.installMethod === InstallMethod.customCSSAndJS) {
+              vscode.commands.executeCommand("workbench.action.reloadWindow");
+            }
+          } else {
+            this.installMethod = newInstallMethod;
+            if (this.verifyInstallMethod()) this.install(true);
           }
         });
       }
@@ -90,10 +103,10 @@ export class InstallationManager {
         })
       )
       .then((value) => {
-        if (value) {
+        if (value?.label) {
           vscode.workspace
             .getConfiguration("animations")
-            .update("Install-Method", value, true); //Update the install method in the settings
+            .update("Install-Method", value.label, true); //Update the install method in the settings
         }
       });
   }
@@ -102,6 +115,36 @@ export class InstallationManager {
    * Checks if there is an exisiting install method and sets the install method to it
    */
   public checkForInstallMethod() {
+    if (
+      vscode.extensions.getExtension(
+        installMethodDetails[InstallMethod.customCSSAndJS].extensionID
+      ) &&
+      vscode.extensions.getExtension(
+        installMethodDetails[InstallMethod.apcCustomizeUI].extensionID
+      )
+    ) {
+      vscode.window
+        .showErrorMessage(
+          `VSCode Animations: Both Custom CSS and JS and Apc Customize UI++ are installed`,
+          `Use ${InstallMethod.customCSSAndJS}`,
+          `Use ${InstallMethod.apcCustomizeUI}`
+        )
+        .then((value) => {
+          if (value === `Use ${InstallMethod.customCSSAndJS}`) {
+            this.installMethod = InstallMethod.customCSSAndJS;
+            vscode.workspace
+              .getConfiguration("animations")
+              .update("Install-Method", InstallMethod.customCSSAndJS, true);
+            return;
+          } else if (value === `Use ${InstallMethod.apcCustomizeUI}`) {
+            this.installMethod = InstallMethod.apcCustomizeUI;
+            vscode.workspace
+              .getConfiguration("animations")
+              .update("Install-Method", InstallMethod.apcCustomizeUI, true);
+            return;
+          }
+        });
+    }
     if (
       vscode.extensions.getExtension(
         installMethodDetails[this.installMethod].extensionID
@@ -168,6 +211,7 @@ export class InstallationManager {
    * Installs the extension with the install method then prompts the user to reload the window
    */
   public install(auto = false) {
+    if (!this.verifyInstallMethod()) return; //Verify that the install method is set up
     if (this.addToConfigNeeded()) {
       if (auto) {
         vscode.window
