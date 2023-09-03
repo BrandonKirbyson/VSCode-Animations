@@ -4,6 +4,13 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [2.0.0] - 2023-09-03
+
+- Redid installation process
+- Install method option added
+- Animation scaling bug fixed
+- Removed Custom CSS and JS as a dependency
+
 ## [1.1.0] - 2023-08-14
 
 - Fixed bug with menus animating
