@@ -15,7 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
   //Create the installation manager that will handle the animations installation
   const installManager = new InstallationManager(context, injectionMethod);
 
-  installManager.checkForInstallMethod(); //Check if the install method is valid
+  // installManager.checkForInstallMethod(); //Check if the install method is valid
 
   installManager.verifyInstallMethod(); //Verify the install method, check required extension is installed
 
