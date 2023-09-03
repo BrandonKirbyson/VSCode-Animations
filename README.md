@@ -11,7 +11,7 @@
 
 **VSCode Animations** is a Visual Studio Code extension that adds clean animations to the vscode UI. This is the **first** and **only** extension to add animations to vscode and is a **must-have** because vscode lacks many needed animations that this extension easily provides, not to mention that it also adds **many more** animations and is all **customizable**.
 
-> This extension is actively being developed and will gain many more animations over time. Feel free to request any animations you would like to see added!
+<!-- > This extension is actively being developed and will gain many more animations over time. Feel free to request any animations you would like to see added! -->
 
 <!-- [Demo Video](https://github.com/BrandonKirbyson/VSCode-Animations/assets/86384607/b6f951e4-b246-4410-89ea-46cbc170ca6a) -->
 
@@ -39,17 +39,27 @@ Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 
    - Search for `VSCode Animations` in the extensions tab in the editor
 
-2. Reload the editor when prompted
-   Once you have installed and enabled `VSCode Animations`, you should get a popup that prompts you to reload for animations to take effect. Press `Reload` and you will see the animations be applied.
+2. Install the injection extension, window will reload after install:
 
-3. You might see a prompt that says `"VSCode installation is corrupt"`.
+   - There are two options [Custom CSS and JS Loader](https://github.com/be5invis/vscode-custom-css)(default) and [Apc Customize UI++](https://github.com/drcika/apc-extension), see [Injection Extensions](#injection-extensions) for more info
+     <img src="static/images/installPrompt.png" height=100/>
+   - For windows users, Apc Customize UI++ might work better, see [Injection Extensions](#injection-extensions) for more info
 
-   - To fix, click the settings icon on the notification and `"Do not show again"`.
-   - Unfortunately custom js and css needs to be embedded into vscode's UI itself so vscode will throw a warning.
+- Install the animations when prompted, window will reload final time
+  - This is the injection extension installing the animations for you
+    <img src="static/images/install.png" height=100/>
 
-4. Enjoy the animations!
+3. Enjoy the animations!
 
-### For Other Custom Injection Extension or Open VSX
+If you have any issues, see [Troubleshooting](#troubleshooting).
+
+> **For Custom CSS and JS:** You might see a prompt that says:
+> `"VSCode installation is corrupt"`
+>
+> - To fix, click the settings icon on the notification and `"Do not show again"`.
+> - Unfortunately custom js and css needs to be embedded into vscode's UI itself so vscode will throw a warning.
+
+<!-- ### For Other Custom Injection Extension or Open VSX
 
 > **Note:** If you are using the Custom CSS and JS extension on vscode, you do not need to do this.
 
@@ -65,27 +75,45 @@ Here is a possible extension on Open VSX: [Apc Customize UI++](https://open-vsx.
 
 **ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING** but if you want to use another extension then you probably know what you are doing. If you do have any issues or questions feel free to open an issue.
 
-> For people curious, the reason this extension does not inject the custom code itself is because it could conflict with any other custom injection extension. Becaue of this it is better to use a different extension to inject the code so that you and users can use a custom injection extension for other things as well
+> For people curious, the reason this extension does not inject the custom code itself is because it could conflict with any other custom injection extension. Becaue of this it is better to use a different extension to inject the code so that you and users can use a custom injection extension for other things as well -->
 
-#### Troubleshooting
+### Injection Extensions
 
-If it doesn't seem to work, open the command palette (`cmd + shift + p` or `ctrl + shift + p`) and search for `Reload Custom CSS and JS`.
+The injection extension is what injects the custom css and js into vscode. There are two options:
 
-If it still doesnt work, check [here](#troubleshooting) for more steps.
+#### [Custom CSS and JS Loader](https://github.com/be5invis/vscode-custom-css)
 
-> **Note:** The extension should prompt you to reload when it gets updated.
+Pros:
 
-##### Dependencies
+- Default
+- Tested more
+- Requires just window reload on each install
 
-This extension requires [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css). If you do not have it installed, you will be prompted to install it.
+Cons:
 
-It is an amazing extension that you can learn more about [here](https://github.com/be5invis/vscode-custom-css).
+- Not on Open VSX
+- Sometimes has issues on windows
 
-##### Personal Recommendation
+#### [Apc Customize UI++](https://github.com/drcika/apc-extension)
 
-If you are using the cursor animations from this extension, I recommend turning cursor blinking to `smooth` because `blink` can make the animation look a little weird.
+Pros:
 
-You can find this setting by searching for `Editor: Cursor Blinking` in settings (`cmd + ,` or `ctrl + ,`).
+- Very active development
+- On Open VSX
+- Works better on windows
+- Has many other features
+
+Cons:
+
+- Not default
+- Newer, less tested
+- Requires full app restart on each install
+
+> **Note:** Make sure to only use one of these extensions at a time, having both installed will cause issues. If you want to switch, use the `Animations: Change Install Method` command and feel free to uninstall the other extension after window reloads.
+
+##### Why use a separate extension?
+
+The reason this extension does not inject the custom code itself is because it could conflict with any other custom injection extension.
 
 ## Showcase
 
@@ -123,6 +151,9 @@ A nice little cursor animation, inspired by [this](https://github.com/qwreey75/d
 
 <img src="./static/gifs/Cursor.gif" alt="Cursor" width="300"/>
 
+> If you are using the cursor animations from this extension, I recommend turning cursor blinking to `smooth` because `blink` can make the animation look a little weird.
+> You can find this setting by searching for `Editor: Cursor Blinking` in settings (`cmd + ,` or `ctrl + ,`).
+
 #### Active
 
 A nice little animation for the active item!
@@ -143,11 +174,12 @@ All commands can be found by pressing `cmd + shift + p` or `ctrl + shift + p` an
 
 | Command                               | Description                                                                                      |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `Animations: Install Animations`      | Installs the animations js handler to vscode, requires reload                                    |
 | `Animations: Enable Animations`       | Enables animation                                                                                |
 | `Animations: Disable Animations`      | Disables animations                                                                              |
 | `Animations: Open Animation Settings` | Opens the animations settings                                                                    |
+| `Animations: Change Install Method`   | Changes the install method to either `Custom CSS and JS Loader` or `Apc Customize UI++`          |
 | `Animations: Open Custom CSS`         | Opens the custom css file in a new tab                                                           |
-| `Animations: Install Animations`      | Installs the animations js handler to vscode, requires reload                                    |
 | `Animations: Get Script Path`         | Copies the path to the animations js file to the clipboard for use in custom injection extension |
 
 ##### Enabling, disabling or customizing animations will instantly take effect. No need to reload!
@@ -207,26 +239,15 @@ To find css selectors to use, you can use the `Developer: Toggle Developer Tools
 
 If you are having issues with the extension, try these steps:
 
-1. Reload the editor
-
-   - Press `cmd + shift + p` or `ctrl + shift + p` and search for `Reload Window` and press enter
-
-2. Run `Animations: Install Animations` command
+1. Run `Animations: Install Animations` command
 
    - Press `cmd + shift + p` or `ctrl + shift + p` and search for `Animations: Install Animations` and press enter, then reload when prompted
 
-3. Make sure you have the [Custom CSS and JS Loader](https://marketplace.visualstudio.com/items?itemName=be5invis.vscode-custom-css) extension installed and enabled
+2. If you are on windows and the setting `Animations: Install Method` in settings is set to `Custom CSS and JS Loader`, try changing it to `Apc Customize UI++`
 
-4. Enable Custom CSS and JS Extension
+3. Make sure you have the either `Custom CSS and JS Loader` or `Apc Customize UI++` extension installed, if both are installed there may be conflicts
 
-   - Press `cmd + shift + p` or `ctrl + shift + p` and search for `Enable Custom CSS and JS` and press enter, then reload when prompted
-
-5. Check the custom css file for errors
-
-   - Press `cmd + shift + p` or `ctrl + shift + p` and search for `Open Custom CSS` and press enter
-   - Check to see if you made any errors or possibly overrided other styling
-
-6. Uninstall and reinstall the extension
+4. Uninstall and reinstall the extension
 
    - Your settings should be saved but your custom css if you have any will be deleted so make sure to back that up
 
@@ -234,9 +255,7 @@ If you are still having issues, please open an issue.
 
 ## Contributing
 
-If you have any suggestions or find an issue, please open an issue, pull request, or start a discussion.
-
-If you would like to request an animation, please open an issue or discussion with the `animation` label and I will try to add it. If you have the css or an example of the animation in action, feel free to include it in the issue or discussion.
+If you have any suggestions or find an issue, please open an issue or a pull request.
 
 <br>
 
