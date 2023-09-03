@@ -128,7 +128,7 @@
             "Everything But Terminal",
             "Everything But Editor and Terminal"
           ],
-          "default": "Full Window",
+          "default": "None",
           "markdownDescription": "The mode to use for focus dimming, `None` disables dimming entirely, `Window` will dim the entire window, `Everything But Editor`, `Everything But Terminal`, and `Everything But Editor and Terminal` will dim everything but the editor, terminal, or both based on option, default: `Full Window`"
         },
         "animations.Command-Palette": {
