@@ -42,6 +42,24 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "VSCode-Animations.changeInstallMethod",
+      () => {
+        //Prompt the user to change the install method using a quick pick
+        vscode.window
+          .showQuickPick(Object.values(InstallMethod))
+          .then((value) => {
+            if (value) {
+              vscode.workspace
+                .getConfiguration("animations")
+                .update("Install-Method", value, true); //Update the install method in the settings
+            }
+          });
+      }
+    )
+  );
+
+  context.subscriptions.push(
     vscode.commands.registerCommand("VSCode-Animations.getScriptPath", () => {
       vscode.env.clipboard.writeText(installManager.getPath());
       vscode.window.showInformationMessage(

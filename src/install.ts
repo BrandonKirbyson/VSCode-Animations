@@ -11,12 +11,14 @@ const installMethodDetails = {
     extensionName: "Custom CSS and JS",
     importSetting: "vscode_custom_css.imports",
     installCommand: "extension.installCustomCSS",
+    uninstallCommand: "extension.uninstallCustomCSS",
   },
   [InstallMethod.apcCustomizeUI]: {
     extensionID: "drcika.apc-extension",
     extensionName: "Apc Customize UI++",
     importSetting: "apc.imports",
     installCommand: "apc.extension.enable",
+    uninstallCommand: "apc.extension.disable",
   },
 };
 
@@ -36,17 +38,17 @@ export class InstallationManager {
     vscode.workspace.onDidChangeConfiguration((event) => {
       //If the install method changes
       if (event.affectsConfiguration("animations.Install-Method")) {
-        //Update the install method
-        this.installMethod = vscode.workspace
-          .getConfiguration("animations")
-          .get("Install-Method") as InstallMethod;
         vscode.window.showInformationMessage(
           `VSCode Animations: Install Method now ${this.installMethod}`
         );
-        //Verify the new install method
-        if (this.verifyInstallMethod()) {
-          this.install();
-        }
+
+        // Uninstall the old install method
+        vscode.commands.executeCommand(
+          installMethodDetails[this.installMethod].uninstallCommand
+        );
+
+        //Reload the window
+        vscode.commands.executeCommand("workbench.action.reloadWindow");
       }
     });
   }
@@ -127,19 +129,9 @@ export class InstallationManager {
                 vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
               });
           } else if (value === "Change Install Method") {
-            //Prompt the user to change the install method using a quick pick
-            vscode.window
-              .showQuickPick(Object.values(InstallMethod))
-              .then((value) => {
-                if (value) {
-                  vscode.workspace
-                    .getConfiguration("animations")
-                    .update("Install-Method", value, true) //Update the install method in the settings
-                    .then(() => {
-                      this.installMethod = value as InstallMethod; //Update the install method in this class
-                    });
-                }
-              });
+            vscode.commands.executeCommand(
+              "VSCode-Animations.changeInstallMethod"
+            );
           }
         });
       return false;
