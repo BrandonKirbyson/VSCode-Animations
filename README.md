@@ -42,11 +42,14 @@ Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 2. Install the injection extension, window will reload after install:
 
    - There are two options [Custom CSS and JS Loader](https://github.com/be5invis/vscode-custom-css)(default) and [Apc Customize UI++](https://github.com/drcika/apc-extension), see [Injection Extensions](#injection-extensions) for more info
+
      <img src="static/images/installPrompt.png" height=100/>
+     
    - For windows users, Apc Customize UI++ might work better, see [Injection Extensions](#injection-extensions) for more info
 
 - Install the animations when prompted, window will reload final time
   - This is the injection extension installing the animations for you
+
     <img src="static/images/install.png" height=100/>
 
 3. Enjoy the animations!
