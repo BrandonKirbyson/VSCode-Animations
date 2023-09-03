@@ -42,13 +42,18 @@ export class InstallationManager {
           `VSCode Animations: Install Method now ${this.installMethod}`
         );
 
-        // Uninstall the old install method
-        vscode.commands.executeCommand(
-          installMethodDetails[this.installMethod].uninstallCommand
-        );
+        //Remove the old install method from the config
+        this.removeFromConfig().then(() => {
+          // Uninstall the old install method
+          vscode.commands.executeCommand(
+            installMethodDetails[this.installMethod].uninstallCommand
+          );
 
-        //Reload the window
-        vscode.commands.executeCommand("workbench.action.reloadWindow");
+          if (this.installMethod === InstallMethod.customCSSAndJS) {
+            //Reload the window
+            vscode.commands.executeCommand("workbench.action.reloadWindow");
+          }
+        });
       }
     });
   }
@@ -160,6 +165,9 @@ export class InstallationManager {
               vscode.commands.executeCommand(
                 installMethodDetails[this.installMethod].installCommand
               );
+              if (this.installMethod === InstallMethod.customCSSAndJS) {
+                vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
+              }
             }
           });
       } else {
@@ -167,6 +175,9 @@ export class InstallationManager {
         vscode.commands.executeCommand(
           installMethodDetails[this.installMethod].installCommand
         );
+        if (this.installMethod === InstallMethod.customCSSAndJS) {
+          vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
+        }
       }
     });
   }
@@ -262,15 +273,16 @@ export class InstallationManager {
    * @param path The path to remove from the config
    * @returns The promise of the update
    */
-  private removeFromConfig(path: string): Thenable<void> {
+  private removeFromConfig(): Thenable<void> {
     const config = vscode.workspace.getConfiguration();
     const customCssImports = config.get<string[]>(
       installMethodDetails[this.installMethod].importSetting
     ); //Get the current list of imports
-    if (customCssImports) this.removeOldConfigPaths(path, customCssImports);
+    if (customCssImports)
+      this.removeOldConfigPaths(this.path, customCssImports);
     //If the list exists and the current path is in the list
-    if (customCssImports && customCssImports.includes(path)) {
-      customCssImports.splice(customCssImports.indexOf(path), 1); //Remove the current path from the list
+    if (customCssImports && customCssImports.includes(this.path)) {
+      customCssImports.splice(customCssImports.indexOf(this.path), 1); //Remove the current path from the list
       //Update the list of imports
       return config.update(
         installMethodDetails[this.installMethod].importSetting,
