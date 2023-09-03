@@ -60,6 +60,11 @@
         "category": "Animations"
       },
       {
+        "command": "VSCode-Animations.changeInstallMethod",
+        "title": "Change Install Method",
+        "category": "Animations"
+      },
+      {
         "command": "VSCode-Animations.openCustomCSS",
         "title": "Open Custom CSS",
         "category": "Animations"
