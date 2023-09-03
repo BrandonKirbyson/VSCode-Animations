@@ -4,6 +4,10 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [2.0.1] - 2023-09-03
+
+- Fixed bug with install command
+
 ## [2.0.0] - 2023-09-03
 
 - Redid installation process
