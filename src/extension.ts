@@ -45,16 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "VSCode-Animations.changeInstallMethod",
       () => {
-        //Prompt the user to change the install method using a quick pick
-        vscode.window
-          .showQuickPick(Object.values(InstallMethod))
-          .then((value) => {
-            if (value) {
-              vscode.workspace
-                .getConfiguration("animations")
-                .update("Install-Method", value, true); //Update the install method in the settings
-            }
-          });
+        installManager.showInstallMethodPicker();
       }
     )
   );

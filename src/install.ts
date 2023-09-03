@@ -78,6 +78,26 @@ export class InstallationManager {
     ).replace(/\\/g, "/");
   }
 
+  public showInstallMethodPicker() {
+    //Prompt the user to change the install method using a quick pick
+    vscode.window
+      .showQuickPick(
+        Object.values(InstallMethod).map((value) => {
+          return {
+            label: value,
+            description: value === this.installMethod ? "Active" : undefined,
+          };
+        })
+      )
+      .then((value) => {
+        if (value) {
+          vscode.workspace
+            .getConfiguration("animations")
+            .update("Install-Method", value, true); //Update the install method in the settings
+        }
+      });
+  }
+
   /**
    * Checks if there is an exisiting install method and sets the install method to it
    */
