@@ -148,9 +148,8 @@ export class InstallationManager {
    * Installs the extension with the install method then prompts the user to reload the window
    */
   public install(auto = false) {
-    this.addToConfig(auto).then((added) => {
+    if (this.addToConfigNeeded()) {
       if (auto) {
-        if (!added) return;
         vscode.window
           .showInformationMessage(
             `VSCode Animations: Install Required, installation method is ${
@@ -161,25 +160,31 @@ export class InstallationManager {
           .then((value) => {
             //If the user clicked the install button
             if (value === "Install Now") {
-              //Run the install command for the install method
-              vscode.commands.executeCommand(
-                installMethodDetails[this.installMethod].installCommand
-              );
-              if (this.installMethod === InstallMethod.customCSSAndJS) {
-                vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
-              }
+              this.addToConfig(auto).then((added) => {
+                //Run the install command for the install method
+                vscode.commands.executeCommand(
+                  installMethodDetails[this.installMethod].installCommand
+                );
+                if (this.installMethod === InstallMethod.customCSSAndJS) {
+                  vscode.commands.executeCommand(
+                    "workbench.action.reloadWindow"
+                  ); //Reload the window
+                }
+              });
             }
           });
       } else {
-        //Run the install command for the install method
-        vscode.commands.executeCommand(
-          installMethodDetails[this.installMethod].installCommand
-        );
-        if (this.installMethod === InstallMethod.customCSSAndJS) {
-          vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
-        }
+        this.addToConfig(auto).then((added) => {
+          //Run the install command for the install method
+          vscode.commands.executeCommand(
+            installMethodDetails[this.installMethod].installCommand
+          );
+          if (this.installMethod === InstallMethod.customCSSAndJS) {
+            vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
+          }
+        });
       }
-    });
+    }
   }
 
   /**
@@ -245,6 +250,28 @@ export class InstallationManager {
         vscode.ConfigurationTarget.Global
       )
       .then(() => pathAdded); //Update the list of imp
+  }
+
+  private addToConfigNeeded() {
+    const config = vscode.workspace.getConfiguration();
+    let customImports = config.get<string[]>(
+      installMethodDetails[this.installMethod].importSetting
+    ); //Get the current list of imports
+
+    if (customImports && customImports.length > 0) {
+      const regex = /brandonkirbyson\.vscode-animations-\d+\.\d+\.\d+/; //Regex to match the version number in the extension id
+      //Loop through the list of imports
+      for (let i = 0; i < customImports.length; i++) {
+        const match = customImports[i].match(regex); //Get the version number from the extension id using the regex
+        if (match && match.length > 0) {
+          const version = match[0].split("-")[match[0].split("-").length - 1]; //Get the version number from the extension id
+          if (this.isAllowedVersion(version)) {
+            return false; //If the user has the minimum version installed, return false
+          }
+        }
+      }
+    }
+    return true;
   }
 
   private removeOldConfigPaths(currentPath: string, configPaths: string[]) {
