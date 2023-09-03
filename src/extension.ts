@@ -3,21 +3,26 @@ import { generateCSS } from "./css";
 import { InstallMethod, InstallationManager } from "./install";
 import { initMessenger } from "./messenger";
 
+export const forVSCode = true; // If the extension is for VSCode or VSCodium
+
 /**
  * This method is called when the extension is activated.
  * @param context The extension context
  */
 export function activate(context: vscode.ExtensionContext) {
-  const injectionMethod = vscode.workspace
-    .getConfiguration("animations")
-    .get("Install-Method") as InstallMethod; //Get the injection method
+  const injectionMethod = forVSCode
+    ? (vscode.workspace
+        .getConfiguration("animations")
+        .get("Install-Method") as InstallMethod)
+    : InstallMethod.apcCustomizeUI; //Get the injection method
 
   //Create the installation manager that will handle the animations installation
   const installManager = new InstallationManager(context, injectionMethod);
 
   if (
-    context.globalState.get("firstTime") === undefined ||
-    context.globalState.get("firstTime") === true
+    forVSCode &&
+    (context.globalState.get("firstTime") === undefined ||
+      context.globalState.get("firstTime") === true)
   ) {
     installManager.checkForInstallMethod(); //Checks if the user has an install method already
     context.globalState.update("firstTime", false);
@@ -51,7 +56,13 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "VSCode-Animations.changeInstallMethod",
       () => {
-        installManager.showInstallMethodPicker();
+        if (forVSCode) {
+          installManager.showInstallMethodPicker();
+        } else {
+          vscode.window.showErrorMessage(
+            "This command is not available in VSCodium"
+          );
+        }
       }
     )
   );

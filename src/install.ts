@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { forVSCode } from "./extension";
 
 export enum InstallMethod {
   customCSSAndJS = "Custom CSS and JS",
@@ -34,41 +35,43 @@ export class InstallationManager {
     this.installMethod = installMethod;
     this.path = this.generatePath();
 
-    //If settings change
-    vscode.workspace.onDidChangeConfiguration((event) => {
-      //If the install method changes
-      if (event.affectsConfiguration("animations.Install-Method")) {
-        const newInstallMethod = vscode.workspace
-          .getConfiguration("animations")
-          .get("Install-Method") as InstallMethod; //Get the new install method from the config
+    if (forVSCode) {
+      //If settings change
+      vscode.workspace.onDidChangeConfiguration((event) => {
+        //If the install method changes
+        if (event.affectsConfiguration("animations.Install-Method")) {
+          const newInstallMethod = vscode.workspace
+            .getConfiguration("animations")
+            .get("Install-Method") as InstallMethod; //Get the new install method from the config
 
-        vscode.window.showInformationMessage(
-          `VSCode Animations: Install Method now ${newInstallMethod}`
-        );
-
-        //Remove the old install method from the config
-        this.removeFromConfig().then(() => {
-          // Uninstall the old install method
-          vscode.commands.executeCommand(
-            installMethodDetails[this.installMethod].uninstallCommand
+          vscode.window.showInformationMessage(
+            `VSCode Animations: Install Method now ${newInstallMethod}`
           );
 
-          if (
-            vscode.extensions.getExtension(
-              installMethodDetails[this.installMethod].extensionID
-            )
-          ) {
-            //Reload the window, apc will prompt to restart already
-            if (this.installMethod === InstallMethod.customCSSAndJS) {
-              vscode.commands.executeCommand("workbench.action.reloadWindow");
+          //Remove the old install method from the config
+          this.removeFromConfig().then(() => {
+            // Uninstall the old install method
+            vscode.commands.executeCommand(
+              installMethodDetails[this.installMethod].uninstallCommand
+            );
+
+            if (
+              vscode.extensions.getExtension(
+                installMethodDetails[this.installMethod].extensionID
+              )
+            ) {
+              //Reload the window, apc will prompt to restart already
+              if (this.installMethod === InstallMethod.customCSSAndJS) {
+                vscode.commands.executeCommand("workbench.action.reloadWindow");
+              }
+            } else {
+              this.installMethod = newInstallMethod;
+              if (this.verifyInstallMethod()) this.install(true);
             }
-          } else {
-            this.installMethod = newInstallMethod;
-            if (this.verifyInstallMethod()) this.install(true);
-          }
-        });
-      }
-    });
+          });
+        }
+      });
+    }
   }
 
   /**
@@ -182,7 +185,7 @@ export class InstallationManager {
         .showErrorMessage(
           `VSCode Animations: Please install ${installDetails.extensionName} for animations to work`,
           `Install ${installDetails.extensionName}`,
-          "Change Install Method"
+          forVSCode ? "Change Install Method" : ""
         )
         .then((value) => {
           //If the user clicked the install button
