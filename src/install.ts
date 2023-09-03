@@ -212,8 +212,8 @@ export class InstallationManager {
    */
   public install(auto = false) {
     if (!this.verifyInstallMethod()) return; //Verify that the install method is set up
-    if (this.addToConfigNeeded()) {
-      if (auto) {
+    if (auto) {
+      if (this.addToConfigNeeded()) {
         vscode.window
           .showInformationMessage(
             `VSCode Animations: Install Required, installation method is ${
@@ -237,17 +237,17 @@ export class InstallationManager {
               });
             }
           });
-      } else {
-        this.addToConfig(auto).then((added) => {
-          //Run the install command for the install method
-          vscode.commands.executeCommand(
-            installMethodDetails[this.installMethod].installCommand
-          );
-          if (this.installMethod === InstallMethod.customCSSAndJS) {
-            vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
-          }
-        });
       }
+    } else {
+      this.addToConfig().then((added) => {
+        //Run the install command for the install method
+        vscode.commands.executeCommand(
+          installMethodDetails[this.installMethod].installCommand
+        );
+        if (this.installMethod === InstallMethod.customCSSAndJS) {
+          vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
+        }
+      });
     }
   }
 
