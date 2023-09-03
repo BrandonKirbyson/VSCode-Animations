@@ -72,6 +72,34 @@ export class InstallationManager {
   }
 
   /**
+   * Checks if there is an exisiting install method and sets the install method to it
+   */
+  public checkForInstallMethod() {
+    if (
+      vscode.extensions.getExtension(
+        installMethodDetails[this.installMethod].extensionID
+      )
+    )
+      return;
+
+    for (const installMethod of Object.values(InstallMethod)) {
+      if (
+        vscode.extensions.getExtension(
+          installMethodDetails[installMethod].extensionID
+        )
+      ) {
+        vscode.window.showInformationMessage(
+          `VSCode Animations: Install Method is ${installMethod} given it is already installed`
+        );
+        this.installMethod = installMethod;
+        vscode.workspace
+          .getConfiguration("animations")
+          .update("Install-Method", installMethod, true);
+      }
+    }
+  }
+
+  /**
    * Verifies that the install method is set up or prompts the user to set it up
    * @returns Whether the install method is set up
    */
