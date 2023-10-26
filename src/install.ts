@@ -89,7 +89,8 @@ export class InstallationManager {
    * @returns The path to the root js file
    */
   private generatePath(): string {
-    //Get proper path scheme (Unix / Windows)
+    //Match RFC 1738 - for the localhost, the <host> can be omitted
+    //<scheme>://<host>/<resource>
     const pathScheme = this.context.extensionPath.charAt(0) === "/" ? "file://" : "file:///";
 
     //Prepare ${userHome} value for the APC
