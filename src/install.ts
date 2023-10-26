@@ -1,3 +1,4 @@
+import { homedir } from "os";
 import * as vscode from "vscode";
 import { forVSCode } from "./extension";
 
@@ -26,7 +27,7 @@ const installMethodDetails = {
 const minHandlerVersion = "1.0.14"; // The minimum version of the update handler that is required
 
 export class InstallationManager {
-  private context: vscode.ExtensionContext;
+  private readonly context: vscode.ExtensionContext;
   private installMethod: InstallMethod;
   private path: string;
 
@@ -66,6 +67,7 @@ export class InstallationManager {
               }
             } else {
               this.installMethod = newInstallMethod;
+              this.path = this.generatePath();
               if (this.verifyInstallMethod()) this.install(true);
             }
           });
@@ -87,11 +89,21 @@ export class InstallationManager {
    * @returns The path to the root js file
    */
   private generatePath(): string {
-    return (
-      (this.context.extensionPath.charAt(0) === "/" ? "file://" : "file:///") +
-      this.context.extensionPath +
-      "/dist/updateHandler.js"
-    ).replace(/\\/g, "/");
+    //Get proper path scheme (Unix / Windows)
+    const pathScheme = this.context.extensionPath.charAt(0) === "/" ? "file://" : "file:///";
+
+    //Prepare ${userHome} value for the APC
+    const userHome = homedir();
+
+    //Get extension path and handle APC optimization
+    const extensionPath =
+        this.installMethod === InstallMethod.apcCustomizeUI && this.context.extensionPath.startsWith(userHome)
+        // APC can utilize ${userHome}
+        ? this.context.extensionPath.replace(userHome, "${userHome}")
+        : this.context.extensionPath;
+
+    //Concat path parts
+    return (pathScheme + extensionPath + "/dist/updateHandler.js").replace(/\\/g, "/")
   }
 
   public showInstallMethodPicker() {
@@ -135,12 +147,14 @@ export class InstallationManager {
         .then((value) => {
           if (value === `Use ${InstallMethod.customCSSAndJS}`) {
             this.installMethod = InstallMethod.customCSSAndJS;
+            this.path = this.generatePath();
             vscode.workspace
               .getConfiguration("animations")
               .update("Install-Method", InstallMethod.customCSSAndJS, true);
             return;
           } else if (value === `Use ${InstallMethod.apcCustomizeUI}`) {
             this.installMethod = InstallMethod.apcCustomizeUI;
+            this.path = this.generatePath();
             vscode.workspace
               .getConfiguration("animations")
               .update("Install-Method", InstallMethod.apcCustomizeUI, true);
@@ -165,6 +179,7 @@ export class InstallationManager {
           `VSCode Animations: Install Method is ${installMethod} given it is already installed`
         );
         this.installMethod = installMethod;
+        this.path = this.generatePath();
         vscode.workspace
           .getConfiguration("animations")
           .update("Install-Method", installMethod, true);

@@ -10,14 +10,14 @@ export const forVSCode = true; // If the extension is for VSCode or VSCodium
  * @param context The extension context
  */
 export function activate(context: vscode.ExtensionContext) {
-  const injectionMethod = forVSCode
+  const installMethod = forVSCode
     ? (vscode.workspace
         .getConfiguration("animations")
         .get("Install-Method") as InstallMethod)
-    : InstallMethod.apcCustomizeUI; //Get the injection method
+    : InstallMethod.apcCustomizeUI; //Get the install method
 
   //Create the installation manager that will handle the animations installation
-  const installManager = new InstallationManager(context, injectionMethod);
+  const installManager = new InstallationManager(context, installMethod);
 
   if (
     forVSCode &&
