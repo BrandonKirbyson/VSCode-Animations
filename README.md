@@ -21,6 +21,9 @@ The theme used in the demo is [Solarized Palenight](https://github.com/BrandonKi
 
 Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 
+[@IgorBabko](https://github.com/igorbabko) made a good video about this extension: [https://youtu.be/Cd6NcXY4Exg?si=tSOhA3OxPVPrUBwF](https://youtu.be/Cd6NcXY4Exg?si=tSOhA3OxPVPrUBwF).
+He goes through the initial setup, the options, and shows his cool vscode setup using this!
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
