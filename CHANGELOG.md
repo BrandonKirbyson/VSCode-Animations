@@ -4,6 +4,13 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [2.0.2] - 2024-03-30
+
+- Fixed diff viewer dimming issue
+- Removed scrolling animation from places where it wasn't great
+- Added a global duration setting to quickly change the speed of all animations
+- Fixed quick fix popup not being the right size
+
 ## [2.0.1] - 2023-09-03
 
 - Fixed bug with install command
