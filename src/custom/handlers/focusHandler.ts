@@ -36,13 +36,13 @@ export function addFocusHandler(
       dimmable = ".monaco-workbench";
       break;
     case FocusDimMode.editor:
-      dimmable = `.split-view-view:not(:has(.editor-instance > .monaco-editor)), .split-view-view:has(> .terminal-outer-container), ${alwaysDimmable}`;
+      dimmable = `.split-view-view:not(:has(.editor-instance > .monaco-editor, .editor-instance > .monaco-diff-editor)), .split-view-view:has(> .terminal-outer-container), ${alwaysDimmable}`;
       break;
     case FocusDimMode.terminal:
       dimmable = `.split-view-view:not(:has(.terminal)), ${alwaysDimmable}`;
       break;
     case FocusDimMode.editorAndTerminal:
-      dimmable = `.split-view-view:not(:has(.editor-instance > .monaco-editor)):not(:has(.terminal)), ${alwaysDimmable}`;
+      dimmable = `.split-view-view:not(:has(.editor-instance > .monaco-editor, .editor-instance > .monaco-diff-editor)):not(:has(.terminal)), ${alwaysDimmable}`;
       break;
     case FocusDimMode.none:
       return;
