@@ -23,6 +23,7 @@ Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 
 [@IgorBabko](https://github.com/igorbabko) made a good video about this extension: [https://youtu.be/Cd6NcXY4Exg?si=tSOhA3OxPVPrUBwF](https://youtu.be/Cd6NcXY4Exg?si=tSOhA3OxPVPrUBwF).
 He goes through the initial setup, the options, and shows his cool vscode setup using this!
+Also the official VSCode youtube made a short on it: [https://www.youtube.com/watch?v=QN0Pfz_ji6I](https://www.youtube.com/watch?v=QN0Pfz_ji6I)
 
 ## Table of Contents
 
