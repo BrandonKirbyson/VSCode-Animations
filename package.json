@@ -174,6 +174,13 @@
           "default": "Scale",
           "description": "The animation to use for when new list items appear when scrolling"
         },
+        "animations.Default-Duration": {
+          "type": "number",
+          "default": 300,
+          "maximum": 10000,
+          "minimum": 0,
+          "markdownDescription": "The default duration of all the animations in milliseconds, default: `300`, **NOTE:** This is the default duration for all animations, you can change the duration of each animation individually in the `Durations` section"
+        },
         "animations.Durations": {
           "type": "object",
           "description": "The durations of the animations in milliseconds",
