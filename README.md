@@ -47,10 +47,11 @@ He goes through the initial setup, the options, and shows his cool vscode setup 
    - There are two options [Custom CSS and JS Loader](https://github.com/be5invis/vscode-custom-css)(default) and [Apc Customize UI++](https://github.com/drcika/apc-extension), see [Injection Extensions](#injection-extensions) for more info
 
      <img src="static/images/installPrompt.png" height=100/>
-     
+
    - For windows users, Apc Customize UI++ might work better, see [Injection Extensions](#injection-extensions) for more info
 
 - Install the animations when prompted, window will reload final time
+
   - This is the injection extension installing the animations for you
 
     <img src="static/images/install.png" height=100/>
@@ -256,6 +257,16 @@ If you are having issues with the extension, try these steps:
 4. Uninstall and reinstall the extension
 
    - Your settings should be saved but your custom css if you have any will be deleted so make sure to back that up
+
+#### For Linux
+
+If you are having issues with the extension on Linux, try these steps (from issue [#42](https://github.com/BrandonKirbyson/VSCode-Animations/issues/42):
+
+1.  Temporarily change ownership of VSCode dir: `sudo chown -Rv $USER:$USER /usr/share/code`
+
+2.  Run VSCode and run through all installation steps (uninstall if it was already installed)
+
+3.  Change ownership back to root (for security reasons): `sudo chown -Rv root:root /usr/share/code`
 
 If you are still having issues, please open an issue.
 
