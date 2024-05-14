@@ -4,7 +4,8 @@
     .explorer-folders-view .monaco-list-row,
     .outline-pane .monaco-list-row,
     .monaco-editor .overflowingContentWidgets .monaco-list-row,
-    .action-widget .monaco-list-row
+    .action-widget .monaco-list-row,
+    .interactive-session .monaco-list-row
   ) {
   animation: scrollingAnimation var(--scrolling-duration);
 }
