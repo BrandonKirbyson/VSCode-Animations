@@ -4,6 +4,11 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [2.0.3] - 2024-05-14
+
+- Fixed tab animations
+- Removed scrolling animation in ai chats
+
 ## [2.0.2] - 2024-03-30
 
 - Fixed diff viewer dimming issue
