@@ -24,17 +24,9 @@ export function initTabsHandler() {
       )
         return;
 
-      // console.log(mutation);
-
       if (mutation.type === "childList") {
         if (mutation.addedNodes.length > 0) {
-          if (
-            !(mutation.addedNodes[0] as HTMLElement).classList.contains(
-              "deletedTab"
-            )
-          ) {
-            mutationData.added = mutation.addedNodes[0]; //If a tab was added
-          }
+          mutationData.added = mutation.addedNodes[0]; //If a tab was added
         }
 
         if (mutation.removedNodes.length > 0) {
@@ -86,14 +78,25 @@ export function initTabsHandler() {
           }
         }
 
+        // if (mutation.attributeName !== "aria-label") return;
+
+        // //Check if the title actually changed
+        // if (
+        //   mutation.oldValue ===
+        //   (mutation.target as HTMLElement).getAttribute("aria-label")
+        // )
+        //   return;
+
+        // mutationData.updated.push(mutation.target);
+
         // Get the first tab that just had its attributes changed
       } else if (mutation.type === "attributes") {
-        if (mutation.attributeName !== "title") return;
+        if (mutation.attributeName !== "aria-label") return;
 
         //Check if the title actually changed
         if (
           mutation.oldValue ===
-          (mutation.target as HTMLElement).getAttribute("title")
+          (mutation.target as HTMLElement).getAttribute("aria-label")
         )
           return;
 
@@ -117,8 +120,6 @@ export function initTabsHandler() {
       tab.classList.remove("moveRight");
       void (tab as HTMLElement).offsetWidth; //This line is very important, it forces the browser to reflow the element
     });
-
-    // console.log("tabs", mutationData);
 
     if (mutationData.added && mutationData.updated.length > 0) {
       (mutationData.updated[0] as HTMLElement).classList.add("newTab");
@@ -146,7 +147,7 @@ export function initTabsHandler() {
     childList: true, //Listen to tabs being added or removed
     attributes: true, //Listen to changes on the tabs
     attributeOldValue: true, //Get changes on the tabs
-    attributeFilter: ["title"], //Only listen to changes on the title attribute
+    attributeFilter: ["aria-label"], //Only listen to changes on the title attribute
     subtree: true, //Listen to the tabs-container children as well
   };
 
