@@ -4,6 +4,10 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [2.0.4] - 2024-09-26
+
+- Optimized smooth mode
+
 ## [2.0.3] - 2024-05-14
 
 - Fixed tab animations
