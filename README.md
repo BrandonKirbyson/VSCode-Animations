@@ -45,6 +45,8 @@ Also the official VSCode youtube made a short on it: [https://www.youtube.com/wa
 
 2. Install the injection extension, window will reload after install:
 
+   - ## Note: [Apc Customize UI++](https://github.com/drcika/apc-extension) is currently not working as of [this issue](https://github.com/drcika/apc-extension/issues/230).
+
    - There are two options [Custom CSS and JS Loader](https://github.com/be5invis/vscode-custom-css)(default) and [Apc Customize UI++](https://github.com/drcika/apc-extension), see [Injection Extensions](#injection-extensions) for more info
 
      <img src="static/images/installPrompt.png" height=100/>
