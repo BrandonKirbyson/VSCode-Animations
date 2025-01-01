@@ -4,7 +4,7 @@ import { forVSCode } from "./extension";
 
 export enum InstallMethod {
   customCSSAndJS = "Custom CSS and JS",
-  apcCustomizeUI = "Apc Customize UI++",
+  apcCustomizeUI = "Apc Customize UI++ (Currently Not Working)",
 }
 
 const installMethodDetails = {
@@ -91,20 +91,25 @@ export class InstallationManager {
   private generatePath(): string {
     //Match RFC 1738 - for the localhost, the <host> can be omitted
     //<scheme>://<host>/<resource>
-    const pathScheme = this.context.extensionPath.charAt(0) === "/" ? "file://" : "file:///";
+    const pathScheme =
+      this.context.extensionPath.charAt(0) === "/" ? "file://" : "file:///";
 
     //Prepare ${userHome} value for the APC
     const userHome = homedir();
 
     //Get extension path and handle APC optimization
     const extensionPath =
-        this.installMethod === InstallMethod.apcCustomizeUI && this.context.extensionPath.startsWith(userHome)
-        // APC can utilize ${userHome}
-        ? this.context.extensionPath.replace(userHome, "${userHome}")
+      this.installMethod === InstallMethod.apcCustomizeUI &&
+      this.context.extensionPath.startsWith(userHome)
+        ? // APC can utilize ${userHome}
+          this.context.extensionPath.replace(userHome, "${userHome}")
         : this.context.extensionPath;
 
     //Concat path parts
-    return (pathScheme + extensionPath + "/dist/updateHandler.js").replace(/\\/g, "/")
+    return (pathScheme + extensionPath + "/dist/updateHandler.js").replace(
+      /\\/g,
+      "/"
+    );
   }
 
   public showInstallMethodPicker() {
