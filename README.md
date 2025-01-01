@@ -25,6 +25,8 @@ Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 He goes through the initial setup, the options, and shows his cool vscode setup using this!
 Also the official VSCode youtube made a short on it: [https://www.youtube.com/watch?v=QN0Pfz_ji6I](https://www.youtube.com/watch?v=QN0Pfz_ji6I)
 
+## Note: [Apc Customize UI++](https://github.com/drcika/apc-extension) is currently not working as of [this issue](https://github.com/drcika/apc-extension/issues/230), use Custom CSS and JS Loader.
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -47,7 +49,7 @@ Also the official VSCode youtube made a short on it: [https://www.youtube.com/wa
 
    - ## Note: [Apc Customize UI++](https://github.com/drcika/apc-extension) is currently not working as of [this issue](https://github.com/drcika/apc-extension/issues/230).
 
-   - There are two options [Custom CSS and JS Loader](https://github.com/be5invis/vscode-custom-css)(default) and [Apc Customize UI++](https://github.com/drcika/apc-extension), see [Injection Extensions](#injection-extensions) for more info
+   - There are two options [Custom CSS and JS Loader](https://github.com/be5invis/vscode-custom-css)(default) and [Apc Customize UI++ (NOT WORKING)](https://github.com/drcika/apc-extension), see [Injection Extensions](#injection-extensions) for more info
 
      <img src="static/images/installPrompt.png" height=100/>
 
@@ -221,11 +223,9 @@ You can toggle animations on and off for each menu item. This is useful if you w
 
 In settings, you can find the durations setting with is a json object that can apply custom durations to any animations. Reference the lists above to see what animations you can change the duration of.
 
-### Cursor
+### Cursor Animation
 
-You can customize the cursor animation by running the `Animations: Open Animation Settings` command or opening settings (`cmd + ,` or `ctrl + ,`) and searching for `Animations`. There you can change the cursor animation style, toggle the cursor animation, and change more of the animtion settings.
-
-#### Cursor Animation Settings
+If you select `Us Cursor Color For Cursor Animation` it will use the current theme's cursor color for the cursor animation as expected, and it will live update when you change themes. If you want to use a custom color, you can turn this off and set the color in the `Cursor Animations Options` as seen below.
 
 | Setting       | Description                                  | Options                          |
 | ------------- | -------------------------------------------- | -------------------------------- |

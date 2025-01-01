@@ -42,7 +42,10 @@ export function getMessengerData(css: string): MessengerData {
     settings: {
       cursorAnimation: {
         enabled: settings.get("CursorAnimation") ?? false,
-        color: (settings.get("CursorAnimationOptions") as any)["Color"],
+        color:
+          settings.get("UseCursorColorForCursorAnimation") ?? false
+            ? "--vscode-editorCursor-foreground"
+            : (settings.get("CursorAnimationOptions") as any)["Color"],
         cursorStyle: (settings.get("CursorAnimationOptions") as any)[
           "CursorStyle"
         ],

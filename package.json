@@ -235,6 +235,11 @@
           "default": false,
           "description": "Whether or not to enable the cursor animation"
         },
+        "animations.UseCursorColorForCursorAnimation": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Whether or not to use the cursor color of the theme for the cursor animation, `false` will use the color set in the `CursorAnimationOptions`"
+        },
         "animations.CursorAnimationOptions": {
           "type": "object",
           "description": "The cursor animation settings",

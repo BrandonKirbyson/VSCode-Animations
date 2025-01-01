@@ -51,6 +51,15 @@ export class CursorAnimation {
     this.init();
   }
 
+  private getColor(): string {
+    if (this._options.color.startsWith("--")) {
+      return getComputedStyle(
+        document.querySelector(".monaco-workbench") as HTMLElement
+      ).getPropertyValue(this._options.color);
+    }
+    return this._options.color;
+  }
+
   /**
    * Update the options for the cursor animation
    * @param options The options for the cursor animation
@@ -203,7 +212,7 @@ export class CursorAnimation {
     const drawLines = () => {
       context.beginPath();
       context.lineJoin = "round";
-      context.strokeStyle = this._options.color;
+      context.strokeStyle = this.getColor();
       const lineWidth = Math.min(sizeX, sizeY);
       context.lineWidth = lineWidth;
 
@@ -231,7 +240,7 @@ export class CursorAnimation {
     // for line cursor
     const drawPath = () => {
       context.beginPath();
-      context.fillStyle = this._options.color;
+      context.fillStyle = this.getColor();
 
       // draw path
       for (
@@ -261,7 +270,7 @@ export class CursorAnimation {
 
       context.beginPath();
       context.lineJoin = "round";
-      context.strokeStyle = this._options.color;
+      context.strokeStyle = this.getColor();
       context.lineWidth = Math.min(sizeX, sizeY);
       // for up&down
       let offset = -sizeX / 2 + sizeY / 2;
