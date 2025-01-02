@@ -4,7 +4,11 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
-## [2.0.5] - 2024-09-26
+## [2.0.6] - 2025-01-01
+
+- Fixed default setting for cursor color
+
+## [2.0.5] - 2025-01-01
 
 - Added cursor animation option to use the theme's cursor color
 - APC not working
