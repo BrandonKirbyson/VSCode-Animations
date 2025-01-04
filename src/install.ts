@@ -4,7 +4,8 @@ import { forVSCode } from "./extension";
 
 export enum InstallMethod {
   customCSSAndJS = "Custom CSS and JS",
-  apcCustomizeUI = "Apc Customize UI++ (Currently Not Working)",
+  customUI = "Custom UI Style",
+  apcCustomizeUI = "Apc Customize UI++",
 }
 
 const installMethodDetails = {
@@ -14,6 +15,13 @@ const installMethodDetails = {
     importSetting: "vscode_custom_css.imports",
     installCommand: "extension.installCustomCSS",
     uninstallCommand: "extension.uninstallCustomCSS",
+  },
+  [InstallMethod.customUI]: {
+    extensionID: "subframe7536.custom-ui-style",
+    extensionName: "Custom UI Style",
+    importSetting: "custom-ui-style.external.imports",
+    installCommand: "custom-ui-style.reload",
+    uninstallCommand: "custom-ui-style.rollback",
   },
   [InstallMethod.apcCustomizeUI]: {
     extensionID: "drcika.apc-extension",

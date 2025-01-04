@@ -92,6 +92,7 @@
           "type": "string",
           "enum": [
             "Custom CSS and JS",
+            "Custom UI Style",
             "Apc Customize UI++"
           ],
           "default": "Custom CSS and JS",
