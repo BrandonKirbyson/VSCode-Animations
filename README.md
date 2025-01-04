@@ -25,7 +25,7 @@ Check it out on [github](https://github.com/BrandonKirbyson/VSCode-Animations)!
 He goes through the initial setup, the options, and shows his cool vscode setup using this!
 Also the official VSCode youtube made a short on it: [https://www.youtube.com/watch?v=QN0Pfz_ji6I](https://www.youtube.com/watch?v=QN0Pfz_ji6I)
 
-## Note: [Apc Customize UI++](https://github.com/drcika/apc-extension) is currently not working as of [this issue](https://github.com/drcika/apc-extension/issues/230), use Custom CSS and JS Loader.
+> **Note: [Apc Customize UI++](https://github.com/drcika/apc-extension) is currently not working as of [this issue](https://github.com/drcika/apc-extension/issues/230), use Custom CSS and JS Loader or Custom UI Style instead.**
 
 ## Table of Contents
 
@@ -49,11 +49,11 @@ Also the official VSCode youtube made a short on it: [https://www.youtube.com/wa
 
    - ## Note: [Apc Customize UI++](https://github.com/drcika/apc-extension) is currently not working as of [this issue](https://github.com/drcika/apc-extension/issues/230).
 
-   - There are two options [Custom CSS and JS Loader](https://github.com/be5invis/vscode-custom-css)(default) and [Apc Customize UI++ (NOT WORKING)](https://github.com/drcika/apc-extension), see [Injection Extensions](#injection-extensions) for more info
+   - There are 3 options [Custom CSS and JS Loader](https://github.com/be5invis/vscode-custom-css)(default), [Custom UI Style](https://github.com/subframe7536/vscode-custom-ui-style), and [Apc Customize UI++ (NOT WORKING)](https://github.com/drcika/apc-extension), see [Injection Extensions](#injection-extensions) for more info
 
      <img src="static/images/installPrompt.png" height=100/>
 
-   - For windows users, Apc Customize UI++ might work better, see [Injection Extensions](#injection-extensions) for more info
+   <!-- - For windows users, Apc Customize UI++ might work better, see [Injection Extensions](#injection-extensions) for more info -->
 
 - Install the animations when prompted, window will reload final time
 
@@ -104,13 +104,30 @@ Pros:
 Cons:
 
 - Not on Open VSX
+- Fewer features
 - Sometimes has issues on windows
 
-#### [Apc Customize UI++](https://github.com/drcika/apc-extension)
+#### [Custom UI Style](https://github.com/subframe7536/vscode-custom-ui-style)
 
 Pros:
 
-- Very active development
+- New and actively being developed
+- Works with most up-to-date vscode versions
+- Has many additional useful features
+- Helpful popups for reloading and installing
+- Many more settings for customization
+
+Cons:
+
+- Very new, less tested
+- Requires full app restart on each install
+
+#### [Apc Customize UI++](https://github.com/drcika/apc-extension)
+
+##### Currently NOT Working in most recent versions of vscode
+
+Pros:
+
 - On Open VSX
 - Works better on windows
 - Has many other features
