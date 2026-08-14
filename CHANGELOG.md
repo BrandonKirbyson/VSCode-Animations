@@ -4,6 +4,10 @@ All notable changes to the "VSCode Animations" extension will be documented in t
 
 <!-- ## [version] - yyyy-mm-dd -->
 
+## [2.0.8] - 2026-08-14
+
+- Fixed command palette not properly hiding in most recent versions of VSCode
+
 ## [2.0.7] - 2025-01-03
 
 - Fixed commands not being found bug
