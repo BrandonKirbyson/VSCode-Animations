@@ -1,6 +1,8 @@
 import { CursorAnimation } from "./bonus/cursorAnimation";
 import { addFocusHandler } from "./handlers/focusHandler";
 import { initTabsHandler } from "./handlers/tabsHandler";
+import { initExplorerHandler } from "./handlers/explorerHandler";
+import { initSidebarHandler } from "./handlers/sidebarHandler";
 import { Messenger } from "./messenger";
 import { createCustomCSS, updateCustomCSS } from "./style";
 
@@ -43,4 +45,6 @@ console.log("VSCode-Animations: Successfully Installed!");
 
   // Adding util js functions to the page to help with animations
   initTabsHandler();
+  initExplorerHandler();
+  initSidebarHandler();
 })();

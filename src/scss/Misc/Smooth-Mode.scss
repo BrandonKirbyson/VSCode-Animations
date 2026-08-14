@@ -3,10 +3,7 @@
 }
 
 //Selects when not resizing or previewing
-.monaco-workbench:not(
-    .monaco-workbench:has(.monaco-sash.active),
-    .monaco-workbench:has(iframe)
-  ) {
+.monaco-workbench:not(.monaco-workbench:has(.monaco-sash.active)) {
   .monaco-workbench,
   .split-view-view,
   .editor-actions,
@@ -24,6 +21,103 @@
     &[style*="height"] {
       transition-property: top, left, width, height;
       transition-duration: var(--smooth-windows-duration);
+    }
+  }
+}
+
+// Specific support for sidebar animations in all states
+.monaco-workbench:not(.monaco-workbench:has(.monaco-sash.active)) {
+  .part.sidebar.left,
+  .part.sidebar.right,
+  .part.activitybar,
+  .part.panel,
+  .part.auxiliarybar {
+    &[style*="width"],
+    &[style*="height"],
+    &[style*="transform"],
+    &[style*="left"],
+    &[style*="right"],
+    &[style*="bottom"] {
+      transition-property: width, height, transform, left, right, bottom, opacity !important;
+      transition-duration: var(--smooth-windows-duration) !important;
+      transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1) !important;
+    }
+  }
+  
+  // Terminal panel specific animations
+  .part.panel {
+    &[style*="height"] {
+      transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    }
+    
+    .composite.panel {
+      &[style*="height"],
+      &[style*="transform"] {
+        transition-property: height, transform, opacity !important;
+        transition-duration: var(--smooth-windows-duration) !important;
+        transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1) !important;
+      }
+    }
+  }
+  
+  // Extensions panel and auxiliary bar animations
+  .part.auxiliarybar {
+    &[style*="width"] {
+      transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    }
+  }
+  
+  // Enhanced support when both sidebars are open
+  &.both-sidebars-open {
+    .part.sidebar,
+    .part.activitybar,
+    .part.panel,
+    .part.auxiliarybar {
+      &[style*="width"],
+      &[style*="height"] {
+        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+        transition-delay: 0ms !important;
+      }
+    }
+    
+    .split-view-view {
+      &[style*="width"],
+      &[style*="height"],
+      &[style*="left"],
+      &[style*="bottom"] {
+        transition-delay: 0ms !important;
+        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+      }
+    }
+  }
+  
+  // Enhanced support for all containers
+  .sidebar-container,
+  .composite-bar-container,
+  .activitybar-container,
+  .composite.viewlet,
+  .composite.panel,
+  .panel-container,
+  .auxiliarybar-container {
+    &[style*="width"],
+    &[style*="height"],
+    &[style*="transform"] {
+      transition-property: width, height, transform, opacity !important;
+      transition-duration: var(--smooth-windows-duration) !important;
+      transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1) !important;
+    }
+  }
+  
+  // Terminal and output panel content
+  .terminal-outer-container,
+  .terminal-wrapper,
+  .integrated-terminal,
+  .output-view {
+    &[style*="height"],
+    &[style*="transform"] {
+      transition-property: height, transform, opacity !important;
+      transition-duration: var(--smooth-windows-duration) !important;
+      transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1) !important;
     }
   }
 }
