@@ -6,9 +6,8 @@
   animation: openPopup var(--command-palette-duration);
 
   &[style*="display: none;"] {
-    display: block !important;
-    transform-origin: top;
-    animation: closePopup var(--command-palette-duration);
+    display: none !important;
+    animation: none !important;
     opacity: 0;
     transform: scaleY(0);
     pointer-events: none;
