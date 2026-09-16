@@ -1,10 +1,10 @@
 /* VS Code (1.13x) closes the widget itself, so forcing `display: block` back on
    replays its open animation and leaves the palette stuck on screen. */
 
-.style-override.monaco-enable-motion {
+.modern-ui.monaco-enable-motion {
   .quick-input-widget:not(.quick-input-widget-overlay) {
     transform-origin: top;
-    animation: openPopup var(--command-palette-duration);
+    animation: openPopup var(--command-palette-duration) !important;
   }
 
   .quick-input-widget.quick-input-widget-closing:not(.quick-input-widget-overlay) {
