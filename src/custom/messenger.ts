@@ -17,6 +17,8 @@ export interface MessengerData {
   css: string;
 }
 
+const messengerID = "BrandonKirbyson.vscode-animations";
+
 export class Messenger {
   private _messengerElement!: HTMLElement | null;
 
@@ -25,9 +27,7 @@ export class Messenger {
     onUpdate: (data: MessengerData) => void;
   }) {
     const interval = setInterval(() => {
-      this._messengerElement = document.getElementById(
-        "BrandonKirbyson.vscode-animations"
-      );
+      this._messengerElement = this.findMessengerElement();
 
       const content = this._messengerElement?.getAttribute("aria-label");
 
@@ -87,5 +87,37 @@ export class Messenger {
     }
 
     return parsedData;
+  }
+
+  private findMessengerElement(): HTMLElement | null {
+    const exactMatch = document.getElementById(messengerID);
+    if (exactMatch) return exactMatch;
+
+    const expectedID = messengerID.toLowerCase();
+    const elementsWithID = Array.from(
+      document.querySelectorAll<HTMLElement>("[id]")
+    );
+
+    for (const element of elementsWithID) {
+      if (element.id.toLowerCase() === expectedID) return element;
+    }
+
+    for (const element of elementsWithID) {
+      if (this.hasMessengerData(element)) return element;
+    }
+
+    return null;
+  }
+
+  private hasMessengerData(element: HTMLElement): boolean {
+    const content = element.getAttribute("aria-label");
+    if (!content) return false;
+
+    try {
+      const data = JSON.parse(content);
+      return typeof data?.css === "string" && data.settings !== undefined;
+    } catch {
+      return false;
+    }
   }
 }

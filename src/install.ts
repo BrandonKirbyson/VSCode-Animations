@@ -1,6 +1,8 @@
 import { homedir } from "os";
+import { join } from "path";
+import { execFile } from "child_process";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import * as vscode from "vscode";
-import { forVSCode } from "./extension";
 
 export enum InstallMethod {
   customCSSAndJS = "Custom CSS and JS",
@@ -10,27 +12,32 @@ export enum InstallMethod {
 
 const installMethodDetails = {
   [InstallMethod.customCSSAndJS]: {
-    extensionID: "be5invis.vscode-custom-css",
+    extensionIDs: [
+      "be5invis.vscode-custom-css",
+      "s-h-a-d-o-w.vscode-custom-css",
+    ],
     extensionName: "Custom CSS and JS",
     importSetting: "vscode_custom_css.imports",
     installCommand: "extension.installCustomCSS",
     uninstallCommand: "extension.uninstallCustomCSS",
   },
   [InstallMethod.customUI]: {
-    extensionID: "subframe7536.custom-ui-style",
+    extensionIDs: ["subframe7536.custom-ui-style"],
     extensionName: "Custom UI Style",
     importSetting: "custom-ui-style.external.imports",
     installCommand: "custom-ui-style.reload",
     uninstallCommand: "custom-ui-style.rollback",
   },
   [InstallMethod.apcCustomizeUI]: {
-    extensionID: "drcika.apc-extension",
+    extensionIDs: ["drcika.apc-extension"],
     extensionName: "Apc Customize UI++",
     importSetting: "apc.imports",
     installCommand: "apc.extension.enable",
     uninstallCommand: "apc.extension.disable",
   },
 };
+
+type InstallMethodDetails = (typeof installMethodDetails)[InstallMethod];
 
 const minHandlerVersion = "1.0.14"; // The minimum version of the update handler that is required
 
@@ -44,44 +51,39 @@ export class InstallationManager {
     this.installMethod = installMethod;
     this.path = this.generatePath();
 
-    if (forVSCode) {
-      //If settings change
-      vscode.workspace.onDidChangeConfiguration((event) => {
-        //If the install method changes
-        if (event.affectsConfiguration("animations.Install-Method")) {
-          const newInstallMethod = vscode.workspace
-            .getConfiguration("animations")
-            .get("Install-Method") as InstallMethod; //Get the new install method from the config
+    //If settings change
+    vscode.workspace.onDidChangeConfiguration((event) => {
+      //If the install method changes
+      if (event.affectsConfiguration("animations.Install-Method")) {
+        const newInstallMethod = vscode.workspace
+          .getConfiguration("animations")
+          .get("Install-Method") as InstallMethod; //Get the new install method from the config
 
-          vscode.window.showInformationMessage(
-            `VSCode Animations: Install Method now ${newInstallMethod}`
+        vscode.window.showInformationMessage(
+          `VSCode Animations: Install Method now ${newInstallMethod}`
+        );
+
+        //Remove the old install method from the config
+        this.removeFromConfig().then(() => {
+          // Uninstall the old install method
+          vscode.commands.executeCommand(
+            installMethodDetails[this.installMethod].uninstallCommand
           );
 
-          //Remove the old install method from the config
-          this.removeFromConfig().then(() => {
-            // Uninstall the old install method
-            vscode.commands.executeCommand(
-              installMethodDetails[this.installMethod].uninstallCommand
-            );
+          this.installMethod = newInstallMethod;
+          this.path = this.generatePath();
 
-            if (
-              vscode.extensions.getExtension(
-                installMethodDetails[this.installMethod].extensionID
-              )
-            ) {
-              //Reload the window, apc will prompt to restart already
-              if (this.installMethod === InstallMethod.customCSSAndJS) {
-                vscode.commands.executeCommand("workbench.action.reloadWindow");
-              }
-            } else {
-              this.installMethod = newInstallMethod;
-              this.path = this.generatePath();
-              if (this.verifyInstallMethod()) this.install(true);
+          if (this.isExtensionInstalled(newInstallMethod)) {
+            //Reload the window, apc will prompt to restart already
+            if (newInstallMethod === InstallMethod.customCSSAndJS) {
+              vscode.commands.executeCommand("workbench.action.reloadWindow");
             }
-          });
-        }
-      });
-    }
+          } else {
+            if (this.verifyInstallMethod()) this.install(true);
+          }
+        });
+      }
+    });
   }
 
   /**
@@ -145,12 +147,8 @@ export class InstallationManager {
    */
   public checkForInstallMethod() {
     if (
-      vscode.extensions.getExtension(
-        installMethodDetails[InstallMethod.customCSSAndJS].extensionID
-      ) &&
-      vscode.extensions.getExtension(
-        installMethodDetails[InstallMethod.apcCustomizeUI].extensionID
-      )
+      this.isExtensionInstalled(InstallMethod.customCSSAndJS) &&
+      this.isExtensionInstalled(InstallMethod.apcCustomizeUI)
     ) {
       vscode.window
         .showErrorMessage(
@@ -176,19 +174,10 @@ export class InstallationManager {
           }
         });
     }
-    if (
-      vscode.extensions.getExtension(
-        installMethodDetails[this.installMethod].extensionID
-      )
-    )
-      return;
+    if (this.isExtensionInstalled(this.installMethod)) return;
 
     for (const installMethod of Object.values(InstallMethod)) {
-      if (
-        vscode.extensions.getExtension(
-          installMethodDetails[installMethod].extensionID
-        )
-      ) {
+      if (this.isExtensionInstalled(installMethod)) {
         vscode.window.showInformationMessage(
           `VSCode Animations: Install Method is ${installMethod} given it is already installed`
         );
@@ -208,13 +197,13 @@ export class InstallationManager {
   public verifyInstallMethod() {
     const installDetails = installMethodDetails[this.installMethod]; //Get the install details for the install method
     //If the extension is not installed
-    if (!vscode.extensions.getExtension(installDetails.extensionID)) {
+    if (!this.isExtensionInstalled(this.installMethod)) {
       //Show an error message prompting the user to install the extension or change the install method
       vscode.window
         .showErrorMessage(
           `VSCode Animations: Please install ${installDetails.extensionName} for animations to work`,
           `Install ${installDetails.extensionName}`,
-          forVSCode ? "Change Install Method" : ""
+          "Change Install Method"
         )
         .then((value) => {
           //If the user clicked the install button
@@ -223,7 +212,7 @@ export class InstallationManager {
             vscode.commands
               .executeCommand(
                 "workbench.extensions.installExtension",
-                installDetails.extensionID
+                this.getPreferredExtensionID(this.installMethod)
               )
               .then(() => {
                 vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
@@ -257,28 +246,14 @@ export class InstallationManager {
             //If the user clicked the install button
             if (value === "Install Now") {
               this.addToConfig(auto).then((added) => {
-                //Run the install command for the install method
-                vscode.commands.executeCommand(
-                  installMethodDetails[this.installMethod].installCommand
-                );
-                if (this.installMethod === InstallMethod.customCSSAndJS) {
-                  vscode.commands.executeCommand(
-                    "workbench.action.reloadWindow"
-                  ); //Reload the window
-                }
+                this.runInstallCommand();
               });
             }
           });
       }
     } else {
       this.addToConfig().then((added) => {
-        //Run the install command for the install method
-        vscode.commands.executeCommand(
-          installMethodDetails[this.installMethod].installCommand
-        );
-        if (this.installMethod === InstallMethod.customCSSAndJS) {
-          vscode.commands.executeCommand("workbench.action.reloadWindow"); //Reload the window
-        }
+        this.runInstallCommand();
       });
     }
   }
@@ -310,6 +285,7 @@ export class InstallationManager {
     let customImports = config.get<string[]>(
       installMethodDetails[this.installMethod].importSetting
     ); //Get the current list of imports
+    if (!customImports) customImports = [];
 
     if (auto) {
       if (customImports && customImports.length > 0) {
@@ -327,14 +303,13 @@ export class InstallationManager {
       }
     }
 
-    if (customImports)
-      customImports = this.removeOldConfigPaths(this.path, customImports); //Remove any old paths from the list
+    customImports = this.removeOldConfigPaths(this.path, customImports); //Remove any old paths from the list
 
     //If the path is added, this will be set to true
     let pathAdded = false;
 
     //If the list exists and the root CSS file is not already in the list
-    if (customImports && !customImports.includes(this.path)) {
+    if (!customImports.includes(this.path)) {
       customImports.push(this.path); //Add the root CSS file to the list
       pathAdded = true;
     }
@@ -401,18 +376,218 @@ export class InstallationManager {
     const customCssImports = config.get<string[]>(
       installMethodDetails[this.installMethod].importSetting
     ); //Get the current list of imports
-    if (customCssImports)
-      this.removeOldConfigPaths(this.path, customCssImports);
+    const cleanedImports = customCssImports
+      ? this.removeOldConfigPaths(this.path, customCssImports)
+      : undefined;
     //If the list exists and the current path is in the list
-    if (customCssImports && customCssImports.includes(this.path)) {
-      customCssImports.splice(customCssImports.indexOf(this.path), 1); //Remove the current path from the list
+    if (cleanedImports && cleanedImports.includes(this.path)) {
+      cleanedImports.splice(cleanedImports.indexOf(this.path), 1); //Remove the current path from the list
       //Update the list of imports
       return config.update(
         installMethodDetails[this.installMethod].importSetting,
-        customCssImports,
+        cleanedImports,
         vscode.ConfigurationTarget.Global
       ); //Returns the promise of the update
     }
     return Promise.resolve();
+  }
+
+  private isExtensionInstalled(installMethod: InstallMethod): boolean {
+    return this.getInstalledExtensionID(installMethod) !== undefined;
+  }
+
+  private getInstalledExtensionID(
+    installMethod: InstallMethod
+  ): string | undefined {
+    const installDetails = installMethodDetails[installMethod];
+    return installDetails.extensionIDs.find((extensionID) =>
+      vscode.extensions.getExtension(extensionID)
+    );
+  }
+
+  private getPreferredExtensionID(installMethod: InstallMethod): string {
+    const installDetails = installMethodDetails[installMethod];
+    if (this.isOpenVsxHost()) {
+      return this.getOpenVsxExtensionID(installDetails);
+    }
+
+    return installDetails.extensionIDs[0];
+  }
+
+  private getOpenVsxExtensionID(
+    installDetails: InstallMethodDetails
+  ): string {
+    return (
+      installDetails.extensionIDs.find((extensionID) =>
+        extensionID.startsWith("s-h-a-d-o-w.")
+      ) ?? installDetails.extensionIDs[0]
+    );
+  }
+
+  private isOpenVsxHost(): boolean {
+    const appName = vscode.env.appName.toLowerCase();
+    return (
+      appName.includes("vscodium") ||
+      appName.includes("code - oss") ||
+      appName.includes("code-oss")
+    );
+  }
+
+  private runInstallCommand() {
+    vscode.commands
+      .executeCommand(installMethodDetails[this.installMethod].installCommand)
+      .then(() => {
+        if (this.installMethod === InstallMethod.customCSSAndJS) {
+          this.reloadOrPatchWorkbench();
+        }
+      })
+      .then(undefined, () => {
+        if (
+          this.installMethod === InstallMethod.customCSSAndJS &&
+          process.platform === "win32"
+        ) {
+          this.installWithElevatedWorkbenchPatch();
+        }
+      });
+  }
+
+  private reloadOrPatchWorkbench() {
+    if (this.verifyWorkbenchPatchApplied()) {
+      vscode.commands.executeCommand("workbench.action.reloadWindow");
+    } else if (process.platform === "win32") {
+      this.installWithElevatedWorkbenchPatch();
+    } else {
+      this.showWorkbenchPatchError();
+    }
+  }
+
+  private verifyWorkbenchPatchApplied(): boolean {
+    const workbenchHTMLPath = this.getWorkbenchHTMLPath();
+    if (!workbenchHTMLPath) return true;
+
+    const workbenchHTML = readFileSync(workbenchHTMLPath, "utf-8");
+    const customCssApplied =
+      workbenchHTML.includes("VSCODE-CUSTOM-CSS-SESSION-ID") ||
+      workbenchHTML.includes("VSCODE-ANIMATIONS-START");
+    const animationsInjected =
+      workbenchHTML.includes("VSCode-Animations: Successfully Installed!") ||
+      workbenchHTML.includes("BrandonKirbyson.vscode-animations");
+
+    if (customCssApplied && animationsInjected) return true;
+
+    return false;
+  }
+
+  private getWorkbenchHTMLPath(): string | undefined {
+    const appOutRoot = join(vscode.env.appRoot, "out");
+
+    const workbenchHTMLPaths = [
+      join(
+        appOutRoot,
+        "vs",
+        "code",
+        "electron-browser",
+        "workbench",
+        "workbench.html"
+      ),
+      join(
+        appOutRoot,
+        "vs",
+        "code",
+        "electron-sandbox",
+        "workbench",
+        "workbench.html"
+      ),
+    ];
+
+    return workbenchHTMLPaths.find((path) => existsSync(path));
+  }
+
+  private installWithElevatedWorkbenchPatch() {
+    const workbenchHTMLPath = this.getWorkbenchHTMLPath();
+    if (!workbenchHTMLPath) {
+      this.showWorkbenchPatchError();
+      return;
+    }
+
+    const scriptDirectory = this.context.globalStorageUri.fsPath;
+    const patchScriptPath = join(
+      scriptDirectory,
+      "install-vscode-animations.ps1"
+    );
+
+    mkdirSync(scriptDirectory, { recursive: true });
+    writeFileSync(
+      patchScriptPath,
+      this.getElevatedPatchScript(workbenchHTMLPath),
+      "utf-8"
+    );
+
+    const command = `Start-Process -FilePath 'powershell.exe' -Verb RunAs -Wait -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',${this.toPowerShellString(
+      patchScriptPath
+    )})`;
+
+    execFile(
+      "powershell.exe",
+      ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", command],
+      (error) => {
+        if (error || !this.verifyWorkbenchPatchApplied()) {
+          this.showWorkbenchPatchError();
+          return;
+        }
+
+        vscode.window
+          .showInformationMessage(
+            "VSCode Animations: patched the workbench with administrator permission. Reload window now?",
+            "Reload Window"
+          )
+          .then((value) => {
+            if (value === "Reload Window") {
+              vscode.commands.executeCommand("workbench.action.reloadWindow");
+            }
+          });
+      }
+    );
+  }
+
+  private getElevatedPatchScript(workbenchHTMLPath: string): string {
+    return `
+$ErrorActionPreference = 'Stop'
+$workbenchHTMLPath = ${this.toPowerShellString(workbenchHTMLPath)}
+$updateHandlerPath = ${this.toPowerShellString(this.getPath())}
+$updateHandlerPath = ([System.Uri]$updateHandlerPath).LocalPath
+$backupPath = "$workbenchHTMLPath.bak-vscode-animations"
+
+if (-not (Test-Path -LiteralPath $backupPath)) {
+  Copy-Item -LiteralPath $workbenchHTMLPath -Destination $backupPath
+}
+
+$html = Get-Content -Raw -LiteralPath $workbenchHTMLPath
+$html = [regex]::Replace($html, '<!-- !! VSCODE-ANIMATIONS-START !! -->[\\s\\S]*?<!-- !! VSCODE-ANIMATIONS-END !! -->\\s*', '')
+$html = [regex]::Replace($html, '<!-- !! VSCODE-CUSTOM-CSS-START !! -->[\\s\\S]*?<!-- !! VSCODE-CUSTOM-CSS-END !! -->\\s*', '')
+$html = [regex]::Replace($html, '<!-- !! VSCODE-CUSTOM-CSS-SESSION-ID [\\w-]+ !! -->\\s*', '')
+$html = [regex]::Replace($html, '<meta\\s+http-equiv="Content-Security-Policy"[\\s\\S]*?/>\\s*', '')
+
+$script = Get-Content -Raw -LiteralPath $updateHandlerPath
+$block = "<!-- !! VSCODE-ANIMATIONS-START !! -->\`n<script>\`n$script\`n</script>\`n<!-- !! VSCODE-CUSTOM-CSS-SESSION-ID vscode-animations-elevated !! -->\`n<!-- !! VSCODE-ANIMATIONS-END !! -->\`n"
+
+if ($html -match '</html>') {
+  $html = $html -replace '</html>', "$block</html>"
+} else {
+  $html = "$html\`n$block"
+}
+
+Set-Content -LiteralPath $workbenchHTMLPath -Value $html -Encoding UTF8
+`.trim();
+  }
+
+  private toPowerShellString(value: string): string {
+    return `'${value.replace(/'/g, "''")}'`;
+  }
+
+  private showWorkbenchPatchError() {
+    vscode.window.showErrorMessage(
+      `VSCode Animations: ${installMethodDetails[this.installMethod].extensionName} could not modify VSCodium's workbench. Run Animations: Install Animations again and approve the administrator prompt.`
+    );
   }
 }
